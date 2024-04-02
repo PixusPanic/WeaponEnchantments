@@ -1139,7 +1139,7 @@ namespace WeaponEnchantments.UI
 		}
 		public static void HandleEnchantmentSlot(UIItemSlotData enchantmentSlot, WEPlayer wePlayer, int slotNum) {
 			Item item = wePlayer.enchantingTableEnchantments[slotNum];
-			bool display = Main.mouseItem.IsAir && item.IsAir;
+			bool display = Main.mouseItem.IsAir && item.IsAir || !UseEnchantmentSlot(item, slotNum);
 			bool isUtilitySlot = slotNum == MaxEnchantmentSlots - 1;
 			bool normalClickInteractions = true;
 			if (Main.mouseItem.IsAir) {
