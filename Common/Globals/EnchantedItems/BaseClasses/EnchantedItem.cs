@@ -824,7 +824,7 @@ namespace WeaponEnchantments.Common.Globals
 		public override void OnResearched(Item item, bool fullyResearched) {
 			EnchantingTableUI.ReturnAllModifications(ref item);
 		}
-        public virtual void ResetInfusion() {
+        public virtual void ResetInfusion(Item item) {
             infusedItemName = "";
 			InfusionValueAdded = 0;
 		}

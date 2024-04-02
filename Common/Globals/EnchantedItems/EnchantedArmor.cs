@@ -79,8 +79,8 @@ namespace WeaponEnchantments.Common.Globals
 				$"*{$"{EnchantmentGeneralTooltipsID.NewSetBonusID}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {wePlayer.infusionConsumeItem.GetInfusionArmorSlot()}   " +
 				$"{$"{EnchantmentGeneralTooltipsID.NewInfusedItem}".Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
 		}
-		public override void ResetInfusion() {
-			base.ResetInfusion();
+		public override void ResetInfusion(Item item) {
+			base.ResetInfusion(item);
 			infusedArmorSlot = DefaultInfusionArmorSlot;
 			infusedItem = null;
 		}

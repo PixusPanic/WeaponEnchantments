@@ -415,10 +415,12 @@ namespace WeaponEnchantments.Common
                     if (enchantedWeapon.GetInfusionPower(ref item) < infusedPower || WEMod.clientConfig.AllowInfusingToLowerPower || reset) {
                         if (!finalize) {
                             enchantedWeapon.infusionDamageMultiplier = damageMultiplier;
-                        }
+							enchantedWeapon.TrySetGatheringTools(item, consumedItem);
+						}
                         else {
                             enchantedWeapon.infusionDamageMultiplier = damageMultiplier;
-                            enchantedWeapon.SetInfusionPower(infusedPower);
+							enchantedWeapon.TrySetGatheringTools(item, consumedItem);
+							enchantedWeapon.SetInfusionPower(infusedPower);
                             enchantedWeapon.infusedItemName = consumedItemName;
                             int infusionValueAdded = ContentSamples.ItemsByType[consumedItem.type].value - ContentSamples.ItemsByType[item.type].value;
                             enchantedWeapon.InfusionValueAdded = infusionValueAdded > 0 ? infusionValueAdded : 0;
@@ -516,9 +518,10 @@ namespace WeaponEnchantments.Common
             bool succededGettingStats = TryGetInfusionStats(enchantedItem, enchantedItem.infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot, out Item infusedItem);
             if (succededGettingStats) {
                 if (enchantedItem is EnchantedWeapon enchantedWeapon) {
-                    enchantedWeapon.SetInfusionPower(infusedPower);
+					enchantedWeapon.SetInfusionPower(infusedPower);
 					enchantedWeapon.infusionDamageMultiplier = damageMultiplier;
-                }
+                    enchantedWeapon.TrySetGatheringTools(item, infusedItem);
+				}
                 else if (enchantedItem is EnchantedArmor enchantedArmor) {
                     enchantedArmor.infusedArmorSlot = infusedArmorSlot;
                     enchantedArmor.infusedItem = infusedItem;

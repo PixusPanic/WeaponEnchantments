@@ -119,7 +119,7 @@ namespace WeaponEnchantments.Common {
             if (!WEMod.serverConfig.CritPerLevelDisabled && enchantedHeldItem is EnchantedWeapon enchantedWeapon) {
                 float bonus = enchantedWeapon.GetPerLevelBonus();
                 if (bonus > 0f) {
-					if (enchantedHeldItem.Item.pick > 0 || enchantedHeldItem.Item.hammer > 0 || enchantedHeldItem.Item.axe > 0) {
+					if (enchantedHeldItem.Item.IsGatheringTool()) {
 						enchantmentEffects.Add(new MiningSpeed(@base: new DifficultyStrength(bonus)));
 					}
                     else if (enchantedHeldItem.Item.IsFishingPole()) {

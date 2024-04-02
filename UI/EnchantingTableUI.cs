@@ -1917,7 +1917,7 @@ namespace WeaponEnchantments.UI
 					Main.LocalPlayer.SpawnCoins(enchantedItem.InfusionValueAdded / 5);
 				}
 
-				enchantedItem.ResetInfusion();
+				enchantedItem.ResetInfusion(item);
 			}
 		}
 		public static int OfferItem(ref Item item, bool noOre = false, bool nonTableItem = true, bool returnInfusedItem = true) {

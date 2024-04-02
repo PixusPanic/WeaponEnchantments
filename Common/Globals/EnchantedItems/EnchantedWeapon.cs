@@ -61,11 +61,87 @@ namespace WeaponEnchantments.Common.Globals
 		}
 		private int infusionPower = DefaultInfusionPower;
 		public float infusionDamageMultiplier = 1f;
+        public class GatheringToolStats {
+            public const int DefaultStatValue = -1;
+            int useTime = DefaultStatValue;
+            int useAnimation = DefaultStatValue;
+            int pick = DefaultStatValue;
+            int axe = DefaultStatValue;
+            int hammer = DefaultStatValue;
+            public GatheringToolStats(Item infusedItem) {
+                if (infusedItem.NullOrAir()) {
+                    ResetStats();
+                    return;
+                }
 
-        #endregion
+                useTime = infusedItem.useTime;
+                useAnimation = infusedItem.useAnimation;
+                pick = infusedItem.pick;
+                axe = infusedItem.axe;
+                hammer = infusedItem.hammer;
+            }
 
-        #region Tracking (instance)
-        public bool GetStack0(Item item) {
+            public void UpdateStats(Item item) {
+                Item csi = item.type.CSI();
+                if (csi.IsGatheringTool()) {
+					if (useTime == DefaultStatValue) {
+						item.useTime = csi.useTime;
+						item.useAnimation = csi.useAnimation;
+					}
+					else if (item.useTime > useTime) {
+						item.useTime = useTime;
+						item.useAnimation = useAnimation;
+					}
+				}
+                
+                if (pick == DefaultStatValue) {
+                    item.pick = csi.pick;
+                }
+                else if (item.pick < pick) {
+					item.pick = pick;
+				}
+
+                if (axe == DefaultStatValue) {
+                    item.axe = csi.axe;
+                }
+                else if (item.axe < axe) {
+					item.axe = axe;
+				}
+
+                if (hammer == DefaultStatValue) {
+                    item.hammer = csi.hammer;
+                }
+                else if (item.hammer < hammer) {
+					item.hammer = hammer;
+				}
+            }
+            public void ResetStats() {
+				useTime = DefaultStatValue;
+				useAnimation = DefaultStatValue;
+				pick = DefaultStatValue;
+				axe = DefaultStatValue;
+				hammer = DefaultStatValue;
+			}
+		}
+        private GatheringToolStats gatheringToolStats = null;
+		public void TrySetGatheringTools(Item item, Item infusedItem) {
+            if (!item.type.CSI().IsGatheringTool() && item.useStyle != ItemUseStyleID.Swing)
+                return;
+
+            if (infusedItem.type.CSI().IsGatheringTool()) {
+				gatheringToolStats = new(infusedItem);
+				gatheringToolStats.UpdateStats(item);
+			}
+            else if (gatheringToolStats != null) {
+                gatheringToolStats.ResetStats();
+				gatheringToolStats.UpdateStats(item);
+			}
+		}
+
+		#endregion
+
+		#region Tracking (instance)
+		public bool GetStack0(Item item) {
             if (_stack0) {
                 if (item.stack > 1) {
 					item.stack--;
@@ -416,10 +492,14 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public float GetPerLevelBonus() => levelBeforeBooster * GlobalStrengthMultiplier / 100f;
-		public override void ResetInfusion() {
-			base.ResetInfusion();
+		public override void ResetInfusion(Item item) {
+			base.ResetInfusion(item);
             infusionDamageMultiplier = 1f;
             SetInfusionPower(DefaultInfusionPower);
+            if (gatheringToolStats != null) {
+                gatheringToolStats.ResetStats();
+                gatheringToolStats.UpdateStats(item);
+            }
 		}
 	}
 

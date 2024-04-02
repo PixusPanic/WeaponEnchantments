@@ -27,7 +27,7 @@ namespace WeaponEnchantments.Common.Globals
 				Item heldItem = Main.LocalPlayer.HeldItem;
 
 				//Prevent block swapping on top of the table (fix that was causing a crash)
-				if (mainTile == tableType && heldItem.pick == 0)
+				if (mainTile == tableType && !heldItem.IsPickaxe())
 					return false;
 
 				//Prevent block swapping the table onto other items except ones that won't crash the game.
@@ -91,7 +91,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			//Gain xp
 			Item heldItem = Main.LocalPlayer.HeldItem;
-			if (!heldItem.NullOrAir() && (Main.tileAxe[tileType] && heldItem.axe > 0 || Main.tileHammer[tileType] && heldItem.hammer > 0 || heldItem.pick > 0)) {
+			if (!heldItem.NullOrAir() && (Main.tileAxe[tileType] && heldItem.IsAxe() || Main.tileHammer[tileType] && heldItem.IsHammer() || heldItem.IsPickaxe())) {
 				if (heldItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
 					enchantedItem.GainXP(Main.LocalPlayer.HeldItem, xp);
 			}
