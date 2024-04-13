@@ -29,6 +29,7 @@ using androLib.Items;
 using androLib.Common;
 using androLib.Content.NPCs;
 using static Terraria.GameContent.Animations.Actions.NPCs;
+using androLib;
 
 namespace WeaponEnchantments.Content.NPCs
 {
@@ -37,10 +38,12 @@ namespace WeaponEnchantments.Content.NPCs
 		public int NumberOfTimesTalkedTo = 0;
 		public static bool resetShop = true;
 		private static Dictionary<int, (int, float)> shopItems = new();
+		public static bool DisplayingUI => rerollUI || cursesUI;
 		public static bool rerollUI = false;
-		public static Item rerollItem = new();
+		public static Item witchUI_Item = new();
 		public static bool mouseRerollEnchantment = false;
 		public static float rerollScale = 1f;
+		public static bool cursesUI = false;
 		public static string EnchantmentShopName = "EnchantmentsShop";
 		public static string FullEnchantmentShopName = $"WeaponEnchantments/Witch/{EnchantmentShopName}";
 
@@ -177,40 +180,155 @@ namespace WeaponEnchantments.Content.NPCs
 				"Morgana".Lang(ext)		//The legend of king Arthur
 			};
 		}
+		private enum WitchUI_IDs {
+			Shop,
+			Curses,
+			ReRoll,
+
+			End
+		}
+		private static WitchUI_IDs witchUI_ID = WitchUI_IDs.Shop;
 		public override void SetChatButtons(ref string button, ref string button2) {
-			if (rerollUI) {
-				button = GameMessageTextID.Back.ToString().Lang_WE(L_ID1.GameMessages);// "Back";
+			switch (witchUI_ID) {
+				case WitchUI_IDs.Shop:
+					button2 = Language.GetTextValue("LegacyInterface.28");//Shop
+					button = GameMessageTextID.Next.ToString().Lang_WE(L_ID1.GameMessages);
+					break;
+				case WitchUI_IDs.Curses:
+					if (cursesUI) {
+						if (witchUI_Item?.ModItem is Enchantment enchantment) {
+							if (enchantment.CanBeCursed) {
+								button2 = GameMessageTextID.ApplyCurse.ToString().Lang_WE(L_ID1.GameMessages);
+							}
+						}
+
+						button = GameMessageTextID.Back.ToString().Lang_WE(L_ID1.GameMessages);
+					}
+					else {
+						button2 = GameMessageTextID.Curses.ToString().Lang_WE(L_ID1.GameMessages);
+						button = GameMessageTextID.Next.ToString().Lang_WE(L_ID1.GameMessages);
+					}
+					break;
+				case WitchUI_IDs.ReRoll:
+					if (rerollUI) {
+
+						button = GameMessageTextID.Back.ToString().Lang_WE(L_ID1.GameMessages);
+					}
+					else {
+						button2 = GameMessageTextID.RerollEnchantment.ToString().Lang_WE(L_ID1.GameMessages);
+						button = GameMessageTextID.Next.ToString().Lang_WE(L_ID1.GameMessages);
+					}
+						break;
 			}
-			else {
-				button = Language.GetTextValue("LegacyInterface.28");
-				button2 = GameMessageTextID.RerollEnchantment.ToString().Lang_WE(L_ID1.GameMessages);// "Re-roll Enchantment";
-			}
+			//if (rerollUI) {
+			//	button = GameMessageTextID.Back.ToString().Lang_WE(L_ID1.GameMessages);
+			//}
+			//else {
+			//	button = Language.GetTextValue("LegacyInterface.28");
+
+			//	button2 = GameMessageTextID.RerollEnchantment.ToString().Lang_WE(L_ID1.GameMessages);// "Re-roll Enchantment";
+			//}
 		}
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName) {
 			if (firstButton) {
-				if (rerollUI) {
-					rerollUI = false;
-					Main.npcChatText = GameMessageTextID.WitchChatText.ToString().Lang_WE(L_ID1.GameMessages);// "What more do you want?  I'm busy.";
+				bool switchMenu = false;
+				switch (witchUI_ID) {
+					case WitchUI_IDs.Shop:
+						switchMenu = true;
+						break;
+					case WitchUI_IDs.Curses:
+						if (cursesUI) {
+							//Pressed Back
+							cursesUI = false;
+							Main.npcChatText = GameMessageTextID.WitchChatText.ToString().Lang_WE(L_ID1.GameMessages);
+							if (!witchUI_Item.NullOrAir())
+								StorageManager.TryReturnItemToPlayer(ref witchUI_Item, Main.LocalPlayer, true);
+						}
+						else {
+							switchMenu = true;
+						}
+
+						break;
+					case WitchUI_IDs.ReRoll:
+						if (rerollUI) {
+							//Pressed Back
+							rerollUI = false;
+							Main.npcChatText = GameMessageTextID.WitchChatText.ToString().Lang_WE(L_ID1.GameMessages);
+							if (!witchUI_Item.NullOrAir())
+								StorageManager.TryReturnItemToPlayer(ref witchUI_Item, Main.LocalPlayer, true);
+						}
+						else {
+							switchMenu = true;
+						}
+
+						break;
 				}
-				else {
-					shopName = EnchantmentShopName;
+
+				if (switchMenu) {
+					witchUI_ID++;
+					if (witchUI_ID == WitchUI_IDs.End)
+						witchUI_ID = WitchUI_IDs.Shop;
 				}
 			}
 			else {
-				if (rerollUI) {
-					if (rerollItem?.ModItem is IRerollableEnchantment rerollableEnchantment) {
-						if (true) {//Change to enough money for reroll
-							SoundEngine.PlaySound(SoundID.Tink);
-							rerollableEnchantment.Reroll();
+				switch (witchUI_ID) {
+					case WitchUI_IDs.Shop:
+						shopName = EnchantmentShopName;
+						break;
+					case WitchUI_IDs.Curses:
+						if (cursesUI) {
+							//Apply Curse
+							if (witchUI_Item?.ModItem is Enchantment enchantment && enchantment.CanBeCursed) {
+								string cursedEnchantmentName = $"{WEMod.ModName}/{enchantment.EnchantmentTypeName}Enchantment{EnchantingRarity.tierNames[Enchantment.CursedTier]}";
+								if (ItemID.Search.TryGetId(cursedEnchantmentName, out int cursedEnchantmentType)) {
+									//If enough Cursed Essence
+									if (true) {//TODO
+											   //Consume Cursed Essence   TODO
+
+
+
+										witchUI_Item = new(cursedEnchantmentType);
+									}
+								}
+							}
 						}
-					}
+						else {
+							cursesUI = true;
+							Main.playerInventory = true;
+							Main.npcChatText = GameMessageTextID.WitchEnchantmentCurseText.ToString().Lang_WE(L_ID1.GameMessages);//"Curses are a powerful magic, but at a cost.  I can't help you if you change your mind.  The Dryad may be able to help with that.  Are you certain you wish to continue?";
+							SoundEngine.PlaySound(SoundID.MenuOpen);
+						}
+
+						break;
+					case WitchUI_IDs.ReRoll:
+						if (rerollUI) {
+
+						}
+						else {
+							rerollUI = true;
+							Main.playerInventory = true;
+							Main.npcChatText = GameMessageTextID.WitchEnchantmentRerolText.ToString().Lang_WE(L_ID1.GameMessages);// "I guess I could try to improve your enchantments, but no refunds or complaints.";
+							SoundEngine.PlaySound(SoundID.MenuOpen);
+						}
+
+						break;
 				}
-				else {
-					rerollUI = true;
-					Main.playerInventory = true;
-					Main.npcChatText = GameMessageTextID.WitchEnchantmentRerolText.ToString().Lang_WE(L_ID1.GameMessages);// "I guess I could try to improve your enchantments, but no refunds or complaints.";
-					SoundEngine.PlaySound(SoundID.MenuOpen);
-				}
+				
+
+				//if (rerollUI) {
+				//	if (rerollItem?.ModItem is IRerollableEnchantment rerollableEnchantment) {
+				//		if (true) {//Change to enough money for reroll
+				//			SoundEngine.PlaySound(SoundID.Tink);
+				//			rerollableEnchantment.Reroll();
+				//		}
+				//	}
+				//}
+				//else {
+				//	rerollUI = true;
+				//	Main.playerInventory = true;
+				//	Main.npcChatText = GameMessageTextID.WitchEnchantmentRerolText.ToString().Lang_WE(L_ID1.GameMessages);// "I guess I could try to improve your enchantments, but no refunds or complaints.";
+				//	SoundEngine.PlaySound(SoundID.MenuOpen);
+				//}
 			}
 		}
 		public override bool CanGoToStatue(bool toKingStatue) => true;

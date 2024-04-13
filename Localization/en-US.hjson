@@ -219,6 +219,11 @@ Mods: {
 					Label: Rare
 					Tooltip: Affects the strength of all Rare Enchantments.  Overrides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 				}
+
+				CursedEnchantmentStrengthMultiplier: {
+					Label: Cursed Enchantment Strength Multiplier
+					Tooltip: ""
+				}
 			}
 
 			ServerConfig: {
@@ -633,12 +638,14 @@ Mods: {
 
 		GameMessages: {
 			AlreadyMaxLevel: Your {0} is already max level.
+			ApplyCurse: Apply Curse
 			Back: Back
 			CannotGainAdditionalPower: Your {0}({1}) cannot gain additional power from the offered {2}({3}).
 			CantInfusionArmorDifferentTypes: You cannot infuse armor of different types such as a helmet and body.
 			CongradulationsMaxLevel: Congratulations!  {0}'s {1} reached the maximum level, {2} ({3} xp).
 			CouldntFindItemsInWeaponsList: Couldn't find Items in WeaponsList or WeaponCraftingIngredients with the names:
 			CouldntFindNPCsInIngredientsList: Couldn't find Npcs in NPCsThatDropWeaponsOrIngredients with the names:
+			Curses: Curses
 			DailyFishingQuestReset: The daily fishing quest has reset.  Your next quest is {0}.
 			DetectedNonEnchantmentInEnchantmentSlot: Detected a non-enchantment item:{0} on your {1}.  It has been returned to your inventory.
 			EnchantmentNoLongerAllowed: "{0} is no longer allowed on {1} and has been removed from your {2}."
@@ -673,6 +680,7 @@ Mods: {
 			MultipleUniqueEnchantments: Detected multiple unique enchantments on your {0}.  {1} has been removed from your {2}.
 			MurasamaNoInfusion: Murasama cannot be consumed for infusion.
 			NewItemIsAir: newItem was air.
+			Next: Next
 			NoLongerAllowedOnDamageType: "{0} is no longer allowed on {1} weapons and has removed from your {2}."
 			NoLongerUtilityEnchantment: "{0} is no longer a utility enchantment and has been removed from your {1}."
 			NonEnchantableItemInTable:
@@ -693,12 +701,15 @@ Mods: {
 				Picking up Enchantments, Essence and other Weapon Enchantments items will automatically send them to the Enchanting Table storage.
 				'''
 			OreInfusionPowerNotSetup: Ore {0} infusion power not set up. Guessed infusion power:
+			PlaceHereCurse: Place an enchantment here to apply a curse
+			PlaceHereReRoll: Place an enchantment here to re-roll
 			PreventedIssueLooseExperience: Prevented an issue that would cause your xp do be reduced.  (xpInt < 0) item: {0}, target: {1}, hit: {2}, melee: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}
 			PreventedIssueLooseExperienceTwo: "Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {0}, target: {1}, hit: {2}, melee: {3}, Main.GameMode: {4}, xpDamage: {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
 			PreventedLoosingExperience: Prevented your {0} from loosing experience due to a calculation error.
 			PreventedWitchShopDuplication: Prevented an issue that would add a duplicate item to the Witch's shop item:
 			RemovedEnchantedItemData: Removed EnchantedItem data from item: {0}, count: {1}, newCount: {2}
 			RemovedUnloadedEnchantmentFromItem: Removed Unloaded Item:{0} from your {1}.  Please inform andro951(WeaponEnchantments).
+			ReRoll: Re-roll
 			RerollEnchantment: Re-roll Enchantment
 			ResistsYourAttemptToEmpower: The {0} resisted your attempt to empower it.
 			SameSetBonusNoEffect: The item being upgraded has the same set bonus as the item being consumed and will have no effect.
@@ -706,6 +717,7 @@ Mods: {
 			TryInfuseFailed: TryInfuseItem failed, tableItem: {0}{1}, infusionConsumeItem: {2}{3}
 			WeaponInfusionPowersNotSetup: Weapon infusion powers not setup
 			WitchChatText: What more do you want?  I'm busy.
+			WitchEnchantmentCurseText: Curses are a powerful magic, but at a cost.  I can't help you if you change your mind.  The Dryad may be able to help with that.  Are you certain you wish to continue?
 			WitchEnchantmentRerolText: I guess I could try to improve your enchantments, but no refunds or complaints.
 			WitchSpawnCondition: Have an enchantment in your inventory or on your equipment.
 		}
@@ -784,6 +796,7 @@ Mods: {
 			CursedInfernoEnchantmentRare.DisplayName: Cursed Inferno Enchantment Rare
 			DamageEnchantmentBasic.DisplayName: Damage Enchantment Basic
 			DamageEnchantmentCommon.DisplayName: Damage Enchantment Common
+			DamageEnchantmentCursed.DisplayName: Damage Enchantment Cursed
 			DamageEnchantmentEpic.DisplayName: Damage Enchantment Epic
 			DamageEnchantmentLegendary.DisplayName: Damage Enchantment Legendary
 			DamageEnchantmentRare.DisplayName: Damage Enchantment Rare
@@ -1409,7 +1422,6 @@ Mods: {
 				CrateChance: Crate Chance
 				CriticalStrikeChance: Critical Strike Chance
 				CriticalStrikeDamage: Critical Strike Damage
-				CursedInferno: Cursed Inferno
 				Damage: Damage
 				DamageAfterDefenses: Damage (Applied after defenses. Not visible in weapon tooltip)
 				DamageClassSwap: Convert damage type to {0}

@@ -9,6 +9,7 @@ using androLib.Common.Utility;
 using androLib.Common.Globals;
 using androLib.Common.Utility.LogSystem.WebpageComponenets;
 using androLib.Common.Utility.LogSystem;
+using androLib.Common;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 {
@@ -123,15 +124,14 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 		public void AddRecipes(WebPage webPage) {
 			webPage.AddSubHeading("Crafting");
 			Tabber tabber = new();
-		
-			string[] labels = {"Basic", "Common", "Rare", "Epic", "Legendary"}; 
+			
 			for (int i = 0; i < items.Count; i++) {
 				ObjectList objectList = new();
 				objectList.AddTable(items[i].RecipesCreateItemTable);
 				objectList.AddTable(items[i].RecipesUsedInTable);
 				objectList.AddTable(items[i].RecipesReverseRecipesTable);
 				//string objectlistStirng = objectList.ToString();
-				tabber.Add(labels[i], objectList);
+				tabber.Add(EnchantingRarity.tierNames[i], objectList);
 			}
 
 			//string tabberString = tabber.ToString();

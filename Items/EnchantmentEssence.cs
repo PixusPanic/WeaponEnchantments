@@ -144,7 +144,7 @@ namespace WeaponEnchantments.Items
 				recipe.Register();
 			}
 
-			if (EssenceTier < tierNames.Length - 1) {
+			if (EssenceTier < Enchantment.CursedTier - 1) {
 				recipe = CreateRecipe();
 				recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[EssenceTier + 1], 1);
 				int num = 4;

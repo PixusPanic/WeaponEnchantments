@@ -41,7 +41,8 @@ namespace WeaponEnchantments.Common.Configs
 			(float)serverConfig.presetData.CommonEnchantmentStrengthMultiplier / 100f,
 			(float)serverConfig.presetData.RareEnchantmentStrengthMultiplier / 100f,
 			(float)serverConfig.presetData.EpicEnchantmentStrengthMultiplier / 100f,
-			(float)serverConfig.presetData.LegendaryEnchantmentStrengthMultiplier / 100f
+			(float)serverConfig.presetData.LegendaryEnchantmentStrengthMultiplier / 100f,
+			(float)serverConfig.presetData.CursedEnchantmentStrengthMultiplier / 100f
 		};
 
 		public static bool useAllRecipes = !recursiveCraftEnabled && !serverConfig.ReduceRecipesToMinimum;

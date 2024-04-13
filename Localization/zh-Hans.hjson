@@ -219,6 +219,11 @@ Mods: {
 					Label: 稀有的
 					Tooltip: 影响所有稀有结界的强度。 覆盖除个别结界强度乘数之外的所有乘数。 设置为 -1 可以忽略此乘数。
 				}
+
+				CursedEnchantmentStrengthMultiplier: {
+					// Label: Cursed Enchantment Strength Multiplier
+					// Tooltip: ""
+				}
 			}
 
 			ServerConfig: {
@@ -633,12 +638,14 @@ Mods: {
 
 		GameMessages: {
 			AlreadyMaxLevel: “您的 {0} 已经达到最高等级。”
+			ApplyCurse: 应用诅咒
 			Back: 后退
 			CannotGainAdditionalPower: “您的 {0}({1}) 无法从所提供的 {2}({3}) 中获得额外的能量。”
 			CantInfusionArmorDifferentTypes: 你不能注入不同类型的盔甲，例如头盔和身体。
 			CongradulationsMaxLevel: “恭喜！{0} 的 {1} 达到最高等级，{2} ({3} xp)。”
 			CouldntFindItemsInWeaponsList: 无法在 WeaponsList 或 WeaponCraftingIngredients 中找到具有以下名称的物品：
 			CouldntFindNPCsInIngredientsList: 在 NPCsThatDropWeaponsOrIngredients 中找不到名称为以下的 Npc：
+			Curses: 诅咒
 			DailyFishingQuestReset: “每日钓鱼任务已重置。您的下一个任务是{0}。”
 			DetectedNonEnchantmentInEnchantmentSlot: “在您的 {1} 上检测到非附魔物品：{0}。它已返回到您的库存中。”
 			EnchantmentNoLongerAllowed: “{1} 上不再允许使用 {0}，并且已从您的 {2} 中删除。”
@@ -673,6 +680,7 @@ Mods: {
 			MultipleUniqueEnchantments: “在您的 {0} 上检测到多个独特的魔咒。{1} 已从您的 {2} 中删除。”
 			MurasamaNoInfusion: Murasama 不能用于输液。
 			NewItemIsAir: 新物品是空气。
+			Next: 下一个
 			NoLongerAllowedOnDamageType: “{0} 不再允许用于 {1} 武器，并且已从您的 {2} 中删除。”
 			NoLongerUtilityEnchantment: “{0} 不再是实用结界，已从您的 {1} 中删除。”
 			NonEnchantableItemInTable:
@@ -693,12 +701,15 @@ Mods: {
 				拾取附魔、精华和其他武器附魔物品会自动将它们发送到附魔台存储区。
 				'''
 			OreInfusionPowerNotSetup: “矿石{0}灌注功率未设置。猜测的灌注功率：”
+			PlaceHereCurse: 在这里放置一个结界来施加诅咒
+			PlaceHereReRoll: 在这里放置一个结界来重新滚动
 			PreventedIssueLooseExperience: 防止了导致您的经验值降低的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}， target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}
 			PreventedIssueLooseExperienceTwo: “防止了导致您失去经验的问题。(xpInt < 0) 物品：{0}，目标：{1}，击中：{2}，近战：{3}，Main.GameMode：{4}，xpDamage ：{5}，xpInt：{6}，lowDamagePerHitXPBoost：{7}，“
 			PreventedLoosingExperience: “防止您的 {0} 由于计算错误而失去经验。”
 			PreventedWitchShopDuplication: 防止了向女巫的商店物品添加重复物品的问题：
 			RemovedEnchantedItemData: “已从项目中删除 EnchantedItem 数据：{0}，计数：{1}，新计数：{2}”
 			RemovedUnloadedEnchantmentFromItem: “已从您的 {1} 中删除已卸载的物品：{0}。请通知 andro951(WeaponEnchantments)。”
+			ReRoll: 重新滚动
 			RerollEnchantment: 重新投掷附魔
 			ResistsYourAttemptToEmpower: “{0} 抵制了你赋予它权力的尝试。”
 			SameSetBonusNoEffect: 正在升级的物品与正在消耗的物品具有相同的套装奖励，并且不会产生任何效果。
@@ -706,6 +717,7 @@ Mods: {
 			TryInfuseFailed: “TryInfuseItem 失败，tableItem：{0}{1}，infusionConsumeItem：{2}{3}”
 			WeaponInfusionPowersNotSetup: 武器注入能力未设置
 			WitchChatText: 你还想要什么？ 我很忙。
+			WitchEnchantmentCurseText: 诅咒是一种强大的魔法，但也是有代价的。 如果你改变主意我也帮不了你。 树妖也许能帮上忙。 您确定要继续吗？
 			WitchEnchantmentRerolText: 我想我可以尝试提高你的魅力，但不会退款或投诉。
 			WitchSpawnCondition: 在你的物品栏或装备上有一个结界。
 		}
@@ -784,6 +796,7 @@ Mods: {
 			CursedInfernoEnchantmentRare.DisplayName: 诅咒之焰附魔稀有
 			DamageEnchantmentBasic.DisplayName: 伤害附魔基元
 			DamageEnchantmentCommon.DisplayName: 伤害附魔普通
+			DamageEnchantmentCursed.DisplayName: 伤害 附魔 诅咒
 			DamageEnchantmentEpic.DisplayName: 伤害附魔史诗
 			DamageEnchantmentLegendary.DisplayName: 伤害附魔传奇
 			DamageEnchantmentRare.DisplayName: 伤害附魔稀有
@@ -1409,7 +1422,6 @@ Mods: {
 				CrateChance: 板条箱几率
 				CriticalStrikeChance: 暴击率
 				CriticalStrikeDamage: 暴击伤害
-				CursedInferno: 诅咒之焰
 				Damage: 伤害
 				DamageAfterDefenses: 伤害（在防御后应用。在武器工具提示中不可见）
 				DamageClassSwap: “将伤害类型转换为 {0}”

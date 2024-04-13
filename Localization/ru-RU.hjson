@@ -219,6 +219,11 @@ Mods: {
 					Label: Редкий
 					Tooltip: Влияет на силу всех редких чар. Переопределяет все множители, кроме множителей силы отдельных чар. Установите значение -1, чтобы этот множитель игнорировался.
 				}
+
+				CursedEnchantmentStrengthMultiplier: {
+					// Label: Cursed Enchantment Strength Multiplier
+					// Tooltip: ""
+				}
 			}
 
 			ServerConfig: {
@@ -633,12 +638,14 @@ Mods: {
 
 		GameMessages: {
 			AlreadyMaxLevel: «У вашего {0} уже максимальный уровень».
+			ApplyCurse: Наложить проклятие
 			Back: Назад
 			CannotGainAdditionalPower: «Ваш {0}({1}) не может получить дополнительную мощность от предлагаемого {2}({3})».
 			CantInfusionArmorDifferentTypes: Вы не можете наделить доспехи разных типов, такие как шлем и тело.
 			CongradulationsMaxLevel: «Поздравляем! {1} пользователя {0} достиг максимального уровня, {2} ({3} опыта)».
 			CouldntFindItemsInWeaponsList: Не удалось найти предметы в WeaponsList или WeaponCraftingIngredients с именами:
 			CouldntFindNPCsInIngredientsList: Не удалось найти NPC в NPCsThatDropWeaponsOrIngredients с именами:
+			Curses: Проклятия
 			DailyFishingQuestReset: «Ежедневное задание на рыбалку сброшено. Ваше следующее задание — {0}».
 			DetectedNonEnchantmentInEnchantmentSlot: «Обнаружен не зачарованный предмет:{0} на вашем {1}. Он был возвращен в ваш инвентарь».
 			EnchantmentNoLongerAllowed: «Пользователь {0} больше не доступен на {1} и удален из вашего {2}».
@@ -673,6 +680,7 @@ Mods: {
 			MultipleUniqueEnchantments: «На вашем {0} обнаружено несколько уникальных чар. {1} был удален из вашего {2}».
 			MurasamaNoInfusion: Мурасаму нельзя употреблять в виде настоя.
 			NewItemIsAir: newItem был воздух.
+			Next: Следующий
 			NoLongerAllowedOnDamageType: «Пользователю {0} больше не разрешено использовать оружие {1}, и он удален из вашего {2}».
 			NoLongerUtilityEnchantment: «{0} больше не является служебным зачарованием и был удален из вашего {1}».
 			NonEnchantableItemInTable:
@@ -693,12 +701,15 @@ Mods: {
 				При подборе чар, эссенций и других чар для оружия они автоматически отправляются в хранилище стола зачарования.
 				'''
 			OreInfusionPowerNotSetup: «Мощность вливания руды {0} не настроена. Предполагаемая мощность вливания:»
+			PlaceHereCurse: Поместите сюда чары, чтобы наложить проклятие.
+			PlaceHereReRoll: Поместите сюда чары, чтобы перебросить
 			PreventedIssueLooseExperience: «Предотвращена проблема, приводившая к снижению вашего опыта. (xpInt < 0) предмет: {0}, цель: {1}, удар: {2}, рукопашный бой: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}"
 			PreventedIssueLooseExperienceTwo: «Предотвращена проблема, из-за которой вы теряли опыт. (xpInt < 0) предмет: {0}, цель: {1}, удар: {2}, рукопашный бой: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
 			PreventedLoosingExperience: «Предотвращена потеря опыта вашего {0} из-за ошибки расчета».
 			PreventedWitchShopDuplication: Предотвращена проблема, из-за которой в магазин Ведьмы добавлялся дубликат предмета:
 			RemovedEnchantedItemData: «Удалены данные EnchantedItem из элемента: {0}, количество: {1}, newCount: {2}»
 			RemovedUnloadedEnchantmentFromItem: «Удален выгруженный предмет:{0} из вашего {1}. Пожалуйста, сообщите andro951(WeaponEnchantments)».
+			ReRoll: Перебросить
 			RerollEnchantment: Перебросить Чары
 			ResistsYourAttemptToEmpower: «{0} сопротивляется вашей попытке усилить его».
 			SameSetBonusNoEffect: Улучшаемый предмет имеет тот же набор бонусов, что и потребляемый предмет, и не будет иметь никакого эффекта.
@@ -706,6 +717,7 @@ Mods: {
 			TryInfuseFailed: «Ошибка TryInfuseItem, tableItem: {0}{1}, infusionConsumeItem: {2}{3}»
 			WeaponInfusionPowersNotSetup: Способности добавления оружия не настроены
 			WitchChatText: Что вы еще хотите? Я занят.
+			WitchEnchantmentCurseText: Проклятия — мощная магия, но за нее приходится платить. Я не смогу помочь тебе, если ты передумаешь. Возможно, Дриада сможет в этом помочь. Вы уверены, что хотите продолжить?
 			WitchEnchantmentRerolText: Думаю, я мог бы попытаться улучшить ваши чары, но никаких возмещений или жалоб.
 			WitchSpawnCondition: Имейте зачарование в своем инвентаре или на своем снаряжении.
 		}
@@ -784,6 +796,7 @@ Mods: {
 			CursedInfernoEnchantmentRare.DisplayName: Зачарование "Проклятое пекло" (Редкое)
 			DamageEnchantmentBasic.DisplayName: Зачарование "Урон" (Базовое)
 			DamageEnchantmentCommon.DisplayName: Зачарование "Урон" (Обычное)
+			DamageEnchantmentCursed.DisplayName: Чары урона прокляты
 			DamageEnchantmentEpic.DisplayName: Зачарование "Урон" (Эпическое)
 			DamageEnchantmentLegendary.DisplayName: Зачарование "Урон" (Легендарное)
 			DamageEnchantmentRare.DisplayName: Зачарование "Урон" (Редкое)
@@ -1409,7 +1422,6 @@ Mods: {
 				CrateChance: Шанс ящика
 				CriticalStrikeChance: Шанс критического удара
 				CriticalStrikeDamage: Урон критического удара
-				CursedInferno: Проклят адом
 				Damage: Урон
 				DamageAfterDefenses: Урон (Применяется после защиты. Не отображается в подсказке)
 				DamageClassSwap: Преобразовывает урон к типу '{0}'

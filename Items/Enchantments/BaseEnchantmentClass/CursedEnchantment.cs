@@ -20,6 +20,7 @@ using Terraria.ModLoader.IO;
 using System.IO;
 
 namespace WeaponEnchantments.Items {
+	/*
 	public abstract class CursedEnchantment : Enchantment {
 		public override void LoadData(TagCompound tag) {
 			
@@ -38,12 +39,11 @@ namespace WeaponEnchantments.Items {
 		}
 		public override void SetDefaults() {
 			base.SetDefaults();
-			Item.maxStack = 1;
 		}
-		public override bool CanStack(Item item2) => false;
 
 		public override string Artist => "andro951";
 
 		public override string Designer => "andro951";
 	}
+	*/
 }

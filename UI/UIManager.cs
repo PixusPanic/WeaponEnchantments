@@ -48,7 +48,7 @@ namespace WeaponEnchantments.UI
 			WE_UI_ID.EnchantmentStorage_UITypeID = MasterUIManager.RegisterUI_ID();
 			WE_UI_ID.EnchantmentLoadout_UITypeID = MasterUIManager.RegisterUI_ID();
 
-			MasterUIManager.IsDisplayingUI.Add(() => Witch.rerollUI);
+			MasterUIManager.IsDisplayingUI.Add(() => Witch.DisplayingUI);
 			MasterUIManager.IsDisplayingUI.Add(() => WEPlayer.LocalWEPlayer.usingEnchantingTable);
 			MasterUIManager.IsDisplayingUI.Add(() => WEPlayer.LocalWEPlayer.displayEnchantmentStorage);
 			MasterUIManager.IsDisplayingUI.Add(() => WEPlayer.LocalWEPlayer.displayEnchantmentLoadoutUI);

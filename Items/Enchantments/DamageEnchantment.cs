@@ -6,6 +6,7 @@ using WeaponEnchantments.Effects;
 using androLib.Items;
 using androLib.Common.Utility;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -22,6 +23,9 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		protected override List<EnchantmentEffect> cursedEffectPosibilities => new() {
+			new Defense(new EStatModifier(EnchantmentStat.Defense, @base: -12f))
+		};
 	}
 	[Autoload(false)]
 	public class DamageEnchantmentBasic : DamageEnchantment
@@ -40,4 +44,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	[Autoload(false)]
 	public class DamageEnchantmentLegendary : DamageEnchantment { }
 
+	[Autoload(false)]
+	public class DamageEnchantmentCursed : DamageEnchantment {}
 }

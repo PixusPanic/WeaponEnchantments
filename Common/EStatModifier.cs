@@ -155,7 +155,7 @@ namespace WeaponEnchantments.Common
 				if (_strength != 0f)
 					return _strength;
 
-				if (_base > 0f || _flat > 0f) {
+				if (_base != 0f || _flat != 0f) {
 					_strength = ApplyTo(0f);
 				}
 				else {
@@ -221,7 +221,7 @@ namespace WeaponEnchantments.Common
 				}
 
 				tooltip = "";
-				if (_base > 0f || (_additive != 1f || _additiveDenominator != 1f) && minusOne) {
+				if (_base != 0f || (_additive != 1f || _additiveDenominator != 1f) && minusOne) {
 					if (sign && (_base > 0f || _additive > _additiveDenominator))
 						tooltip += "+";
 

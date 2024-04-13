@@ -431,10 +431,17 @@ namespace WeaponEnchantments.Localization
 								{ GameMessageTextID.WitchChatText.ToString(), "What more do you want?  I'm busy." },
 								{ GameMessageTextID.RerollEnchantment.ToString(), "Re-roll Enchantment" },
 								{ GameMessageTextID.Back.ToString(), "Back" },
-								{ GameMessageTextID.WitchSpawnCondition.ToString(), "Have an enchantment in your inventory or on your equipment." } ,
+								{ GameMessageTextID.WitchSpawnCondition.ToString(), "Have an enchantment in your inventory or on your equipment." },
 								{ GameMessageTextID.OpenEnchantingTableFirstTime.ToString(), "You feel all of your Enchantments and Essence get pulled into the Enchanting Table.\n" +
 									"Weapon Enchantments has it's own storage inside the Enchanting Table.\n" +
-									"Picking up Enchantments, Essence and other Weapon Enchantments items will automatically send them to the Enchanting Table storage." }
+									"Picking up Enchantments, Essence and other Weapon Enchantments items will automatically send them to the Enchanting Table storage." },
+								{ GameMessageTextID.Next.ToString(), "Next" },
+								{ GameMessageTextID.Curses.ToString(), "Curses" },
+								{ GameMessageTextID.ApplyCurse.ToString(), "Apply Curse" },
+								{ GameMessageTextID.WitchEnchantmentCurseText.ToString(), "Curses are a powerful magic, but at a cost.  I can't help you if you change your mind.  The Dryad may be able to help with that.  Are you certain you wish to continue?" },
+								{ GameMessageTextID.PlaceHereReRoll.ToString(), "Place an enchantment here to re-roll" },
+								{ GameMessageTextID.PlaceHereCurse.ToString(), "Place an enchantment here to apply a curse" },
+								{ GameMessageTextID.ReRoll.ToString(), "Re-roll" }
 						}) },
 						{ L_ID1.Configs.ToString(), new(children: new() {
 							//Server Config
