@@ -713,6 +713,7 @@ Mods: {
 			RerollEnchantment: Repetir encantamiento
 			ResistsYourAttemptToEmpower: El {0} se resistió a tu intento de darle poder.
 			SameSetBonusNoEffect: El elemento que se actualiza tiene la misma bonificación establecida que el elemento que se consume y no tendrá ningún efecto.
+			ShimmerIngredientInfusionPowersNotSetup: Los poderes de infusión de ingredientes brillantes no están configurados
 			SlotNumDisabledByConfig: Ranura {0} deshabilitada por configuración. Se eliminó {1} de su {2}.
 			TryInfuseFailed: TryInfuseItem falló, tableItem: {0}{1}, infusionConsumeItem: {2}{3}
 			WeaponInfusionPowersNotSetup: Poderes de infusión de armas no configurados

@@ -713,6 +713,7 @@ Mods: {
 			RerollEnchantment: Re-rolar encantamento
 			ResistsYourAttemptToEmpower: O {0} resistiu à sua tentativa de fortalecê-lo.
 			SameSetBonusNoEffect: O item que está sendo atualizado tem o mesmo bônus de conjunto que o item que está sendo consumido e não terá efeito.
+			ShimmerIngredientInfusionPowersNotSetup: Poderes de infusão de ingredientes Shimmer não configurados
 			SlotNumDisabledByConfig: Slot {0} desativado pela configuração. {1} removido do seu {2}.
 			TryInfuseFailed: Falha no TryInfuseItem, tableItem: {0}{1}, infusionConsumeItem: {2}{3}
 			WeaponInfusionPowersNotSetup: Poderes de infusão de armas não configurados
