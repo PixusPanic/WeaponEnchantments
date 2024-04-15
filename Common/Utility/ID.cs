@@ -305,13 +305,6 @@ namespace WeaponEnchantments.Common.Utility {
 		Back,
 		WitchSpawnCondition,
 		OpenEnchantingTableFirstTime,
-		Next,
-		Curses,
-		ApplyCurse,
-		WitchEnchantmentCurseText,
-		PlaceHereReRoll,
-		PlaceHereCurse,
-		ReRoll
 	}
 	
 	public enum WELoadOrder {

@@ -219,11 +219,6 @@ Mods: {
 					Label: Cru
 					Tooltip: Afeta a força de todos os Encantamentos Raros. Substitui todos os multiplicadores, exceto multiplicadores de força de encantamento individuais. Defina como -1 para que este multiplicador seja ignorado.
 				}
-
-				CursedEnchantmentStrengthMultiplier: {
-					// Label: Cursed Enchantment Strength Multiplier
-					// Tooltip: ""
-				}
 			}
 
 			ServerConfig: {
@@ -638,14 +633,12 @@ Mods: {
 
 		GameMessages: {
 			AlreadyMaxLevel: Seu {0} já está no nível máximo.
-			ApplyCurse: Aplicar Maldição
 			Back: Voltar
 			CannotGainAdditionalPower: Seu {0}({1}) não pode ganhar poder adicional do {2}({3}) oferecido.
 			CantInfusionArmorDifferentTypes: Você não pode infundir armaduras de tipos diferentes, como capacete e corpo.
 			CongradulationsMaxLevel: Parabéns! {1} de {0} atingiu o nível máximo, {2} ({3} xp).
 			CouldntFindItemsInWeaponsList: Não foi possível encontrar itens em WeaponsList ou WeaponCraftingIngredients com os nomes:
 			CouldntFindNPCsInIngredientsList: Não foi possível encontrar Npcs em NPCsThatDropWeaponsOrIngredients com os nomes:
-			Curses: Maldições
 			DailyFishingQuestReset: A missão diária de pesca foi reiniciada. Sua próxima missão é {0}.
 			DetectedNonEnchantmentInEnchantmentSlot: Detectado um item que não é encantamento:{0} em seu {1}. Ele foi devolvido ao seu inventário.
 			EnchantmentNoLongerAllowed: "{0} não é mais permitido em {1} e foi removido de seu {2}."
@@ -680,7 +673,6 @@ Mods: {
 			MultipleUniqueEnchantments: Detectados vários encantamentos exclusivos em seu {0}. {1} foi removido de seu {2}.
 			MurasamaNoInfusion: Murasama não pode ser consumido para infusão.
 			NewItemIsAir: newItem estava no ar.
-			Next: Próximo
 			NoLongerAllowedOnDamageType: "{0} não é mais permitido em {1} armas e foi removido de seu {2}."
 			NoLongerUtilityEnchantment: "{0} não é mais um encantamento utilitário e foi removido do seu {1}."
 			NonEnchantableItemInTable:
@@ -701,15 +693,12 @@ Mods: {
 				Pegar Encantamentos, Essências e outros itens de Encantamentos de Armas os enviará automaticamente para o armazenamento da Mesa de Encantamento.
 				'''
 			OreInfusionPowerNotSetup: Potência de infusão de minério {0} não configurada. Potência de infusão estimada:
-			PlaceHereCurse: Coloque um encantamento aqui para aplicar uma maldição
-			PlaceHereReRoll: Coloque um encantamento aqui para rolar novamente
 			PreventedIssueLooseExperience: Evitou um problema que faria com que seu XP fosse reduzido. (xpInt <0) item: {0}, alvo: {1}, hit: {2}, corpo a corpo: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}
 			PreventedIssueLooseExperienceTwo: "Evitou um problema que faria com que você perdesse experiência. (xpInt <0) item: {0}, alvo: {1}, hit: {2}, corpo a corpo: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
 			PreventedLoosingExperience: Evitou que seu {0} perdesse experiência devido a um erro de cálculo.
 			PreventedWitchShopDuplication: Evitou um problema que adicionava um item duplicado ao item da loja da Bruxa:
 			RemovedEnchantedItemData: Dados de EnchantedItem removidos do item: {0}, contagem: {1}, newCount: {2}
 			RemovedUnloadedEnchantmentFromItem: Item descarregado removido:{0} de seu {1}. Informe andro951(WeaponEnchantments).
-			ReRoll: Re-rolar
 			RerollEnchantment: Re-rolar encantamento
 			ResistsYourAttemptToEmpower: O {0} resistiu à sua tentativa de fortalecê-lo.
 			SameSetBonusNoEffect: O item que está sendo atualizado tem o mesmo bônus de conjunto que o item que está sendo consumido e não terá efeito.
@@ -718,7 +707,6 @@ Mods: {
 			TryInfuseFailed: Falha no TryInfuseItem, tableItem: {0}{1}, infusionConsumeItem: {2}{3}
 			WeaponInfusionPowersNotSetup: Poderes de infusão de armas não configurados
 			WitchChatText: O que mais você quer? Estou ocupado.
-			WitchEnchantmentCurseText: As maldições são uma magia poderosa, mas têm um custo. Não posso ajudá-lo se você mudar de ideia. A Dríade pode ajudar com isso. Tem certeza de que deseja continuar?
 			WitchEnchantmentRerolText: Acho que poderia tentar melhorar seus encantamentos, mas sem reembolso ou reclamação.
 			WitchSpawnCondition: Tenha um encantamento em seu inventário ou em seu equipamento.
 		}
@@ -797,7 +785,6 @@ Mods: {
 			CursedInfernoEnchantmentRare.DisplayName: Encantamento Inferno Amaldiçoado Raro
 			DamageEnchantmentBasic.DisplayName: Encantamento Dano Básico
 			DamageEnchantmentCommon.DisplayName: Encantamento Dano Comum
-			DamageEnchantmentCursed.DisplayName: Encantamento de Dano Amaldiçoado
 			DamageEnchantmentEpic.DisplayName: Encantamento Dano Épico
 			DamageEnchantmentLegendary.DisplayName: Encantamento Dano Lendário
 			DamageEnchantmentRare.DisplayName: Encantamento Dano Raro
@@ -1423,6 +1410,7 @@ Mods: {
 				CrateChance: Chance de Caixote
 				CriticalStrikeChance: Chance de acerto crítico
 				CriticalStrikeDamage: Dano de Acerto Crítico
+				CursedInferno: Inferno Amaldiçoado
 				Damage: Dano
 				DamageAfterDefenses: Dano (Aplicado após as defesas. Não visível na dica de ferramenta da arma)
 				DamageClassSwap: Converter tipo de dano para {0}

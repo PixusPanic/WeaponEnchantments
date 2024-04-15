@@ -219,11 +219,6 @@ Mods: {
 					Label: Raro
 					Tooltip: Influisce sulla forza di tutti gli incantesimi rari. Sostituisce tutti i moltiplicatori tranne i moltiplicatori della forza dell'incantesimo individuale. Impostato su -1 affinché questo moltiplicatore venga ignorato.
 				}
-
-				CursedEnchantmentStrengthMultiplier: {
-					// Label: Cursed Enchantment Strength Multiplier
-					// Tooltip: ""
-				}
 			}
 
 			ServerConfig: {
@@ -638,14 +633,12 @@ Mods: {
 
 		GameMessages: {
 			AlreadyMaxLevel: Il tuo {0} è già al livello massimo.
-			ApplyCurse: Applica la maledizione
 			Back: Indietro
 			CannotGainAdditionalPower: Il tuo {0}({1}) non può ottenere ulteriore potere dal {2}({3}) offerto.
 			CantInfusionArmorDifferentTypes: Non è possibile infondere armature di diverso tipo, come elmo e corpo.
 			CongradulationsMaxLevel: Congratulazioni! {1} di {0} ha raggiunto il livello massimo, {2} ({3} xp).
 			CouldntFindItemsInWeaponsList: Impossibile trovare oggetti in WeaponsList o WeaponCraftingIngredients con i nomi:
 			CouldntFindNPCsInIngredientsList: Impossibile trovare NPC in NPCsThatDropWeaponsOrIngredients con i nomi:
-			Curses: Maledizioni
 			DailyFishingQuestReset: La missione di pesca giornaliera è stata reimpostata. La tua prossima missione è {0}.
 			DetectedNonEnchantmentInEnchantmentSlot: Rilevato un oggetto non-incantesimo:{0} sul tuo {1}. È stato restituito al tuo inventario.
 			EnchantmentNoLongerAllowed: "{0} non è più consentito su {1} ed è stato rimosso dal tuo {2}."
@@ -680,7 +673,6 @@ Mods: {
 			MultipleUniqueEnchantments: Sono stati rilevati più incantesimi unici sul tuo {0}. {1} è stato rimosso dal tuo {2}.
 			MurasamaNoInfusion: Murasama non può essere consumato per infusione.
 			NewItemIsAir: newItem era aria.
-			Next: Prossimo
 			NoLongerAllowedOnDamageType: "{0} non è più consentito sulle armi {1} ed è stato rimosso dalle tue {2}."
 			NoLongerUtilityEnchantment: "{0} non è più un incantesimo di utilità ed è stato rimosso dal tuo {1}."
 			NonEnchantableItemInTable:
@@ -701,15 +693,12 @@ Mods: {
 				Raccogliere incantesimi, essenze e altri oggetti di incantesimi per armi li invierà automaticamente al deposito del tavolo degli incantesimi.
 				'''
 			OreInfusionPowerNotSetup: Potenza di infusione del minerale {0} non impostata. Potenza di infusione indovinata:
-			PlaceHereCurse: Posiziona qui un incantesimo per applicare una maledizione
-			PlaceHereReRoll: Posiziona qui un incantesimo per ripetere il tiro
 			PreventedIssueLooseExperience: Prevenuto un problema che avrebbe causato la riduzione dei tuoi XP. (xpInt < 0) oggetto: {0}, bersaglio: {1}, colpo: {2}, corpo a corpo: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}
 			PreventedIssueLooseExperienceTwo: "Prevenuto un problema che ti avrebbe fatto perdere esperienza. (xpInt < 0) oggetto: {0}, bersaglio: {1}, colpo: {2}, corpo a corpo: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
 			PreventedLoosingExperience: Abbiamo impedito che il tuo {0} perdesse esperienza a causa di un errore di calcolo.
 			PreventedWitchShopDuplication: Prevenuto un problema che avrebbe aggiunto un oggetto duplicato all'oggetto del negozio della strega:
 			RemovedEnchantedItemData: Dati EnchantedItem rimossi dall'articolo: {0}, conteggio: {1}, nuovo conteggio: {2}
 			RemovedUnloadedEnchantmentFromItem: Oggetto scaricato rimosso:{0} dal tuo {1}. Informa andro951(WeaponEnchantments).
-			ReRoll: Rilancia
 			RerollEnchantment: Rilancia Incantesimo
 			ResistsYourAttemptToEmpower: Il {0} ha resistito al tuo tentativo di potenziarlo.
 			SameSetBonusNoEffect: L'oggetto da potenziare ha lo stesso bonus del set dell'oggetto da consumare e non avrà alcun effetto.
@@ -718,7 +707,6 @@ Mods: {
 			TryInfuseFailed: TryInfuseItem non riuscito, tableItem: {0}{1}, infusionConsumeItem: {2}{3}
 			WeaponInfusionPowersNotSetup: I poteri di infusione delle armi non sono impostati
 			WitchChatText: Che cosa vuoi di più? Sono occupato.
-			WitchEnchantmentCurseText: Le maledizioni sono una magia potente, ma hanno un costo. Non posso aiutarti se cambi idea. La Driade potrebbe essere in grado di aiutarti. Sei sicuro di voler continuare?
 			WitchEnchantmentRerolText: Immagino che potrei provare a migliorare i tuoi incantesimi, ma senza rimborsi o reclami.
 			WitchSpawnCondition: Avere un incantesimo nel tuo inventario o sul tuo equipaggiamento.
 		}
@@ -797,7 +785,6 @@ Mods: {
 			CursedInfernoEnchantmentRare.DisplayName: Incantesimo Inferno Maledetto Raro
 			DamageEnchantmentBasic.DisplayName: Danno incantesimo di base
 			DamageEnchantmentCommon.DisplayName: Danno incantesimo Comune
-			DamageEnchantmentCursed.DisplayName: Danno Incantamento Maledetto
 			DamageEnchantmentEpic.DisplayName: Danno incantesimo epico
 			DamageEnchantmentLegendary.DisplayName: Danno incantesimo Leggendario
 			DamageEnchantmentRare.DisplayName: Danno incantesimo Raro
@@ -1423,6 +1410,7 @@ Mods: {
 				CrateChance: Possibilità di cassa
 				CriticalStrikeChance: Probabilità di colpo critico
 				CriticalStrikeDamage: Danno da colpo critico
+				CursedInferno: Inferno maledetto
 				Damage: Danno
 				DamageAfterDefenses: Danno (applicato dopo le difese. Non visibile nel suggerimento dell'arma)
 				DamageClassSwap: Converti il ​​tipo di danno in {0}

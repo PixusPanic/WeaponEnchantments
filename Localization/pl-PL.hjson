@@ -219,11 +219,6 @@ Mods: {
 					Label: Rzadki
 					Tooltip: Wpływa na siłę wszystkich rzadkich zaklęć. Zastępuje wszystkie mnożniki z wyjątkiem indywidualnych mnożników siły zaklęć. Ustaw na -1, aby ten mnożnik był ignorowany.
 				}
-
-				CursedEnchantmentStrengthMultiplier: {
-					// Label: Cursed Enchantment Strength Multiplier
-					// Tooltip: ""
-				}
 			}
 
 			ServerConfig: {
@@ -638,14 +633,12 @@ Mods: {
 
 		GameMessages: {
 			AlreadyMaxLevel: „Twój {0} jest już na maksymalnym poziomie.”
-			ApplyCurse: Zastosuj klątwę
 			Back: Z powrotem
 			CannotGainAdditionalPower: „Twoje {0}({1}) nie może zyskać dodatkowej mocy z oferowanego {2}({3}).”.
 			CantInfusionArmorDifferentTypes: Nie możesz napełniać zbroi różnych typów, np. hełmu i korpusu.
 			CongradulationsMaxLevel: „Gratulacje! {1} użytkownika {0} osiągnęło maksymalny poziom, {2} ({3} PD).”.
 			CouldntFindItemsInWeaponsList: Nie można znaleźć przedmiotów na liście broni lub składnikach wytwarzania broni o nazwach:
 			CouldntFindNPCsInIngredientsList: Nie można znaleźć NPC w NPCsThatDropWeaponsOrIngredients o nazwach:
-			Curses: Pomstowanie
 			DailyFishingQuestReset: „Codzienna misja wędkarska została zresetowana. Twoja następna misja to {0}.”
 			DetectedNonEnchantmentInEnchantmentSlot: „Wykryto przedmiot niebędący zaklęciem:{0} na Twoim {1}. Został on zwrócony do Twojego ekwipunku.”
 			EnchantmentNoLongerAllowed: „{0} nie jest już dozwolony w {1} i został usunięty z Twojego {2}.”
@@ -680,7 +673,6 @@ Mods: {
 			MultipleUniqueEnchantments: „Wykryto wiele unikalnych zaklęć na twoim {0}. {1} zostało usunięte z twojego {2}.”
 			MurasamaNoInfusion: Murasamy nie można spożywać do naparu.
 			NewItemIsAir: nowośćPrzedmiotem było powietrze.
-			Next: Następny
 			NoLongerAllowedOnDamageType: „{0} nie jest już dozwolony w broniach {1} i został usunięty z twojej broni {2}.”
 			NoLongerUtilityEnchantment: „{0} nie jest już zaklęciem użytkowym i zostało usunięte z twojego {1}.”
 			NonEnchantableItemInTable:
@@ -701,15 +693,12 @@ Mods: {
 				Podniesienie Zaklęć, Esencji i innych przedmiotów Zaklęć Broni spowoduje automatyczne wysłanie ich do magazynu Zaklinającego Stołu.
 				'''
 			OreInfusionPowerNotSetup: „Nie ustawiono mocy infuzji rudy {0}. Zgadywana moc infuzji:”
-			PlaceHereCurse: Umieść tutaj zaklęcie, aby zastosować klątwę
-			PlaceHereReRoll: Umieść tutaj zaklęcie, aby rzucić ponownie
 			PreventedIssueLooseExperience: „Zapobiegnięto problemowi, który powodowałby zmniejszenie twoich PD. (xpInt < 0) przedmiot: {0}, cel: {1}, trafienie: {2}, walka wręcz: {3}, Main.GameMode: {4}, target.obrona: {5}, xpDamage: {6}, niskie obrażenia na trafienieXPBoost: {7}"
 			PreventedIssueLooseExperienceTwo: „Zapobiegnięto problemowi, który powodował utratę doświadczenia. (xpInt < 0) przedmiot: {0}, cel: {1}, trafienie: {2}, walka wręcz: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, niskie obrażenia na trafienieXPBoost: {7}, "
 			PreventedLoosingExperience: „Zapobiegłeś utracie doświadczenia przez {0} z powodu błędu w obliczeniach.”
 			PreventedWitchShopDuplication: Zapobiegnięto problemowi, który powodował dodanie zduplikowanego przedmiotu do przedmiotu w sklepie Wiedźmy:
 			RemovedEnchantedItemData: „Usunięto dane EnchantedItem z przedmiotu: {0}, liczba: {1}, nowa liczba: {2}”
 			RemovedUnloadedEnchantmentFromItem: „Usunięto niewyładowany przedmiot:{0} z Twojego {1}. Poinformuj andro951(WeaponEnchantments).”
-			ReRoll: Rzuć ponownie
 			RerollEnchantment: Rzuć ponownie Zaklęcie
 			ResistsYourAttemptToEmpower: „{0} oparł się twojej próbie wzmocnienia go.”
 			SameSetBonusNoEffect: Ulepszany przedmiot ma taką samą premię jak przedmiot zużywany i nie będzie miał żadnego efektu.
@@ -718,7 +707,6 @@ Mods: {
 			TryInfuseFailed: „TryInfuseItem nie powiodło się, tableItem: {0}{1}, infusionConsumeItem: {2}{3}”
 			WeaponInfusionPowersNotSetup: Moce infuzyjne broni nie są skonfigurowane
 			WitchChatText: Czego jeszcze chcesz? Jestem zajęty.
-			WitchEnchantmentCurseText: Klątwy to potężna magia, ale ma to swoją cenę. Nie pomogę ci, jeśli zmienisz zdanie. Driada może w tym pomóc. Czy na pewno chcesz kontynuować?
 			WitchEnchantmentRerolText: Myślę, że mógłbym spróbować ulepszyć twoje zaklęcia, ale bez zwrotów pieniędzy i reklamacji.
 			WitchSpawnCondition: Posiadaj zaklęcie w swoim ekwipunku lub na swoim wyposażeniu.
 		}
@@ -797,7 +785,6 @@ Mods: {
 			CursedInfernoEnchantmentRare.DisplayName: Zaklęcie Przeklętego Piekła Rzadkie
 			DamageEnchantmentBasic.DisplayName: Podstawowe zaklęcie obrażeń
 			DamageEnchantmentCommon.DisplayName: Zaklęcie obrażeń Zwykłe
-			DamageEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Obrażenia
 			DamageEnchantmentEpic.DisplayName: Epickie zaklęcie obrażeń
 			DamageEnchantmentLegendary.DisplayName: Legendarne zaklęcie obrażeń
 			DamageEnchantmentRare.DisplayName: Zaklęcie Obrażeń Rzadkie
@@ -1423,6 +1410,7 @@ Mods: {
 				CrateChance: Skrzynia Szansa
 				CriticalStrikeChance: Szansa krytycznego uderzenia
 				CriticalStrikeDamage: Obrażenia od trafienia krytycznego
+				CursedInferno: Przeklęte Piekło
 				Damage: Szkoda
 				DamageAfterDefenses: Obrażenia (Zastosowane po obronie. Niewidoczne w opisie broni)
 				DamageClassSwap: Konwertuj typ uszkodzenia na {0}

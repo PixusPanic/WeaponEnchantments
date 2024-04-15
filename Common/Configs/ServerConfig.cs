@@ -537,11 +537,6 @@ namespace WeaponEnchantments.Common.Configs
 		[ReloadRequired]
 		public int LegendaryEnchantmentStrengthMultiplier { set; get; }
 
-		[Range(-1, 10000)]
-		[DefaultValue(-1)]
-		[ReloadRequired]
-		public int CursedEnchantmentStrengthMultiplier { set; get; }
-
 		public PresetData() {
 			AutomaticallyMatchPreseTtoWorldDifficulty = true;
 			Preset = "Normal";

@@ -13,12 +13,11 @@ using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
-	public abstract class TimeEnchantment : Enchantment
+	public abstract class TimeEnchantment : Enchantment, IRerollableEnchantment
 	{
 		public override string CustomTooltip => EnchantmentTypeName.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		public override int StrengthGroup => 2;
 		public override float ScalePercent => -1f;
-		protected override bool isRerollable => true;
 		public override void GetMyStats() {
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f },

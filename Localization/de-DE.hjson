@@ -219,11 +219,6 @@ Mods: {
 					Label: Selten
 					Tooltip: Beeinflusst die Stärke aller seltenen Verzauberungen. Überschreibt alle Multiplikatoren mit Ausnahme einzelner Verzauberungsstärke-Multiplikatoren. Legen Sie den Wert auf -1 fest, damit dieser Multiplikator ignoriert wird.
 				}
-
-				CursedEnchantmentStrengthMultiplier: {
-					// Label: Cursed Enchantment Strength Multiplier
-					// Tooltip: ""
-				}
 			}
 
 			ServerConfig: {
@@ -638,14 +633,12 @@ Mods: {
 
 		GameMessages: {
 			AlreadyMaxLevel: „Dein {0} hat bereits das maximale Level.“
-			ApplyCurse: Fluch anwenden
 			Back: Zurück
 			CannotGainAdditionalPower: „Dein {0}({1}) kann durch das angebotene {2}({3}) keine zusätzliche Kraft erhalten.“
 			CantInfusionArmorDifferentTypes: Es ist nicht möglich, Rüstungen unterschiedlicher Art wie Helm und Körper zu infundieren.
 			CongradulationsMaxLevel: „Herzlichen Glückwunsch! {1} von {0} hat das maximale Level {2} ({3} xp) erreicht.“
 			CouldntFindItemsInWeaponsList: Es konnten keine Gegenstände in WeaponsList oder WeaponCraftingIngredients mit den Namen gefunden werden:
 			CouldntFindNPCsInIngredientsList: Es konnten keine NPCs in NPCsThatDropWeaponsOrIngredients mit den Namen gefunden werden:
-			Curses: Flüche
 			DailyFishingQuestReset: „Die tägliche Angelquest wurde zurückgesetzt. Deine nächste Quest ist {0}.“
 			DetectedNonEnchantmentInEnchantmentSlot: „Auf deinem {1} wurde ein Nicht-Verzauberungsgegenstand entdeckt:{0}. Er wurde in dein Inventar zurückgebracht.“
 			EnchantmentNoLongerAllowed: „{0} ist auf {1} nicht mehr zulässig und wurde aus Ihrem {2} entfernt.“
@@ -680,7 +673,6 @@ Mods: {
 			MultipleUniqueEnchantments: „Auf Ihrem {0} wurden mehrere einzigartige Verzauberungen entdeckt. {1} wurde aus Ihrem {2} entfernt.“
 			MurasamaNoInfusion: Murasama kann nicht als Aufguss eingenommen werden.
 			NewItemIsAir: newItem war Luft.
-			Next: Nächste
 			NoLongerAllowedOnDamageType: „{0} ist auf {1}-Waffen nicht mehr zulässig und wurde von Ihrem {2} entfernt.“
 			NoLongerUtilityEnchantment: „{0} ist keine Hilfsverzauberung mehr und wurde von deinem {1} entfernt.“
 			NonEnchantableItemInTable:
@@ -701,15 +693,12 @@ Mods: {
 				Wenn du Verzauberungen, Essenzen und andere Waffenverzauberungen einsammelst, werden diese automatisch in den Verzauberungstabellenspeicher verschoben.
 				'''
 			OreInfusionPowerNotSetup: „Erz {0} Infusionsleistung nicht eingerichtet. Geschätzte Infusionsleistung:“
-			PlaceHereCurse: Platzieren Sie hier eine Verzauberung, um einen Fluch anzuwenden
-			PlaceHereReRoll: Platziere hier eine Verzauberung, um erneut zu würfeln
 			PreventedIssueLooseExperience: „Ein Problem wurde verhindert, das dazu führen würde, dass deine XP reduziert werden. (xpInt < 0) Gegenstand: {0}, Ziel: {1}, Treffer: {2}, Nahkampf: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}"
 			PreventedIssueLooseExperienceTwo: „Ein Problem wurde verhindert, das dazu führen würde, dass du Erfahrung verlierst. (xpInt < 0) Gegenstand: {0}, Ziel: {1}, Treffer: {2}, Nahkampf: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
 			PreventedLoosingExperience: „Es wurde verhindert, dass Ihr {0} aufgrund eines Berechnungsfehlers Erfahrungspunkte verliert.“
 			PreventedWitchShopDuplication: Es wurde ein Problem behoben, das dazu führte, dass dem Shop-Artikel der Hexe ein doppelter Artikel hinzugefügt wurde:
 			RemovedEnchantedItemData: „EnchantedItem-Daten aus Element entfernt: {0}, Anzahl: {1}, newCount: {2}“
 			RemovedUnloadedEnchantmentFromItem: „Ungeladener Gegenstand:{0} aus deinem {1} entfernt. Bitte informiere andro951(WeaponEnchantments).“
-			ReRoll: Noch einmal rollen
 			RerollEnchantment: Verzauberung erneut würfeln
 			ResistsYourAttemptToEmpower: „Die {0} haben sich Ihrem Versuch widersetzt, es zu stärken.“
 			SameSetBonusNoEffect: Der aufzuwertende Gegenstand hat den gleichen Setbonus wie der verbrauchte Gegenstand und hat keine Wirkung.
@@ -718,7 +707,6 @@ Mods: {
 			TryInfuseFailed: „TryInfuseItem fehlgeschlagen, tableItem: {0}{1}, infusionConsumeItem: {2}{3}“
 			WeaponInfusionPowersNotSetup: Waffeninfusionskräfte nicht eingerichtet
 			WitchChatText: Was willst du noch? Ich bin beschäftigt.
-			WitchEnchantmentCurseText: Flüche sind eine mächtige Magie, aber sie haben ihren Preis. Ich kann Ihnen nicht helfen, wenn Sie Ihre Meinung ändern. Die Dryade kann dabei vielleicht helfen. Sind Sie sicher, dass Sie fortfahren möchten?
 			WitchEnchantmentRerolText: Ich denke, ich könnte versuchen, Ihre Verzauberungen zu verbessern, aber keine Rückerstattung oder Beschwerden.
 			WitchSpawnCondition: Haben Sie eine Verzauberung in Ihrem Inventar oder auf Ihrer Ausrüstung.
 		}
@@ -797,7 +785,6 @@ Mods: {
 			CursedInfernoEnchantmentRare.DisplayName: Verfluchte Inferno-Verzauberung Selten
 			DamageEnchantmentBasic.DisplayName: Schaden Verzauberung Basic
 			DamageEnchantmentCommon.DisplayName: Schaden Verzauberung Gewöhnlich
-			DamageEnchantmentCursed.DisplayName: Schadensverzauberung verflucht
 			DamageEnchantmentEpic.DisplayName: Schadensverzauberung Epic
 			DamageEnchantmentLegendary.DisplayName: Beschädigen Sie die Verzauberung Legendär
 			DamageEnchantmentRare.DisplayName: Schaden Verzauberung Selten
@@ -1423,6 +1410,7 @@ Mods: {
 				CrateChance: Kistenchance
 				CriticalStrikeChance: Kritische Trefferchance
 				CriticalStrikeDamage: Kritischer Trefferschaden
+				CursedInferno: Verfluchtes Inferno
 				Damage: Schaden
 				DamageAfterDefenses: Schaden (Wird nach der Verteidigung angewendet. Nicht im Waffen-Tooltip sichtbar)
 				DamageClassSwap: Schadenstyp in {0} umwandeln
