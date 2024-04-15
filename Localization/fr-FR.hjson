@@ -702,6 +702,7 @@ Mods: {
 			RerollEnchantment: Relancer l'enchantement
 			ResistsYourAttemptToEmpower: Le {0} a résisté à votre tentative de lui donner du pouvoir.
 			SameSetBonusNoEffect: L'objet en cours de mise à niveau a le même bonus d'ensemble que l'objet en cours de consommation et n'aura aucun effet.
+			ShimmerIngredientInfusionPowersNotSetup: Les pouvoirs d’infusion des ingrédients Shimmer ne sont pas configurés
 			SlotNumDisabledByConfig: Emplacement {0} désactivé par la configuration. {1} supprimé de votre {2}.
 			TryInfuseFailed: Echec de TryInfuseItem, tableItem : {0}{1}, infusionConsumeItem : {2}{3}
 			WeaponInfusionPowersNotSetup: Les pouvoirs d'infusion d'armes ne sont pas configurés

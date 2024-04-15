@@ -702,6 +702,7 @@ Mods: {
 			RerollEnchantment: Re-roll Enchantment
 			ResistsYourAttemptToEmpower: The {0} resisted your attempt to empower it.
 			SameSetBonusNoEffect: The item being upgraded has the same set bonus as the item being consumed and will have no effect.
+			ShimmerIngredientInfusionPowersNotSetup: Shimmer Ingredient infusion powers not setup
 			SlotNumDisabledByConfig: Slot {0} disabled by config.  Removed {1} from your {2}.
 			TryInfuseFailed: TryInfuseItem failed, tableItem: {0}{1}, infusionConsumeItem: {2}{3}
 			WeaponInfusionPowersNotSetup: Weapon infusion powers not setup

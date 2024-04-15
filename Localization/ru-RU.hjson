@@ -702,6 +702,7 @@ Mods: {
 			RerollEnchantment: Перебросить Чары
 			ResistsYourAttemptToEmpower: «{0} сопротивляется вашей попытке усилить его».
 			SameSetBonusNoEffect: Улучшаемый предмет имеет тот же набор бонусов, что и потребляемый предмет, и не будет иметь никакого эффекта.
+			ShimmerIngredientInfusionPowersNotSetup: Способность вливания ингредиентов Shimmer не настроена
 			SlotNumDisabledByConfig: «Слот {0} отключен конфигурацией. Удален {1} из вашего {2}».
 			TryInfuseFailed: «Ошибка TryInfuseItem, tableItem: {0}{1}, infusionConsumeItem: {2}{3}»
 			WeaponInfusionPowersNotSetup: Способности добавления оружия не настроены

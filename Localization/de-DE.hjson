@@ -702,6 +702,7 @@ Mods: {
 			RerollEnchantment: Verzauberung erneut würfeln
 			ResistsYourAttemptToEmpower: „Die {0} haben sich Ihrem Versuch widersetzt, es zu stärken.“
 			SameSetBonusNoEffect: Der aufzuwertende Gegenstand hat den gleichen Setbonus wie der verbrauchte Gegenstand und hat keine Wirkung.
+			ShimmerIngredientInfusionPowersNotSetup: Die Infusionskräfte der Schimmerzutaten sind nicht eingerichtet
 			SlotNumDisabledByConfig: „Steckplatz {0} durch Konfiguration deaktiviert. {1} aus Ihrem {2} entfernt.“
 			TryInfuseFailed: „TryInfuseItem fehlgeschlagen, tableItem: {0}{1}, infusionConsumeItem: {2}{3}“
 			WeaponInfusionPowersNotSetup: Waffeninfusionskräfte nicht eingerichtet

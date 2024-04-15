@@ -702,6 +702,7 @@ Mods: {
 			RerollEnchantment: Rzuć ponownie Zaklęcie
 			ResistsYourAttemptToEmpower: „{0} oparł się twojej próbie wzmocnienia go.”
 			SameSetBonusNoEffect: Ulepszany przedmiot ma taką samą premię jak przedmiot zużywany i nie będzie miał żadnego efektu.
+			ShimmerIngredientInfusionPowersNotSetup: Moce infuzyjne Shimmer Ingredent nie są skonfigurowane
 			SlotNumDisabledByConfig: „Gniazdo {0} wyłączone przez konfigurację. Usunięto {1} z Twojego {2}.”
 			TryInfuseFailed: „TryInfuseItem nie powiodło się, tableItem: {0}{1}, infusionConsumeItem: {2}{3}”
 			WeaponInfusionPowersNotSetup: Moce infuzyjne broni nie są skonfigurowane

@@ -702,6 +702,7 @@ Mods: {
 			RerollEnchantment: 重新投掷附魔
 			ResistsYourAttemptToEmpower: “{0} 抵制了你赋予它权力的尝试。”
 			SameSetBonusNoEffect: 正在升级的物品与正在消耗的物品具有相同的套装奖励，并且不会产生任何效果。
+			ShimmerIngredientInfusionPowersNotSetup: 未设置微光成分注入能力
 			SlotNumDisabledByConfig: “插槽 {0} 已被配置禁用。已从您的 {2} 中删除了 {1}。”
 			TryInfuseFailed: “TryInfuseItem 失败，tableItem：{0}{1}，infusionConsumeItem：{2}{3}”
 			WeaponInfusionPowersNotSetup: 武器注入能力未设置

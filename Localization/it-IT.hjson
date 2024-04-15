@@ -702,6 +702,7 @@ Mods: {
 			RerollEnchantment: Rilancia Incantesimo
 			ResistsYourAttemptToEmpower: Il {0} ha resistito al tuo tentativo di potenziarlo.
 			SameSetBonusNoEffect: L'oggetto da potenziare ha lo stesso bonus del set dell'oggetto da consumare e non avrà alcun effetto.
+			ShimmerIngredientInfusionPowersNotSetup: I poteri dell'infusione dell'ingrediente scintillante non sono impostati
 			SlotNumDisabledByConfig: Slot {0} disabilitato dalla configurazione. Rimosso {1} dal tuo {2}.
 			TryInfuseFailed: TryInfuseItem non riuscito, tableItem: {0}{1}, infusionConsumeItem: {2}{3}
 			WeaponInfusionPowersNotSetup: I poteri di infusione delle armi non sono impostati
