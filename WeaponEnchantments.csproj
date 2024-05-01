@@ -3,7 +3,7 @@
   <Import Project="..\tModLoader.targets" />
   <PropertyGroup>
     <AssemblyName>WeaponEnchantments</AssemblyName>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -44,5 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\androLib\androLib.csproj" />
+    <ProjectReference Include="..\VacuumOreBag\VacuumOreBag.csproj" />
   </ItemGroup>
 </Project>
