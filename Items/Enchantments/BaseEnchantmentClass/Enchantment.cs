@@ -68,7 +68,8 @@ namespace WeaponEnchantments.Items
 			new EnchantmentStrengths(new float[] { 100f, 150f, 200f, 250f, 300f }),
 			new EnchantmentStrengths(new float[] { 0.2f, 0.05f, 0.025f, 0.01f / 0.7f, 0.01f }),
 			new EnchantmentStrengths(new float[] { 0.02f, 0.04f, 0.06f, 0.08f, 0.12f }),
-			new EnchantmentStrengths(new float[] { 12f, 16f, 24f, 32f, 40f })
+			new EnchantmentStrengths(new float[] { 12f, 16f, 24f, 32f, 40f }),
+			new EnchantmentStrengths(new float[] { 1f, 1.25f, 1.5f, 1.75f, 2f }),
 		};//Need to manually update the StrengthGroup <summary> when changing defaultEnchantmentStrengths
 
 		public static readonly uint defaultBuffDuration = 60;
@@ -120,6 +121,7 @@ namespace WeaponEnchantments.Items
 		/// <term>25</term><description>{ 0.2f, 0.05f, 0.025f, 0.01f / 0.7f, 0.01f }</description><br/>
 		/// <term>26</term><description>{ 0.02f, 0.04f, 0.06f, 0.08f, 0.12f }</description><br/>
 		/// <term>27</term><description>{ 12f, 16f, 24f, 32f, 40f }</description><br/>
+		/// <term>28</term><description>{ 1f, 1.25f, 1.5f, 1.75f, 2f }</description><br/>
 		/// </list>
 		/// </summary>
 		public virtual int StrengthGroup { private set; get; } = 0;

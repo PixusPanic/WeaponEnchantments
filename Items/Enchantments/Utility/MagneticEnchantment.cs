@@ -7,11 +7,11 @@ using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility {
     public abstract class MagneticEnchantment : Enchantment {
-		public override int StrengthGroup => 22;
+		public override int StrengthGroup => 28;
 		public override float ScalePercent => 2f/3f;
 		public override void GetMyStats() {
             Effects = new() {
-                new PickupRange(additive: EnchantmentStrengthData),
+                new PickupRange(@base: EnchantmentStrengthData * 100f),
                 new ItemAttractionAndPickupSpeed(additive: EnchantmentStrengthData)
             };
 
