@@ -1415,6 +1415,74 @@ namespace WeaponEnchantments
 
             return false;
         }
+        public bool CheckEnchantmentStatsCheckSourceIsHeldItem(EnchantmentStat stat, IEntitySource source, out float value, float baseValue = 0f) {
+            value = baseValue;
+            if (EnchantmentStats.ContainsKey(stat)) {
+                EStatModifier playerStatModifier = EnchantmentStats[stat];
+                Item heldItem = Player.HeldItem;
+                bool validSource = false;
+                if (source is EntitySource_ItemUse itemSource) {
+                    if (itemSource.Item.type == heldItem.type)
+                        validSource = true;
+                }
+                else if (source is EntitySource_Parent parentSource) {
+					if (parentSource.Entity is Projectile parentProjectile) {
+						if (parentProjectile.TryGetGlobalProjectile(out WEProjectile weProjectile)) {
+							if (!weProjectile.sourceItem.NullOrAir()) {
+								if (weProjectile.sourceItem.type == heldItem.type)
+									validSource = true;
+							}
+						}
+					}
+				}
+
+				if (!validSource)
+                    return true;
+
+				if (!heldItem.NullOrAir()) {
+                    if (heldItem.TryGetGlobalItem(out EnchantedHeldItem enchantedItem)) {
+						if (enchantedItem.EnchantmentStats.TryGetValue(stat, out var heldItemStatModifier)) {
+							playerStatModifier.CombineWith(heldItemStatModifier);
+						}
+					}
+                }
+
+                playerStatModifier.ApplyTo(ref value);
+                return true;
+            }
+            else {
+				Item heldItem = Player.HeldItem;
+				bool validSource = false;
+				if (source is EntitySource_ItemUse itemSource) {
+					if (itemSource.Item.type == heldItem.type)
+						validSource = true;
+				}
+				else if (source is EntitySource_Parent parentSource) {
+					if (parentSource.Entity is Projectile parentProjectile) {
+						if (parentProjectile.TryGetGlobalProjectile(out WEProjectile weProjectile)) {
+							if (!weProjectile.sourceItem.NullOrAir()) {
+								if (weProjectile.sourceItem.type == heldItem.type)
+									validSource = true;
+							}
+						}
+					}
+				}
+
+				if (!validSource)
+					return false;
+
+				if (!heldItem.NullOrAir()) {
+                    if (heldItem.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedItem)) {
+						if (enchantedItem.EnchantmentStats.TryGetValue(stat, out var heldItemStatModifier)) {
+							heldItemStatModifier.ApplyTo(ref value);
+							return true;
+						}
+					}
+				}
+			}
+
+            return false;
+        }
         private void CheckClearTimers() {
             uint updateCount = Main.GameUpdateCount;
             List<uint> toRemove = new List<uint>();
