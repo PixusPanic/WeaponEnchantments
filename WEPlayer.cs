@@ -1642,21 +1642,10 @@ namespace WeaponEnchantments
 			}
 		}
         private void ModifyStat(EStatModifier sm) {
-            //TODO: Find a way to change the if (dc == null) return; to just 1 check.
             EnchantmentStat es = sm.StatType;
-            DamageClass dc = DamageClass.Generic;
             switch (es) {
-                case EnchantmentStat.AttackSpeed:
-					Player.GetAttackSpeed(dc) = sm.ApplyTo(Player.GetAttackSpeed(dc));//Not used
-					break;
                 case EnchantmentStat.BonusManaRegen:
                     Player.manaRegenBonus = (int)sm.ApplyTo(Player.manaRegenBonus);
-                    break;
-                case EnchantmentStat.CriticalStrikeChance:
-                    Player.GetCritChance(dc) = sm.ApplyTo(Player.GetCritChance(dc));
-                    break;
-                case EnchantmentStat.Damage:
-                    Player.GetDamage(dc) = sm.CombineWith(Player.GetDamage(dc));
                     break;
                 case EnchantmentStat.Defense:
                     Player.statDefense += (int)sm.ApplyTo(Player.statDefense.AdditiveBonus.Value);
@@ -1667,12 +1656,6 @@ namespace WeaponEnchantments
                 case EnchantmentStat.JumpSpeed:
                     Player.jumpSpeedBoost = sm.ApplyTo(Player.jumpSpeedBoost);
                     break;
-                /*case EditableStat.Knockback:
-                    if (dc == null)
-                        return;
-
-                    Player.GetKnockback(dc) = sm.CombineWith(Player.GetKnockback(dc));
-                    break;*/
                 case EnchantmentStat.LifeRegen:
                     Player.lifeRegen = (int)sm.ApplyTo(Player.lifeRegen);
                     break;
