@@ -74,10 +74,20 @@ namespace WeaponEnchantments.Common.Configs
 		[ReloadRequired]
 		public bool RemoveEnchantmentRestrictions;
 
+		[DefaultValue(67)]
+		[Range(0, 100)]
+		[ReloadRequired]
+		public int EnchantmentStrengthCurseScaling;
+
+		[DefaultValue(100)]
+		[Range(0, 100000)]
+		[ReloadRequired]
+		public int CurseStrengthMultiplier;
+
 		//Essence and Experience
 		[JsonIgnore]
-		public const string EssenceandExperienceKey = "EssenceandExperience";
-		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfigName}.{EssenceandExperienceKey}")]
+		public const string EssenceAndExperienceKey = "EssenceAndExperience";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfigName}.{EssenceAndExperienceKey}")]
 
 		[Range(0, 10000)]
 		[DefaultValue(100)]
@@ -186,6 +196,48 @@ namespace WeaponEnchantments.Common.Configs
 		[DefaultValue(DefaultSiphonCost)]
 		public int SiphonExperiencePercentCost;
 
+		//Curses
+		[JsonIgnore]
+		public const string CursedEnemiesKey = "CursedEnemies";
+		[Header($"$Mods.{WEMod.ModName}.{L_ID_Tags.Configs}.{ServerConfigName}.{CursedEnemiesKey}")]
+
+		[DefaultValue(true)]
+		public bool AllowCursedEnemies;
+
+		[DefaultValue(500)]
+		[Range(0, 10000000)]
+		public int CursedEnemyLifeMultiplier;
+
+		[DefaultValue(0)]
+		[Range(0, 10000000)]
+		public int CursedEnemyDamageMultiplier;
+
+		[DefaultValue(100)]
+		[Range(0, 10000000)]
+		public int CursedEssenceDropChanceMultiplier;
+
+		[DefaultValue(40000)]
+		[Range(0, 10000000)]
+		[ReloadRequired]
+		public int CursedEnemyDebuffAttackRange;
+
+		[DefaultValue(100)]
+		[Range(0, 10000)]
+		[ReloadRequired]
+		public int CursedEnemyDebuffDurationMultiplier;
+
+		[DefaultValue(100)]
+		[Range(0, 10000)]
+		[ReloadRequired]
+		public int CursedEnemyDebuffChanceMultiplier;
+
+		[DefaultValue(20)]
+		[Range(1, 36000)]
+		public int CuredEnemyDebuffTicksPerAttack;
+
+
+
+
 		//General Game Changes
 		[JsonIgnore]
 		public const string GeneralGameChangesKey = "GeneralGameChanges";
@@ -234,6 +286,10 @@ namespace WeaponEnchantments.Common.Configs
 		[DefaultValue(50)]
 		[Range(0, 100)]
 		public int MinionLifeStealMultiplier;
+
+		[DefaultValue(1000)]
+		[Range(0, 10000)]
+		public int NegativeDefensePenaltyMultiplier;
 
 		//Random Extra Stuff
 		[JsonIgnore]
@@ -337,6 +393,13 @@ namespace WeaponEnchantments.Common.Configs
 
 		[DefaultValue(false)]
 		public bool AlwaysDisplayToolLevelUpMessages;
+
+		[DefaultValue(100)]
+		[Range(0, 500)]
+		public int CursedEnemyVisualShaking;
+
+		[DefaultValue(true)]
+		public bool CursedEnemyParticles;
 
 		//Error messages
 		[JsonIgnore]
@@ -457,7 +520,7 @@ namespace WeaponEnchantments.Common.Configs
 		//Automatic Preset based on world difficulty
 		[DefaultValue(true)]
 		[ReloadRequired]
-		public bool AutomaticallyMatchPreseTtoWorldDifficulty {
+		public bool AutomaticallyMatchPresetToWorldDifficulty {
 			get => _automaticallyMatchPreseTtoWorldDifficulty;
 			set {
 				_automaticallyMatchPreseTtoWorldDifficulty = value;
@@ -537,14 +600,20 @@ namespace WeaponEnchantments.Common.Configs
 		[ReloadRequired]
 		public int LegendaryEnchantmentStrengthMultiplier { set; get; }
 
+		[Range(-1, 10000)]
+		[DefaultValue(-1)]
+		[ReloadRequired]
+		public int CursedEnchantmentStrengthMultiplier { set; get; }
+
 		public PresetData() {
-			AutomaticallyMatchPreseTtoWorldDifficulty = true;
+			AutomaticallyMatchPresetToWorldDifficulty = true;
 			Preset = "Normal";
 			BasicEnchantmentStrengthMultiplier = -1;
 			CommonEnchantmentStrengthMultiplier = -1;
 			RareEnchantmentStrengthMultiplier = -1;
 			EpicEnchantmentStrengthMultiplier = -1;
 			LegendaryEnchantmentStrengthMultiplier = -1;
+			CursedEnchantmentStrengthMultiplier = -1;
 		}
 
 		public override bool Equals(object obj) {
@@ -570,6 +639,9 @@ namespace WeaponEnchantments.Common.Configs
 				if (LegendaryEnchantmentStrengthMultiplier != other.LegendaryEnchantmentStrengthMultiplier)
 					return false;
 
+				if (CursedEnchantmentStrengthMultiplier != other.CursedEnchantmentStrengthMultiplier)
+					return false;
+
 				return true;
 			}
 
@@ -584,7 +656,8 @@ namespace WeaponEnchantments.Common.Configs
 				CommonEnchantmentStrengthMultiplier,
 				RareEnchantmentStrengthMultiplier,
 				EpicEnchantmentStrengthMultiplier,
-				LegendaryEnchantmentStrengthMultiplier
+				LegendaryEnchantmentStrengthMultiplier,
+				CursedEnchantmentStrengthMultiplier
 			}.GetHashCode();
 		}
 	}

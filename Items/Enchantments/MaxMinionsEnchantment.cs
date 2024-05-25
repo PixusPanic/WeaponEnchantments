@@ -53,5 +53,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class MaxMinionsEnchantmentEpic : MaxMinionsEnchantment { }
 	[Autoload(false)]
 	public class MaxMinionsEnchantmentLegendary : MaxMinionsEnchantment { }
+	[Autoload(false)]
+	public class MaxMinionsEnchantmentCursed : MaxMinionsEnchantment { }
 
 }

@@ -48,9 +48,9 @@ namespace WeaponEnchantments.UI
 			WE_UI_ID.EnchantmentStorage_UITypeID = MasterUIManager.RegisterUI_ID();
 			WE_UI_ID.EnchantmentLoadout_UITypeID = MasterUIManager.RegisterUI_ID();
 
-			MasterUIManager.IsDisplayingUI.Add(() => Witch.rerollUI);
+			MasterUIManager.IsDisplayingUI.Add(() => Witch.DisplayingUI);
 			MasterUIManager.IsDisplayingUI.Add(() => WEPlayer.LocalWEPlayer.usingEnchantingTable);
-			MasterUIManager.IsDisplayingUI.Add(() => WEPlayer.LocalWEPlayer.displayEnchantmentStorage);
+			MasterUIManager.IsDisplayingUI.Add(() => EnchantmentStorage.DisplayStorage);
 			MasterUIManager.IsDisplayingUI.Add(() => WEPlayer.LocalWEPlayer.displayEnchantmentLoadoutUI);
 
 			MasterUIManager.ShouldPreventTrashingItem.Add(() => WEPlayer.LocalWEPlayer.usingEnchantingTable);
@@ -134,6 +134,7 @@ namespace WeaponEnchantments.UI
 		public static int Witch_UITypeID;//Set by MasterUIManager
 
 		public const int WitchReroll = 0;
+		public const int WitchUIItem = 1;
 
 
 		//public static int OfferUI_ID;//Set by MasterUIManager//Is this one needed?

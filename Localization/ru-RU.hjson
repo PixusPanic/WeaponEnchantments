@@ -2,7 +2,21 @@
 Mods: {
 	WeaponEnchantments: {
 		Bestiary.Witch: Ведьма - уродливая карга, что занимается еще большими злодеяниями. Она торгует сомнительными материалами, которые можно использовать для улучшения снаряжения с загадочными эффектами.
-		Buffs.Amaterasu.DisplayName: Аматерасу
+
+		Buffs: {
+			Amaterasu.DisplayName: Аматерасу
+
+			Cursed: {
+				Description:
+					'''
+					Проклятая сущность {0}
+					Частота появления x{1}
+					Макс. количество спавнов x{2}
+					Проклятый шанс {3}
+					'''
+				DisplayName: Проклятый
+			}
+		}
 
 		Configs: {
 			AccessoryDRValues: «Аксессуар {0}% ({1}% при 40)»
@@ -71,6 +85,24 @@ Mods: {
 				AlwaysDisplayWeaponLevelUpMessages: {
 					Label: Всегда отображать сообщения о повышении уровня оружия
 					Tooltip: Сообщения о повышении уровня оружия отображаются только при использовании стола зачарования, если эта опция отключена.
+				}
+
+				CursedEnemyParticles: {
+					Label: Проклятые вражеские частицы
+					Tooltip:
+						'''
+						Проклятые враги производят мелкие частицы, которые помогают отличить их от обычных врагов.
+						Выключите, чтобы предотвратить создание этих частиц.
+						'''
+				}
+
+				CursedEnemyVisualShaking: {
+					Label: Визуальная тряска проклятого врага
+					Tooltip:
+						'''
+						Проклятые враги трясутся или вибрируют, чтобы отличить их от обычных врагов.
+						Этот параметр определяет, насколько сильным будет визуальное дрожание проклятых врагов.   Установите значение 0, чтобы отключить тряску.
+						'''
 				}
 
 				DisplayDamageTooltipSeperatly: {
@@ -171,8 +203,8 @@ Mods: {
 			PresetData: {
 				Tooltip: Предустановки позволяют легко воздействовать на все чары одновременно.
 
-				AutomaticallyMatchPreseTtoWorldDifficulty: {
-					Label: Автоматически сопоставлять предустановленные настройки с мировой сложностью
+				AutomaticallyMatchPresetToWorldDifficulty: {
+					Label: Автоматическое сопоставление предустановок с мировой сложностью
 					Tooltip: Должно быть отключено, чтобы можно было редактировать другие параметры.
 				}
 
@@ -184,6 +216,11 @@ Mods: {
 				CommonEnchantmentStrengthMultiplier: {
 					Label: Общий
 					Tooltip: Влияет на силу всех обычных чар. Переопределяет все множители, кроме множителей силы отдельных чар. Установите значение -1, чтобы этот множитель игнорировался.
+				}
+
+				CursedEnchantmentStrengthMultiplier: {
+					Label: Проклятый
+					Tooltip: Влияет на силу всех проклятых чар. Переопределяет все множители, кроме множителей силы отдельных чар. Установите значение -1, чтобы этот множитель игнорировался.
 				}
 
 				EpicEnchantmentStrengthMultiplier: {
@@ -222,11 +259,12 @@ Mods: {
 			}
 
 			ServerConfig: {
+				CursedEnemies: Проклятые враги
 				DisplayName: Конфигурация сервера
 				EnchantingTableOptions: Варианты стола зачарования
 				EnchantmentDropRates(%): Шанс выпадения чар (%)
 				EnchantmentSettings: Настройки зачарования
-				EssenceandExperience: Сущность и опыт
+				EssenceAndExperience: Сущность и опыт
 				GeneralGameChanges: Общие изменения игры
 				IndividualEnchantmentStrengths: Индивидуальные сильные стороны чар
 				Multipliers: Множители
@@ -258,6 +296,11 @@ Mods: {
 						Ванильная террария ограничивает шанс критического удара на 100%. По умолчанию чары оружия рассчитывают дополнительные критические удары после 100%.
 						120% шанс критического удара — это 100% шанс удвоить урон, а затем 20% шанс критического удара, чтобы увеличить урон. Дополнительную информацию см. в следующем параметре конфигурации.
 						'''
+				}
+
+				AllowCursedEnemies: {
+					Label: Разрешить проклятых врагов
+					Tooltip: Включите, чтобы враги редко подвергались проклятию при их появлении, не нанося им урона, но стреляя в игроков дебаффами.   Проклятые враги также имеют 5-кратное здоровье.
 				}
 
 				AllowHighTierOres: {
@@ -353,6 +396,46 @@ Mods: {
 				CritPerLevelDisabled: {
 					Label: Отключить шанс критического удара оружия на уровень
 					Tooltip: Оружие получает шанс критического удара, равный его уровню * Глобальный множитель силы чар.
+				}
+
+				CuredEnemyDebuffTicksPerAttack: {
+					Label: Количество вылеченных дебаффов врагов за атаку
+					Tooltip: Сколько тиков между проклятыми врагами, стреляющими снарядом с дебаффом.   20 тактов/атака => (1 секунда/60 тактов)/(20 тактов/атака) => 3 атаки/секунда
+				}
+
+				CursedEnemyDamageMultiplier: {
+					Label: Множитель урона проклятого врага
+					Tooltip: Изменяет наносимый урон проклятым врагам.   0 не позволит им наносить урон и отбрасывать игроков.   Значение делится на 100. 100 => множитель 1x.
+				}
+
+				CursedEnemyDebuffAttackRange: {
+					Label: Дальность атаки проклятого врага
+					Tooltip: Проклятые враги будут стрелять дебаффами в игрока, если они находятся на таком расстоянии от игрока.   Значение делится на 100. 40000 => диапазон 400.   Диапазон 16 равен 1 на игровом тайле/блоке.
+				}
+
+				CursedEnemyDebuffChanceMultiplier: {
+					Label: Множитель шанса ослабления проклятого врага
+					Tooltip: Влияет на вероятность возникновения дебаффов при использовании проклятых вражеских снарядов дебаффов.   Большинство из них по умолчанию имеют значение 100%.   Замешательство составляет 10%, перепончатое и замороженное — 5%, а окаменение — 2,5%.
+				}
+
+				CursedEnemyDebuffDurationMultiplier: {
+					Label: Множитель длительности дебаффа проклятого врага
+					Tooltip: Влияет на продолжительность действия дебаффов от проклятых врагов.
+				}
+
+				CursedEnemyLifeMultiplier: {
+					Label: Множитель жизни проклятого врага
+					Tooltip: Изменяет максимальное количество жизни проклятых врагов.   Значение делится на 100. 500 => множитель 5x.
+				}
+
+				CursedEssenceDropChanceMultiplier: {
+					Label: Множитель шанса выпадения проклятой сущности
+					Tooltip: Влияет на то, сколько проклятой эссенции выпадает из врагов.
+				}
+
+				CurseStrengthMultiplier: {
+					Label: Множитель силы проклятия
+					Tooltip: Влияет на размер проклятий на проклятых чарах.
 				}
 
 				DamagePerLevelInstead: {
@@ -454,6 +537,18 @@ Mods: {
 						'''
 				}
 
+				EnchantmentStrengthCurseScaling: {
+					Label: Масштабирование проклятия силы чар
+					Tooltip:
+						'''
+						Этот параметр приводит к тому, что к проклятым эффектам применяется часть других настроек силы чар.   Значение делится на 100. 50 => 50%
+						Если это значение равно 0, оно не будет иметь никакого эффекта.   Если оно равно 50, оно будет иметь половину эффекта от других настроек силы чар.
+						Например, в мире сложности «Мастер» сила чар по умолчанию составляет 25% (снижение -75%).
+						При значении 50 эффекты проклятия будут уменьшены на половину этой суммы, на 62,5% (-75% * 50% => снижение на -37,5%).
+						На уровне 100 эффекты проклятия будут масштабироваться так же, как и обычные эффекты чар.
+						'''
+				}
+
 				EssenceGrabRange: {
 					Label: Множитель дальности захвата сущности
 					Tooltip: Влияет на то, насколько далеко сущность может находиться от игрока, когда она начинает двигаться к игроку.
@@ -512,6 +607,19 @@ Mods: {
 						Зачарования оружия используют вероятность критического удара выше 100%, чтобы вы могли снова нанести критический удар.
 						По умолчанию это аддитивный бонус: 1-й крит 200% урона, 2-й 300% урона, 3-й 400% урона.....
 						Включение этого параметра делает их мультипликативными: 1-й крит - 200% урона, 2-й крит - 400% урона, 3-й крит - 800% урона...
+						'''
+				}
+
+				NegativeDefensePenaltyMultiplier: {
+					Label: Отрицательный множитель штрафа защиты
+					Tooltip:
+						'''
+						Если это число больше 0, игрок, имеющий защиту меньше 0, получит больше урона.
+						Это штраф за то, что проклятия снижают защиту игрока до уровня ниже 0.
+						Получаемый урон увеличивается на множитель отрицательного штрафа защиты/1000 * -playerDefense
+						И умножается на 1 + (Множитель отрицательного штрафа защиты / 1000 * -playerDefense / 100). Пример: защита -20 и игрок получает 200 урона, множитель отрицательного штрафа защиты = 1000:
+						FinalDamage = (200 -(-20) * 1000/1000) * (1 + (1000/1000 * -(-20) / 100))
+						FinalDamage = (200 + 20) * (1 + 0,2) => 220 * 1,2 => 264
 						'''
 				}
 
@@ -633,12 +741,14 @@ Mods: {
 
 		GameMessages: {
 			AlreadyMaxLevel: «У вашего {0} уже максимальный уровень».
+			ApplyCurse: Наложить проклятие
 			Back: Назад
 			CannotGainAdditionalPower: «Ваш {0}({1}) не может получить дополнительную мощность от предлагаемого {2}({3})».
 			CantInfusionArmorDifferentTypes: Вы не можете наделить доспехи разных типов, такие как шлем и тело.
 			CongradulationsMaxLevel: «Поздравляем! {1} пользователя {0} достиг максимального уровня, {2} ({3} опыта)».
 			CouldntFindItemsInWeaponsList: Не удалось найти предметы в WeaponsList или WeaponCraftingIngredients с именами:
 			CouldntFindNPCsInIngredientsList: Не удалось найти NPC в NPCsThatDropWeaponsOrIngredients с именами:
+			Curses: Проклятия
 			DailyFishingQuestReset: «Ежедневное задание на рыбалку сброшено. Ваше следующее задание — {0}».
 			DetectedNonEnchantmentInEnchantmentSlot: «Обнаружен не зачарованный предмет:{0} на вашем {1}. Он был возвращен в ваш инвентарь».
 			EnchantmentNoLongerAllowed: «Пользователь {0} больше не доступен на {1} и удален из вашего {2}».
@@ -649,7 +759,6 @@ Mods: {
 			FailedReplaceOldItem: Не удалось заменить старый элемент:
 			FailedReplaceWithCoins: «Не удалось заменить элемент: {0} монетами»
 			FailedToCloneItem: «В EnchantedItem не удалось клонировать (item: {0}, itemClone: {1}), cloneReforgedItem: {2}, resetGlobals: {3}».
-			FailedToFindInfusionPower: Не удалось найти силу вливания для предмета:
 			FailedToLocateAngler: Не удалось найти рыболова. Вы все равно будете получать награды
 			FavoritedItemsCantBeConsumedForInfusion: Любимые предметы нельзя использовать для настаивания.
 			FishingQuestTurnedIn: «Квест сдан. Ваш следующий квест — {0}. Квесты завершены: {1}»
@@ -672,7 +781,13 @@ Mods: {
 			MinSiphonXP: «Вы можете перекачивать предмет, только если у него есть хотя бы {0} опыта.»
 			MultipleUniqueEnchantments: «На вашем {0} обнаружено несколько уникальных чар. {1} был удален из вашего {2}».
 			MurasamaNoInfusion: Мурасаму нельзя употреблять в виде настоя.
+			NegativeDef:
+				'''
+				Полученный урон увеличен на {0} и {0} %.
+				(Чары для оружия)
+				'''
 			NewItemIsAir: newItem был воздух.
+			Next: Следующий
 			NoLongerAllowedOnDamageType: «Пользователю {0} больше не разрешено использовать оружие {1}, и он удален из вашего {2}».
 			NoLongerUtilityEnchantment: «{0} больше не является служебным зачарованием и был удален из вашего {1}».
 			NonEnchantableItemInTable:
@@ -693,12 +808,16 @@ Mods: {
 				При подборе чар, эссенций и других чар для оружия они автоматически отправляются в хранилище стола зачарования.
 				'''
 			OreInfusionPowerNotSetup: «Мощность вливания руды {0} не настроена. Предполагаемая мощность вливания:»
+			Owned: В собственности
+			PlaceHereCurse: Поместите сюда чары, чтобы наложить проклятие.
+			PlaceHereReRoll: Поместите сюда чары, чтобы перебросить
 			PreventedIssueLooseExperience: «Предотвращена проблема, приводившая к снижению вашего опыта. (xpInt < 0) предмет: {0}, цель: {1}, удар: {2}, рукопашный бой: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}"
 			PreventedIssueLooseExperienceTwo: «Предотвращена проблема, из-за которой вы теряли опыт. (xpInt < 0) предмет: {0}, цель: {1}, удар: {2}, рукопашный бой: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
 			PreventedLoosingExperience: «Предотвращена потеря опыта вашего {0} из-за ошибки расчета».
 			PreventedWitchShopDuplication: Предотвращена проблема, из-за которой в магазин Ведьмы добавлялся дубликат предмета:
 			RemovedEnchantedItemData: «Удалены данные EnchantedItem из элемента: {0}, количество: {1}, newCount: {2}»
 			RemovedUnloadedEnchantmentFromItem: «Удален выгруженный предмет:{0} из вашего {1}. Пожалуйста, сообщите andro951(WeaponEnchantments)».
+			ReRoll: Перебросить
 			RerollEnchantment: Перебросить Чары
 			ResistsYourAttemptToEmpower: «{0} сопротивляется вашей попытке усилить его».
 			SameSetBonusNoEffect: Улучшаемый предмет имеет тот же набор бонусов, что и потребляемый предмет, и не будет иметь никакого эффекта.
@@ -707,6 +826,7 @@ Mods: {
 			TryInfuseFailed: «Ошибка TryInfuseItem, tableItem: {0}{1}, infusionConsumeItem: {2}{3}»
 			WeaponInfusionPowersNotSetup: Способности добавления оружия не настроены
 			WitchChatText: Что вы еще хотите? Я занят.
+			WitchEnchantmentCurseText: Проклятия — мощная магия, но за нее приходится платить. Я не смогу помочь тебе, если ты передумаешь. Возможно, Дриада сможет в этом помочь. Вы уверены, что хотите продолжить?
 			WitchEnchantmentRerolText: Думаю, я мог бы попытаться улучшить ваши чары, но никаких возмещений или жалоб.
 			WitchSpawnCondition: Имейте зачарование в своем инвентаре или на своем снаряжении.
 		}
@@ -714,41 +834,49 @@ Mods: {
 		Items: {
 			AllForOneEnchantmentBasic.DisplayName: Зачарование "Все за одного" (Базовое)
 			AllForOneEnchantmentCommon.DisplayName: Зачарование "Все за одного" (Обычное)
+			AllForOneEnchantmentCursed.DisplayName: Чары «Все за одного» прокляты
 			AllForOneEnchantmentEpic.DisplayName: Зачарование "Все за одного" (Эпическое)
 			AllForOneEnchantmentLegendary.DisplayName: Зачарование "Все за одного" (Легендарное)
 			AllForOneEnchantmentRare.DisplayName: Зачарование "Все за одного" (Редкое)
 			AmmoCostEnchantmentBasic.DisplayName: Зачарование "Расход боеприпасов" (Базовое)
 			AmmoCostEnchantmentCommon.DisplayName: Зачарование "Расход боеприпасов" (Обычное)
+			AmmoCostEnchantmentCursed.DisplayName: Чары на стоимость боеприпасов прокляты
 			AmmoCostEnchantmentEpic.DisplayName: Зачарование "Расход боеприпасов" (Эпическое)
 			AmmoCostEnchantmentLegendary.DisplayName: Зачарование "Расход боеприпасов" (Легендарное)
 			AmmoCostEnchantmentRare.DisplayName: Зачарование "Расход боеприпасов" (Редкое)
 			AttackSpeedEnchantmentBasic.DisplayName: Зачарование "Скорость" (Базовое)
 			AttackSpeedEnchantmentCommon.DisplayName: Зачарование "Скорость" (Обычное)
+			AttackSpeedEnchantmentCursed.DisplayName: Чары скорости атаки прокляты
 			AttackSpeedEnchantmentEpic.DisplayName: Зачарование "Скорость" (Эпическое)
 			AttackSpeedEnchantmentLegendary.DisplayName: Зачарование "Скорость" (Легендарное)
 			AttackSpeedEnchantmentRare.DisplayName: Зачарование "Скорость" (Редкое)
 			BardClassSwapEnchantmentBasic.DisplayName: Базовое зачарование смены класса барда
 			BardClassSwapEnchantmentCommon.DisplayName: Зачарование смены класса барда обычное
+			BardClassSwapEnchantmentCursed.DisplayName: Чары смены классов барда прокляты
 			BardClassSwapEnchantmentEpic.DisplayName: Эпическое зачарование смены класса барда
 			BardClassSwapEnchantmentLegendary.DisplayName: Легендарное заклинание смены класса барда
 			BardClassSwapEnchantmentRare.DisplayName: Зачарование смены класса барда Редкое
 			BerserkersRageEnchantmentBasic.DisplayName: Зачарование "Ярость Берсерка" (Базовое)
 			BerserkersRageEnchantmentCommon.DisplayName: Зачарование "Ярость Берсерка" (Обычное)
+			BerserkersRageEnchantmentCursed.DisplayName: Чары ярости берсерков прокляты
 			BerserkersRageEnchantmentEpic.DisplayName: Зачарование "Ярость Берсерка" (Эпическое)
 			BerserkersRageEnchantmentLegendary.DisplayName: Зачарование "Ярость Берсерка" (Легендарное)
 			BerserkersRageEnchantmentRare.DisplayName: Зачарование "Ярость Берсерка" (Редкое)
 			CalmWatersEnchantmentBasic.DisplayName: Зачарование "Спокойные воды" (Базовое)
 			CalmWatersEnchantmentCommon.DisplayName: Зачарование "Спокойные воды" (Обычное)
+			CalmWatersEnchantmentCursed.DisplayName: Чары спокойных вод прокляты
 			CalmWatersEnchantmentEpic.DisplayName: Зачарование "Спокойные воды" (Эпическое)
 			CalmWatersEnchantmentLegendary.DisplayName: Зачарование "Спокойные воды" (Легендарное)
 			CalmWatersEnchantmentRare.DisplayName: Зачарование "Спокойные воды" (Редкое)
 			ChaoticFishingEnchantmentBasic.DisplayName: Зачарование "Хаотичная рыбалка" (Базовое)
 			ChaoticFishingEnchantmentCommon.DisplayName: Зачарование "Хаотичная рыбалка" (Обычное)
+			ChaoticFishingEnchantmentCursed.DisplayName: Чары хаотической рыбалки прокляты
 			ChaoticFishingEnchantmentEpic.DisplayName: Зачарование "Хаотичная рыбалка" (Эпическое)
 			ChaoticFishingEnchantmentLegendary.DisplayName: Зачарование "Хаотичная рыбалка" (Легендарное)
 			ChaoticFishingEnchantmentRare.DisplayName: Зачарование "Хаотичная рыбалка" (Редкое)
 			ColdSteelEnchantmentBasic.DisplayName: Зачарование "Хладная сталь" (Базовое)
 			ColdSteelEnchantmentCommon.DisplayName: Зачарование "Хладная сталь" (Обычное)
+			ColdSteelEnchantmentCursed.DisplayName: Чары холодного оружия прокляты
 			ColdSteelEnchantmentEpic.DisplayName: Зачарование "Хладная сталь" (Эпическое)
 			ColdSteelEnchantmentLegendary.DisplayName: Зачарование "Хладная сталь" (Легендарное)
 			ColdSteelEnchantmentRare.DisplayName: Зачарование "Хладная сталь" (Редкое)
@@ -760,6 +888,7 @@ Mods: {
 
 			CrateChanceEnchantmentBasic.DisplayName: Зачарование "Шанс ящика" (Базовое)
 			CrateChanceEnchantmentCommon.DisplayName: Зачарование "Шанс ящика" (Обычное)
+			CrateChanceEnchantmentCursed.DisplayName: Чары шанса на ящик прокляты
 			CrateChanceEnchantmentEpic.DisplayName: Зачарование "Шанс ящика" (Эпическое)
 			CrateChanceEnchantmentLegendary.DisplayName: Зачарование "Шанс ящика" (Легендарное)
 			CrateChanceEnchantmentRare.DisplayName: Зачарование "Шанс ящика" (Редкое)
@@ -770,26 +899,37 @@ Mods: {
 			CrateEnchantmentRare.DisplayName: Зачарование "Ящик" (Редкое)
 			CriticalStrikeChanceEnchantmentBasic.DisplayName: Зачарование "Шанс критического удара" (Базовое)
 			CriticalStrikeChanceEnchantmentCommon.DisplayName: Зачарование "Шанс критического удара" (Обычное)
+			CriticalStrikeChanceEnchantmentCursed.DisplayName: Чары шанса критического удара прокляты
 			CriticalStrikeChanceEnchantmentEpic.DisplayName: Зачарование "Шанс критического удара" (Эпическое)
 			CriticalStrikeChanceEnchantmentLegendary.DisplayName: Зачарование "Шанс критического удара" (Легендарное)
 			CriticalStrikeChanceEnchantmentRare.DisplayName: Зачарование "Шанс критического удара" (Редкое)
 			CriticalStrikeDamageEnchantmentBasic.DisplayName: Зачарование "Урон критического удара" (Базовое)
 			CriticalStrikeDamageEnchantmentCommon.DisplayName: Зачарование "Урон критического удара" (Обычное)
+			CriticalStrikeDamageEnchantmentCursed.DisplayName: Чары для урона от критического удара прокляты
 			CriticalStrikeDamageEnchantmentEpic.DisplayName: Зачарование "Урон критического удара" (Эпическое)
 			CriticalStrikeDamageEnchantmentLegendary.DisplayName: Зачарование "Урон критического удара" (Легендарное)
 			CriticalStrikeDamageEnchantmentRare.DisplayName: Зачарование "Урон критического удара" (Редкое)
+
+			CursedEssence: {
+				DisplayName: Проклятая сущность
+				// Tooltip: ""
+			}
+
 			CursedInfernoEnchantmentBasic.DisplayName: Зачарование "Проклятое пекло" (Базовое)
 			CursedInfernoEnchantmentCommon.DisplayName: Зачарование "Проклятое пекло" (Обычное)
+			CursedInfernoEnchantmentCursed.DisplayName: Проклятые чары Инферно прокляты
 			CursedInfernoEnchantmentEpic.DisplayName: Зачарование "Проклятое пекло" (Эпическое)
 			CursedInfernoEnchantmentLegendary.DisplayName: Зачарование "Проклятое пекло" (Легендарное)
 			CursedInfernoEnchantmentRare.DisplayName: Зачарование "Проклятое пекло" (Редкое)
 			DamageEnchantmentBasic.DisplayName: Зачарование "Урон" (Базовое)
 			DamageEnchantmentCommon.DisplayName: Зачарование "Урон" (Обычное)
+			DamageEnchantmentCursed.DisplayName: Чары урона прокляты
 			DamageEnchantmentEpic.DisplayName: Зачарование "Урон" (Эпическое)
 			DamageEnchantmentLegendary.DisplayName: Зачарование "Урон" (Легендарное)
 			DamageEnchantmentRare.DisplayName: Зачарование "Урон" (Редкое)
 			DamageReductionEnchantmentBasic.DisplayName: Зачарование "Уменьшение урона" (Базовое)
 			DamageReductionEnchantmentCommon.DisplayName: Зачарование "Уменьшение урона" (Обычное)
+			DamageReductionEnchantmentCursed.DisplayName: Чары уменьшения урона прокляты
 			DamageReductionEnchantmentEpic.DisplayName: Зачарование "Уменьшение урона" (Эпическое)
 			DamageReductionEnchantmentLegendary.DisplayName: Зачарование "Уменьшение урона" (Легендарное)
 			DamageReductionEnchantmentRare.DisplayName: Зачарование "Уменьшение урона" (Редкое)
@@ -800,11 +940,13 @@ Mods: {
 			DangerSenseEnchantmentRare.DisplayName: Зачарование "Предчувствие" (Редкое)
 			DaybreakEnchantmentBasic.DisplayName: Зачарование "Солнечный ожог" (Базовое)
 			DaybreakEnchantmentCommon.DisplayName: Зачарование "Солнечный ожог" (Обычное)
+			DaybreakEnchantmentCursed.DisplayName: Чары рассвета прокляты
 			DaybreakEnchantmentEpic.DisplayName: Зачарование "Солнечный ожог" (Эпическое)
 			DaybreakEnchantmentLegendary.DisplayName: Зачарование "Солнечный ожог" (Легендарное)
 			DaybreakEnchantmentRare.DisplayName: Зачарование "Солнечный ожог" (Редкое)
 			DefenseEnchantmentBasic.DisplayName: Зачарование "Защита" (Базовое)
 			DefenseEnchantmentCommon.DisplayName: Зачарование "Защита" (Обычное)
+			DefenseEnchantmentCursed.DisplayName: Защитные чары прокляты
 			DefenseEnchantmentEpic.DisplayName: Зачарование "Защита" (Эпическое)
 			DefenseEnchantmentLegendary.DisplayName: Зачарование "Защита" (Легендарное)
 			DefenseEnchantmentRare.DisplayName: Зачарование "Защита" (Редкое)
@@ -865,6 +1007,7 @@ Mods: {
 
 			ExtraFishingLineEnchantmentBasic.DisplayName: Зачарование "Дополнительный поплавок" (Базовое)
 			ExtraFishingLineEnchantmentCommon.DisplayName: Зачарование "Дополнительный поплавок" (Обычное)
+			ExtraFishingLineEnchantmentCursed.DisplayName: Дополнительные чары для лески прокляты
 			ExtraFishingLineEnchantmentEpic.DisplayName: Зачарование "Дополнительный поплавок" (Эпическое)
 			ExtraFishingLineEnchantmentLegendary.DisplayName: Зачарование "Дополнительный поплавок" (Легендарное)
 			ExtraFishingLineEnchantmentRare.DisplayName: Зачарование "Дополнительный поплавок" (Редкое)
@@ -875,21 +1018,25 @@ Mods: {
 			FishingEnchantmentRare.DisplayName: Зачарование "Рыбалка" (Редкое)
 			FishingPowerEnchantmentBasic.DisplayName: Зачарование "Навык рыбной ловли" (Базовое)
 			FishingPowerEnchantmentCommon.DisplayName: Зачарование "Навык рыбной ловли" (Обычное)
+			FishingPowerEnchantmentCursed.DisplayName: Чары рыболовной силы прокляты
 			FishingPowerEnchantmentEpic.DisplayName: Зачарование "Навык рыбной ловли" (Эпическое)
 			FishingPowerEnchantmentLegendary.DisplayName: Зачарование "Навык рыбной ловли" (Легендарное)
 			FishingPowerEnchantmentRare.DisplayName: Зачарование "Навык рыбной ловли" (Редкое)
 			FrostburnEnchantmentBasic.DisplayName: Зачарование "Обжигающий холод" (Базовое)
 			FrostburnEnchantmentCommon.DisplayName: Зачарование "Обжигающий холод" (Обычное)
+			FrostburnEnchantmentCursed.DisplayName: Чары ледяного ожога прокляты
 			FrostburnEnchantmentEpic.DisplayName: Зачарование "Обжигающий холод" (Эпическое)
 			FrostburnEnchantmentLegendary.DisplayName: Зачарование "Обжигающий холод" (Легендарное)
 			FrostburnEnchantmentRare.DisplayName: Зачарование "Обжигающий холод" (Редкое)
 			GodSlayerEnchantmentBasic.DisplayName: Зачарование "Убийца Богов" (Базовое)
 			GodSlayerEnchantmentCommon.DisplayName: Зачарование "Убийца Богов" (Обычное)
+			GodSlayerEnchantmentCursed.DisplayName: Чары Убийцы Богов прокляты
 			GodSlayerEnchantmentEpic.DisplayName: Зачарование "Убийца Богов" (Эпическое)
 			GodSlayerEnchantmentLegendary.DisplayName: Зачарование "Убийца Богов" (Легендарное)
 			GodSlayerEnchantmentRare.DisplayName: Зачарование "Убийца Богов" (Редкое)
 			HealerClassSwapEnchantmentBasic.DisplayName: Базовое зачарование смены класса целителя
 			HealerClassSwapEnchantmentCommon.DisplayName: Зачарование смены класса целителя Обычный
+			HealerClassSwapEnchantmentCursed.DisplayName: Чары смены классов целителей прокляты
 			HealerClassSwapEnchantmentEpic.DisplayName: Эпическое заклинание смены класса целителя
 			HealerClassSwapEnchantmentLegendary.DisplayName: Зачарование смены класса целителя, легендарное
 			HealerClassSwapEnchantmentRare.DisplayName: Зачарование смены класса целителя, редкое
@@ -905,6 +1052,7 @@ Mods: {
 
 			HellsWrathEnchantmentBasic.DisplayName: Зачарование "Гнев Ада" (Базовое)
 			HellsWrathEnchantmentCommon.DisplayName: Зачарование "Гнев Ада" (Обычное)
+			HellsWrathEnchantmentCursed.DisplayName: Чары Адского гнева прокляты
 			HellsWrathEnchantmentEpic.DisplayName: Зачарование "Гнев Ада" (Эпическое)
 			HellsWrathEnchantmentLegendary.DisplayName: Зачарование "Гнев Ада" (Легендарное)
 			HellsWrathEnchantmentRare.DisplayName: Зачарование "Гнев Ада" (Редкое)
@@ -915,66 +1063,79 @@ Mods: {
 			HunterEnchantmentRare.DisplayName: Зачарование "Охотник" (Редкое)
 			IchorEnchantmentBasic.DisplayName: Зачарование "Ихор" (Базовое)
 			IchorEnchantmentCommon.DisplayName: Зачарование "Ихор" (Обычное)
+			IchorEnchantmentCursed.DisplayName: Ихоровые чары прокляты
 			IchorEnchantmentEpic.DisplayName: Зачарование "Ихор" (Эпическое)
 			IchorEnchantmentLegendary.DisplayName: Зачарование "Ихор" (Легендарное)
 			IchorEnchantmentRare.DisplayName: Зачарование "Ихор" (Редкое)
 			JuicedEnchantmentBasic.DisplayName: Зачарование "Выжатый" (Базовое)
 			JuicedEnchantmentCommon.DisplayName: Зачарование "Выжатый" (Обычное)
+			JuicedEnchantmentCursed.DisplayName: Сочные чары прокляты
 			JuicedEnchantmentEpic.DisplayName: Зачарование "Выжатый" (Эпическое)
 			JuicedEnchantmentLegendary.DisplayName: Зачарование "Выжатый" (Легендарное)
 			JuicedEnchantmentRare.DisplayName: Зачарование "Выжатый" (Редкое)
 			JunglesFuryEnchantmentBasic.DisplayName: Зачарование "Ярость джунглей" (Базовое)
 			JunglesFuryEnchantmentCommon.DisplayName: Зачарование "Ярость джунглей" (Обычное)
+			JunglesFuryEnchantmentCursed.DisplayName: Чары «Ярость джунглей» прокляты
 			JunglesFuryEnchantmentEpic.DisplayName: Зачарование "Ярость джунглей" (Эпическое)
 			JunglesFuryEnchantmentLegendary.DisplayName: Зачарование "Ярость джунглей" (Легендарное)
 			JunglesFuryEnchantmentRare.DisplayName: Зачарование "Ярость джунглей" (Редкое)
 			KiClassSwapEnchantmentBasic.DisplayName: Зачарование "Замена класса - Ки" (Базовое)
 			KiClassSwapEnchantmentCommon.DisplayName: Зачарование "Замена класса - Ки" (Обычное)
+			KiClassSwapEnchantmentCursed.DisplayName: Чары смены классов Ки прокляты
 			KiClassSwapEnchantmentEpic.DisplayName: Зачарование "Замена класса - Ки" (Эпическое)
 			KiClassSwapEnchantmentLegendary.DisplayName: Зачарование "Замена класса - Ки" (Легендарное)
 			KiClassSwapEnchantmentRare.DisplayName: Зачарование "Замена класса - Ки" (Редкое)
 			KiEnchantmentBasic.DisplayName: Зачарование "Ки" (Базовое)
 			KiEnchantmentCommon.DisplayName: Зачарование "Ки" (Обычное)
+			KiEnchantmentCursed.DisplayName: Чары Ки прокляты
 			KiEnchantmentEpic.DisplayName: Зачарование "Ки" (Эпическое)
 			KiEnchantmentLegendary.DisplayName: Зачарование "Ки" (Легендарное)
 			KiEnchantmentRare.DisplayName: Зачарование "Ки" (Редкое)
 			LavaFishingEnchantmentBasic.DisplayName: Зачарование "Рыбалка в лаве" (Базовое)
 			LavaFishingEnchantmentCommon.DisplayName: Зачарование "Рыбалка в лаве" (Обычное)
+			LavaFishingEnchantmentCursed.DisplayName: Чары ловли лавы прокляты
 			LavaFishingEnchantmentEpic.DisplayName: Зачарование "Рыбалка в лаве" (Эпическое)
 			LavaFishingEnchantmentLegendary.DisplayName: Зачарование "Рыбалка в лаве" (Легендарное)
 			LavaFishingEnchantmentRare.DisplayName: Зачарование "Рыбалка в лаве" (Редкое)
 			LethalCombinationEnchantmentBasic.DisplayName: Смертельное комбинация чар Базовый
 			LethalCombinationEnchantmentCommon.DisplayName: Смертельное комбинация чар Общий
+			LethalCombinationEnchantmentCursed.DisplayName: Смертельная комбинация чар проклята
 			LethalCombinationEnchantmentEpic.DisplayName: Смертельное комбинация чар Эпический
 			LethalCombinationEnchantmentLegendary.DisplayName: Смертельное комбинация чар Легендарный
 			LethalCombinationEnchantmentRare.DisplayName: Смертельное комбинация чар Редкий
 			LifeRegenEnchantmentBasic.DisplayName: Зачарование Регенерации Жизни Базовое
 			LifeRegenEnchantmentCommon.DisplayName: Чары Регенерации Жизни Обычный
+			LifeRegenEnchantmentCursed.DisplayName: Чары регенерации жизни прокляты
 			LifeRegenEnchantmentEpic.DisplayName: Эпическое зачарование регенерации жизни
 			LifeRegenEnchantmentLegendary.DisplayName: Чары Регенерации Жизни Легендарные
 			LifeRegenEnchantmentRare.DisplayName: Чары регенерации здоровья Редкие
 			LifeStealEnchantmentBasic.DisplayName: Зачарование "Похищение жизни" (Базовое)
 			LifeStealEnchantmentCommon.DisplayName: Зачарование "Похищение жизни" (Обычное)
+			LifeStealEnchantmentCursed.DisplayName: Чары кражи жизни прокляты
 			LifeStealEnchantmentEpic.DisplayName: Зачарование "Похищение жизни" (Эпическое)
 			LifeStealEnchantmentLegendary.DisplayName: Зачарование "Похищение жизни" (Легендарное)
 			LifeStealEnchantmentRare.DisplayName: Зачарование "Похищение жизни" (Редкое)
 			LuckEnchantmentBasic.DisplayName: Зачарование "Удача" (Базовое)
 			LuckEnchantmentCommon.DisplayName: Зачарование "Удача" (Обычное)
+			LuckEnchantmentCursed.DisplayName: Чары удачи прокляты
 			LuckEnchantmentEpic.DisplayName: Зачарование "Удача" (Эпическое)
 			LuckEnchantmentLegendary.DisplayName: Зачарование "Удача" (Легендарное)
 			LuckEnchantmentRare.DisplayName: Зачарование "Удача" (Редкое)
 			MagicClassSwapEnchantmentBasic.DisplayName: Зачарование "Замена класса - Маг" (Базовое)
 			MagicClassSwapEnchantmentCommon.DisplayName: Зачарование "Замена класса - Маг" (Обычное)
+			MagicClassSwapEnchantmentCursed.DisplayName: Чары обмена магическими классами прокляты
 			MagicClassSwapEnchantmentEpic.DisplayName: Зачарование "Замена класса - Маг" (Эпическое)
 			MagicClassSwapEnchantmentLegendary.DisplayName: Зачарование "Замена класса - Маг" (Легендарное)
 			MagicClassSwapEnchantmentRare.DisplayName: Зачарование "Замена класса - Маг" (Редкое)
 			MagneticEnchantmentBasic.DisplayName: Магнетическое зачарование Базовое
 			MagneticEnchantmentCommon.DisplayName: Магнитные чары
+			MagneticEnchantmentCursed.DisplayName: Магнитные чары прокляты
 			MagneticEnchantmentEpic.DisplayName: Магнитное зачарование Эпическое
 			MagneticEnchantmentLegendary.DisplayName: Магнитное зачарование Легендарное
 			MagneticEnchantmentRare.DisplayName: Магнитные чары Редкие
 			MaxMinionsEnchantmentBasic.DisplayName: Зачарование "Максимум прислужников" (Базовое)
 			MaxMinionsEnchantmentCommon.DisplayName: Зачарование "Максимум прислужников" (Обычное)
+			MaxMinionsEnchantmentCursed.DisplayName: Чары Макса Миньонов прокляты
 			MaxMinionsEnchantmentEpic.DisplayName: Зачарование "Максимум прислужников" (Эпическое)
 			MaxMinionsEnchantmentLegendary.DisplayName: Зачарование "Максимум прислужников" (Легендарное)
 			MaxMinionsEnchantmentRare.DisplayName: Зачарование "Максимум прислужников" (Редкое)
@@ -986,31 +1147,37 @@ Mods: {
 
 			MeleeClassSwapEnchantmentBasic.DisplayName: Зачарование "Замена класса - Воин" (Базовое)
 			MeleeClassSwapEnchantmentCommon.DisplayName: Зачарование "Замена класса - Воин" (Обычное)
+			MeleeClassSwapEnchantmentCursed.DisplayName: Чары смены классов для ближнего боя прокляты
 			MeleeClassSwapEnchantmentEpic.DisplayName: Зачарование "Замена класса - Воин" (Эпическое)
 			MeleeClassSwapEnchantmentLegendary.DisplayName: Зачарование "Замена класса - Воин" (Легендарное)
 			MeleeClassSwapEnchantmentRare.DisplayName: Зачарование "Замена класса - Воин" (Редкое)
 			MobilityControlEnchantmentBasic.DisplayName: Зачарование "Контроль подвижности" (Базовое)
 			MobilityControlEnchantmentCommon.DisplayName: Зачарование "Контроль подвижности" (Обычное)
+			MobilityControlEnchantmentCursed.DisplayName: Чары контроля подвижности прокляты
 			MobilityControlEnchantmentEpic.DisplayName: Зачарование "Контроль подвижности" (Эпическое)
 			MobilityControlEnchantmentLegendary.DisplayName: Зачарование "Контроль подвижности" (Легендарное)
 			MobilityControlEnchantmentRare.DisplayName: Зачарование "Контроль подвижности" (Редкое)
 			MoonlightEnchantmentBasic.DisplayName: Зачарование "Лунный свет" (Базовое)
 			MoonlightEnchantmentCommon.DisplayName: Зачарование "Лунный свет" (Обычное)
+			MoonlightEnchantmentCursed.DisplayName: Чары лунного света прокляты
 			MoonlightEnchantmentEpic.DisplayName: Зачарование "Лунный свет" (Эпическое)
 			MoonlightEnchantmentLegendary.DisplayName: Зачарование "Лунный свет" (Легендарное)
 			MoonlightEnchantmentRare.DisplayName: Зачарование "Лунный свет" (Редкое)
 			MovementSpeedEnchantmentBasic.DisplayName: Зачарование "Скорость передвижения" (Базовое)
 			MovementSpeedEnchantmentCommon.DisplayName: Зачарование "Скорость передвижения" (Обычное)
+			MovementSpeedEnchantmentCursed.DisplayName: Чары скорости передвижения прокляты
 			MovementSpeedEnchantmentEpic.DisplayName: Зачарование "Скорость передвижения" (Эпическое)
 			MovementSpeedEnchantmentLegendary.DisplayName: Зачарование "Скорость передвижения" (Легендарное)
 			MovementSpeedEnchantmentRare.DisplayName: Зачарование "Скорость передвижения" (Редкое)
 			MultishotEnchantmentBasic.DisplayName: Зачарование "Многострел" (Базовое)
 			MultishotEnchantmentCommon.DisplayName: Зачарование "Многострел" (Обычное)
+			MultishotEnchantmentCursed.DisplayName: Многозарядные чары прокляты
 			MultishotEnchantmentEpic.DisplayName: Зачарование "Многострел" (Эпическое)
 			MultishotEnchantmentLegendary.DisplayName: Зачарование "Многострел" (Легендарное)
 			MultishotEnchantmentRare.DisplayName: Зачарование "Многострел" (Редкое)
 			NpcContactAnglerEnchantmentBasic.DisplayName: Зачарование "Контакт с НИПом - Рыбак" (Базовое)
 			NpcContactAnglerEnchantmentCommon.DisplayName: Зачарование "Контакт с НИПом - Рыбак" (Обычное)
+			NpcContactAnglerEnchantmentCursed.DisplayName: Чары контактного рыболова NPC прокляты
 			NpcContactAnglerEnchantmentEpic.DisplayName: Зачарование "Контакт с НИПом - Рыбак" (Эпическое)
 			NpcContactAnglerEnchantmentLegendary.DisplayName: Зачарование "Контакт с НИПом - Рыбак" (Легендарное)
 			NpcContactAnglerEnchantmentRare.DisplayName: Зачарование "Контакт с НИПом - Рыбак" (Редкое)
@@ -1021,11 +1188,13 @@ Mods: {
 			ObsidianSkinEnchantmentRare.DisplayName: Зачарование "Обсидиановая кожа" (Редкое)
 			OneForAllEnchantmentBasic.DisplayName: Зачарование "Один за всех" (Базовое)
 			OneForAllEnchantmentCommon.DisplayName: Зачарование "Один за всех" (Обычное)
+			OneForAllEnchantmentCursed.DisplayName: Один за всех: чары прокляты
 			OneForAllEnchantmentEpic.DisplayName: Зачарование "Один за всех" (Эпическое)
 			OneForAllEnchantmentLegendary.DisplayName: Зачарование "Один за всех" (Легендарное)
 			OneForAllEnchantmentRare.DisplayName: Зачарование "Один за всех" (Редкое)
 			OnFireEnchantmentBasic.DisplayName: Зачарование "В огне" (Базовое)
 			OnFireEnchantmentCommon.DisplayName: Зачарование "В огне" (Обычное)
+			OnFireEnchantmentCursed.DisplayName: Чары в огне прокляты
 			OnFireEnchantmentEpic.DisplayName: Зачарование "В огне" (Эпическое)
 			OnFireEnchantmentLegendary.DisplayName: Зачарование "В огне" (Легендарное)
 			OnFireEnchantmentRare.DisplayName: Зачарование "В огне" (Редкое)
@@ -1036,16 +1205,19 @@ Mods: {
 			PeaceEnchantmentRare.DisplayName: Зачарование "Мир" (Редкое)
 			PennyPinchingEnchantmentBasic.DisplayName: Зачарование "Скупость" (Базовое)
 			PennyPinchingEnchantmentCommon.DisplayName: Зачарование "Скупость" (Обычное)
+			PennyPinchingEnchantmentCursed.DisplayName: Чары Пенни Пинчинга прокляты
 			PennyPinchingEnchantmentEpic.DisplayName: Зачарование "Скупость" (Эпическое)
 			PennyPinchingEnchantmentLegendary.DisplayName: Зачарование "Скупость" (Легендарное)
 			PennyPinchingEnchantmentRare.DisplayName: Зачарование "Скупость" (Редкое)
 			PercentArmorPenetrationEnchantmentBasic.DisplayName: Зачарование на процент пробивания брони Базовое
 			PercentArmorPenetrationEnchantmentCommon.DisplayName: Чары Процент пробивания брони Обычный
+			PercentArmorPenetrationEnchantmentCursed.DisplayName: Чары на процент пробивания брони прокляты
 			PercentArmorPenetrationEnchantmentEpic.DisplayName: Процентное пробивание брони Зачарование Эпическое
 			PercentArmorPenetrationEnchantmentLegendary.DisplayName: Зачарование на процент пробивания брони Легендарный
 			PercentArmorPenetrationEnchantmentRare.DisplayName: Зачарование на процент пробивания брони, редкое
 			PoisonEnchantmentBasic.DisplayName: Ядовитые чары базовые
 			PoisonEnchantmentCommon.DisplayName: Ядовитые чары
+			PoisonEnchantmentCursed.DisplayName: Ядовитые чары прокляты
 			PoisonEnchantmentEpic.DisplayName: Ядовитые чары Эпические
 			PoisonEnchantmentLegendary.DisplayName: Ядовитые чары Легендарные
 			PoisonEnchantmentRare.DisplayName: Ядовитые чары Редкие
@@ -1067,26 +1239,31 @@ Mods: {
 			PrideOfTheWeakEnchantmentRare.DisplayName: Зачарование "Гордость слабых" (Редкое)
 			ProjectileVelocityEnchantmentBasic.DisplayName: Зачарование "Скорость снаряда" (Базовое)
 			ProjectileVelocityEnchantmentCommon.DisplayName: Зачарование "Скорость снаряда" (Обычное)
+			ProjectileVelocityEnchantmentCursed.DisplayName: Чары скорости снаряда прокляты
 			ProjectileVelocityEnchantmentEpic.DisplayName: Зачарование "Скорость снаряда" (Эпическое)
 			ProjectileVelocityEnchantmentLegendary.DisplayName: Зачарование "Скорость снаряда" (Легендарное)
 			ProjectileVelocityEnchantmentRare.DisplayName: Зачарование "Скорость снаряда" (Редкое)
 			RangedClassSwapEnchantmentBasic.DisplayName: Зачарование "Замена класса - Стрелок" (Базовое)
 			RangedClassSwapEnchantmentCommon.DisplayName: Зачарование "Замена класса - Стрелок" (Обычное)
+			RangedClassSwapEnchantmentCursed.DisplayName: Чары смены классов дальнего боя прокляты
 			RangedClassSwapEnchantmentEpic.DisplayName: Зачарование "Замена класса - Стрелок" (Эпическое)
 			RangedClassSwapEnchantmentLegendary.DisplayName: Зачарование "Замена класса - Стрелок" (Легендарное)
 			RangedClassSwapEnchantmentRare.DisplayName: Зачарование "Замена класса - Стрелок" (Редкое)
 			ReducedManaUsageEnchantmentBasic.DisplayName: Зачарование "Снижение расхода маны" (Базовое)
 			ReducedManaUsageEnchantmentCommon.DisplayName: Зачарование "Снижение расхода маны" (Обычное)
+			ReducedManaUsageEnchantmentCursed.DisplayName: Уменьшение расхода маны Чары Проклятие
 			ReducedManaUsageEnchantmentEpic.DisplayName: Зачарование "Снижение расхода маны" (Эпическое)
 			ReducedManaUsageEnchantmentLegendary.DisplayName: Зачарование "Снижение расхода маны" (Легендарное)
 			ReducedManaUsageEnchantmentRare.DisplayName: Зачарование "Снижение расхода маны" (Редкое)
 			RogueClassSwapEnchantmentBasic.DisplayName: Зачарование "Замена класса - Разбойник" (Базовое)
 			RogueClassSwapEnchantmentCommon.DisplayName: Зачарование "Замена класса - Разбойник" (Обычное)
+			RogueClassSwapEnchantmentCursed.DisplayName: Чары разбойного обмена классами прокляты
 			RogueClassSwapEnchantmentEpic.DisplayName: Зачарование "Замена класса - Разбойник" (Эпическое)
 			RogueClassSwapEnchantmentLegendary.DisplayName: Зачарование "Замена класса - Разбойник" (Легендарное)
 			RogueClassSwapEnchantmentRare.DisplayName: Зачарование "Замена класса - Разбойник" (Редкое)
 			ShadowflameEnchantmentBasic.DisplayName: Чары Пламени Тьмы Базовый
 			ShadowflameEnchantmentCommon.DisplayName: Чары Пламени Тьмы Обычный
+			ShadowflameEnchantmentCursed.DisplayName: Чары Теневого Пламени прокляты
 			ShadowflameEnchantmentEpic.DisplayName: Эпическое зачарование Пламени Тьмы
 			ShadowflameEnchantmentLegendary.DisplayName: Легендарное зачарование Пламени Тьмы
 			ShadowflameEnchantmentRare.DisplayName: Чары Пламени Тьмы Редкие
@@ -1097,11 +1274,13 @@ Mods: {
 			ShineEnchantmentRare.DisplayName: Зачарование "Сияние" (Редкое)
 			SizeEnchantmentBasic.DisplayName: Зачарование "Размер" (Базовое)
 			SizeEnchantmentCommon.DisplayName: Зачарование "Размер" (Обычное)
+			SizeEnchantmentCursed.DisplayName: Чары размера прокляты
 			SizeEnchantmentEpic.DisplayName: Зачарование "Размер" (Эпическое)
 			SizeEnchantmentLegendary.DisplayName: Зачарование "Размер" (Легендарное)
 			SizeEnchantmentRare.DisplayName: Зачарование "Размер" (Редкое)
 			SolarDashEnchantmentBasic.DisplayName: Зачарование "Солнечный рывок" (Базовое)
 			SolarDashEnchantmentCommon.DisplayName: Зачарование "Солнечный рывок" (Обычное)
+			SolarDashEnchantmentCursed.DisplayName: Чары Солнечного рывка прокляты
 			SolarDashEnchantmentEpic.DisplayName: Зачарование "Солнечный рывок" (Эпическое)
 			SolarDashEnchantmentLegendary.DisplayName: Зачарование "Солнечный рывок" (Легендарное)
 			SolarDashEnchantmentRare.DisplayName: Зачарование "Солнечный рывок" (Редкое)
@@ -1133,11 +1312,13 @@ Mods: {
 
 			ThrowingClassSwapEnchantmentBasic.DisplayName: Бросок Зачарования Обмена Классом Базовый
 			ThrowingClassSwapEnchantmentCommon.DisplayName: Бросок чары смены класса Обычный
+			ThrowingClassSwapEnchantmentCursed.DisplayName: Бросание чар обмена классами проклято
 			ThrowingClassSwapEnchantmentEpic.DisplayName: Эпическое зачарование смены класса
 			ThrowingClassSwapEnchantmentLegendary.DisplayName: Легендарное зачарование смены класса
 			ThrowingClassSwapEnchantmentRare.DisplayName: Бросок чары смены класса редкий
 			TimeEnchantmentBasic.DisplayName: Чары времени базовые
 			TimeEnchantmentCommon.DisplayName: Чары времени
+			TimeEnchantmentCursed.DisplayName: Чары времени прокляты
 			TimeEnchantmentEpic.DisplayName: Эпос зачарования времени
 			TimeEnchantmentLegendary.DisplayName: Легендарное заклинание времени
 			TimeEnchantmentRare.DisplayName: Чары времени редкие
@@ -1163,16 +1344,19 @@ Mods: {
 
 			VenomEnchantmentBasic.DisplayName: Зачарование "Яд" (Базовое)
 			VenomEnchantmentCommon.DisplayName: Зачарование "Яд" (Обычное)
+			VenomEnchantmentCursed.DisplayName: Чары Яда прокляты
 			VenomEnchantmentEpic.DisplayName: Зачарование "Яд" (Эпическое)
 			VenomEnchantmentLegendary.DisplayName: Зачарование "Яд" (Легендарное)
 			VenomEnchantmentRare.DisplayName: Зачарование "Яд" (Редкое)
 			WarEnchantmentBasic.DisplayName: Зачарование "Война" (Базовое)
 			WarEnchantmentCommon.DisplayName: Зачарование "Война" (Обычное)
+			WarEnchantmentCursed.DisplayName: Боевые чары прокляты
 			WarEnchantmentEpic.DisplayName: Зачарование "Война" (Эпическое)
 			WarEnchantmentLegendary.DisplayName: Зачарование "Война" (Легендарное)
 			WarEnchantmentRare.DisplayName: Зачарование "Война" (Редкое)
 			WhipClassSwapEnchantmentBasic.DisplayName: Зачарование "Замена класса - Кнут" (Базовое)
 			WhipClassSwapEnchantmentCommon.DisplayName: Зачарование "Замена класса - Кнут" (Обычное)
+			WhipClassSwapEnchantmentCursed.DisplayName: Чары смены классов для кнута прокляты
 			WhipClassSwapEnchantmentEpic.DisplayName: Зачарование "Замена класса - Кнут" (Эпическое)
 			WhipClassSwapEnchantmentLegendary.DisplayName: Зачарование "Замена класса - Кнут" (Легендарное)
 			WhipClassSwapEnchantmentRare.DisplayName: Зачарование "Замена класса - Кнут" (Редкое)
@@ -1188,6 +1372,7 @@ Mods: {
 
 			WorldAblazeEnchantmentBasic.DisplayName: Зачарование "Мир в огне" (Базовое)
 			WorldAblazeEnchantmentCommon.DisplayName: Зачарование "Мир в огне" (Обычное)
+			WorldAblazeEnchantmentCursed.DisplayName: Чары «Пылающего мира» прокляты
 			WorldAblazeEnchantmentEpic.DisplayName: Зачарование "Мир в огне" (Эпическое)
 			WorldAblazeEnchantmentLegendary.DisplayName: Зачарование "Мир в огне" (Легендарное)
 			WorldAblazeEnchantmentRare.DisplayName: Зачарование "Мир в огне" (Редкое)
@@ -1410,7 +1595,7 @@ Mods: {
 				CrateChance: Шанс ящика
 				CriticalStrikeChance: Шанс критического удара
 				CriticalStrikeDamage: Урон критического удара
-				CursedInferno: Проклят адом
+				CursedInferno: Проклятый ад
 				Damage: Урон
 				DamageAfterDefenses: Урон (Применяется после защиты. Не отображается в подсказке)
 				DamageClassSwap: Преобразовывает урон к типу '{0}'
@@ -1428,6 +1613,8 @@ Mods: {
 				FishingEnemySpawnChance: Шанс спавна противника при рыбалке
 				FishingPower: Навык рыбной ловли
 				FlatMPRegen: Восстановление маны
+				FlightAcceleration: Ускорение полета
+				FlightSpeed: Скорость полета
 				Frostburn: Обжигающий холод
 				GodSlayer: Убийца Богов
 				HealerClassSwap: Смена класса целителя
@@ -1564,6 +1751,8 @@ Mods: {
 				FishingEnemySpawnChance: "{0} (Уменьшен в 5 раз в течение дня. Эффект складывается с эффектом Ловца на кет. Может призвать Герцога Рыброна.)"
 				FishingPower: Рыболовная сила
 				FlatMPRegen: Плоская регенерация MP
+				FlightAcceleration: Ускорение полета
+				FlightSpeed: Скорость полета
 				GodSlayer:
 					'''
 					{0}
@@ -1665,6 +1854,14 @@ Mods: {
 			}
 
 			EnchantmentShortTooltip.OnTickPlayerBuff: Пассивно даёт эффект '{0}' на {1} каждые {2}
+			ItemTooltip.CursedEssence:
+				'''
+				Энергия проклятия настолько сильна, что приняла форму. Другие проклятия будут привлечены к его силе.
+				Проклятая сущность будет способствовать указанным ниже эффектам, когда она находится в вашем инвентаре или хранилище чар. (Проклятая сущность: {0})
+				    Увеличивает скорость появления врагов. (Текущий бонус: {1}x)
+				    Увеличивает максимальное количество спавнов врагов. (Текущий бонус: {2}x)
+				    Увеличен шанс появления проклятых врагов. (Шанс, что появившийся враг будет проклят: {3})
+				'''
 
 			ItemType: {
 				Accessories: аксессуарах
@@ -1727,5 +1924,7 @@ Mods: {
 				}
 			}
 		}
+
+		// Projectiles.CursedEffectProjectile.DisplayName: Cursed Effect Projectile
 	}
 }

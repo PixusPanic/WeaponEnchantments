@@ -20,7 +20,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
             };
         }
 
-        public override string Artist => "andro951";
+        protected override List<List<EnchantmentEffect>> cursedEffectPossibilities => defaultUtilityCursedEffectPossibilities;
+
+		public override string Artist => "andro951";
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
     }
@@ -53,5 +55,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
 	public class ChaoticFishingEnchantmentEpic : ChaoticFishingEnchantment { }
     [Autoload(false)]
 	public class ChaoticFishingEnchantmentLegendary : ChaoticFishingEnchantment { }
+	[Autoload(false)]
+	public class ChaoticFishingEnchantmentCursed : ChaoticFishingEnchantment { }
 
 }

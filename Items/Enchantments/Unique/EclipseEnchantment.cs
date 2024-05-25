@@ -38,5 +38,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class EclipseEnchantmentRare : EclipseEnchantment { }
 	public class EclipseEnchantmentEpic : EclipseEnchantment { }
 	public class EclipseEnchantmentLegendary : EclipseEnchantment { }
+	public class EclipseEnchantmentCursed : EclipseEnchantment { }
 	*/
 }

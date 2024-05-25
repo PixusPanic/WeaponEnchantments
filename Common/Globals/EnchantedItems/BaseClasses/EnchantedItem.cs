@@ -1015,6 +1015,44 @@ namespace WeaponEnchantments.Common.Globals
             if (enchantedItem is EnchantedHeldItem)
                 Main.LocalPlayer.GetWEPlayer().Equipment.UpdateHeldItemEnchantmentEffects(item);
 		}
+        private const float DefaultXPMultiplier = 0f;
+        public static bool GetXPMultiplierFromNPC(this NPC target, out float experienceMultiplier) {
+            experienceMultiplier = DefaultXPMultiplier;
+			if (target.IsDummy())
+                return false;
+
+            if (target.friendly || target.townNPC)
+                return false;
+
+			//value
+			float value;
+			if (Main.netMode == NetmodeID.MultiplayerClient) {
+				value = ContentSamples.NpcsByNetId[target.RealNetID()].value;
+			}
+			else {
+				value = target.RealValue();
+			}
+
+			int realLifeMax = target.RealLifeMax();
+			if (value <= 0 && (target.SpawnedFromStatue || realLifeMax <= 10))
+				return false;
+
+			//NPC Characteristics Factors
+			float noGravityFactor = target.noGravity ? 0.2f : 0f;
+			float noTileCollideFactor = target.noTileCollide ? 0.2f : 0f;
+			float knockBackResistFactor = 0.2f * (1f - target.knockBackResist);
+			float npcCharacteristicsFactor = noGravityFactor + noTileCollideFactor + knockBackResistFactor;
+
+			//Config Multiplier
+			float configMultiplier = target.boss ? BossXPMultiplier : NormalXPMultiplier;
+
+			float balanceMultiplier = target.boss ? 0.25f : 1f;
+
+			//Experience Multiplier
+			experienceMultiplier = (1f + npcCharacteristicsFactor) * configMultiplier * balanceMultiplier;
+
+            return true;
+		}
 		public static void DamageNPC(this Item item, Player player, NPC target, NPC.HitInfo hit, bool melee = false) {
 
             #region Debug
@@ -1023,44 +1061,11 @@ namespace WeaponEnchantments.Common.Globals
 
             #endregion
 
-			//dummy goto debug
-			if (target.IsDummy())
+            if (!GetXPMultiplierFromNPC(target, out float experienceMultiplier))
                 goto debugBeforeReturn;
 
-            //friendly goto debug
-            if (target.friendly || target.townNPC)
-                goto debugBeforeReturn;
-
-            //value
-            float value;
-            if (Main.netMode == NetmodeID.MultiplayerClient) {
-                value = ContentSamples.NpcsByNetId[target.RealNetID()].value;
-            }
-            else {
-                value = target.RealValue();
-            }
-
-            //value or life max goto debug
-            int realLifeMax = target.RealLifeMax();
-			if (value <= 0 && (target.SpawnedFromStatue || realLifeMax <= 10))
-                goto debugBeforeReturn;
-
-            //NPC Characteristics Factors
-            float noGravityFactor = target.noGravity ? 0.2f : 0f;
-            float noTileCollideFactor = target.noTileCollide ? 0.2f : 0f;
-            float knockBackResistFactor = 0.2f * (1f - target.knockBackResist);
-            float npcCharacteristicsFactor = noGravityFactor + noTileCollideFactor + knockBackResistFactor;
-
-            //Config Multiplier
-            float configMultiplier = target.boss ? BossXPMultiplier : NormalXPMultiplier;
-
-            float balanceMultiplier = target.boss ? 0.25f : 1f;
-
-            //Experience Multiplier
-            float experienceMultiplier = (1f + npcCharacteristicsFactor) * configMultiplier * balanceMultiplier;
-
-            //life vs damage check
-            int xpDamage = hit.Damage;
+			//life vs damage check
+			int xpDamage = hit.Damage;
             int life = target.RealLife();
             if (life < 0)
                 xpDamage += life;

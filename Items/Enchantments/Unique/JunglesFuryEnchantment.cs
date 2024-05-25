@@ -55,4 +55,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class JunglesFuryEnchantmentEpic : JunglesFuryEnchantment { }
 	[Autoload(false)]
 	public class JunglesFuryEnchantmentLegendary : JunglesFuryEnchantment { }
+	[Autoload(false)]
+	public class JunglesFuryEnchantmentCursed : JunglesFuryEnchantment { }
 }

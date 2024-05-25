@@ -35,7 +35,9 @@ namespace WeaponEnchantments.Common.Utility {
         EnemySpawnRate,
 		FishingEnemySpawnChance,
         FishingPower,
-        GodSlayer,
+		FlightAcceleration,
+		FlightSpeed,
+		GodSlayer,
         InfinitePenetration,
 		ItemAttractionAndPickupSpeed,
 		JumpSpeed,
@@ -305,6 +307,15 @@ namespace WeaponEnchantments.Common.Utility {
 		Back,
 		WitchSpawnCondition,
 		OpenEnchantingTableFirstTime,
+		Next,
+		Curses,
+		ApplyCurse,
+		WitchEnchantmentCurseText,
+		PlaceHereReRoll,
+		PlaceHereCurse,
+		ReRoll,
+		Owned,
+		NegativeDef
 	}
 	
 	public enum WELoadOrder {

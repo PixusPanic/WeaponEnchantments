@@ -2,7 +2,21 @@
 Mods: {
 	WeaponEnchantments: {
 		Bestiary.Witch: Die Hexe ist eine hässliche und böse Dame und handelt mit weiteren bösen Dingen. Sie handelt mit dubiosen Materialien, die verwendet werden, um Ausrüstung mit mysteriösen Effekten zu verbessern.
-		Buffs.Amaterasu.DisplayName: Amaterasu
+
+		Buffs: {
+			Amaterasu.DisplayName: Amaterasu
+
+			Cursed: {
+				Description:
+					'''
+					Verfluchte Essenz {0}
+					Spawn-Rate x{1}
+					Max. Spawns x{2}
+					Verfluchte Chance {3}
+					'''
+				DisplayName: Verflucht
+			}
+		}
 
 		Configs: {
 			AccessoryDRValues: „Zubehör {0} % ({1} % bei 40)“
@@ -71,6 +85,24 @@ Mods: {
 				AlwaysDisplayWeaponLevelUpMessages: {
 					Label: Zeigt immer Meldungen zur Erhöhung der Waffenstufe an
 					Tooltip: Zeigt bei Verwendung des Verzauberungstisches nur Meldungen zum Aufsteigen der Waffenstufe an, wenn diese Option deaktiviert ist.
+				}
+
+				CursedEnemyParticles: {
+					Label: Verfluchte feindliche Partikel
+					Tooltip:
+						'''
+						Verfluchte Feinde produzieren kleine Partikel, um sie von normalen Feinden zu unterscheiden.
+						Schalten Sie diese Option aus, um die Entstehung dieser Partikel zu verhindern.
+						'''
+				}
+
+				CursedEnemyVisualShaking: {
+					Label: Visuelles Zittern des verfluchten Feindes
+					Tooltip:
+						'''
+						Verfluchte Feinde zittern oder vibrieren, um sie von normalen Feinden zu unterscheiden.
+						Diese Einstellung steuert, wie stark das visuelle Wackeln verfluchter Feinde ist.   Auf 0 einstellen, um das Schütteln zu deaktivieren.
+						'''
 				}
 
 				DisplayDamageTooltipSeperatly: {
@@ -171,7 +203,7 @@ Mods: {
 			PresetData: {
 				Tooltip: Mit Voreinstellungen können Sie ganz einfach alle Verzauberungen gleichzeitig beeinflussen.
 
-				AutomaticallyMatchPreseTtoWorldDifficulty: {
+				AutomaticallyMatchPresetToWorldDifficulty: {
 					Label: Passen Sie die Voreinstellung automatisch an den Schwierigkeitsgrad „Welt“ an
 					Tooltip: Muss deaktiviert sein, damit die anderen Optionen bearbeitet werden können.
 				}
@@ -184,6 +216,11 @@ Mods: {
 				CommonEnchantmentStrengthMultiplier: {
 					Label: Gemeinsam
 					Tooltip: Beeinflusst die Stärke aller gewöhnlichen Verzauberungen. Überschreibt alle Multiplikatoren mit Ausnahme einzelner Verzauberungsstärke-Multiplikatoren. Legen Sie den Wert auf -1 fest, damit dieser Multiplikator ignoriert wird.
+				}
+
+				CursedEnchantmentStrengthMultiplier: {
+					Label: Verflucht
+					Tooltip: Beeinflusst die Stärke aller verfluchten Verzauberungen. Überschreibt alle Multiplikatoren mit Ausnahme der einzelnen Verzauberungsstärke-Multiplikatoren. Legen Sie den Wert auf -1 fest, damit dieser Multiplikator ignoriert wird.
 				}
 
 				EpicEnchantmentStrengthMultiplier: {
@@ -222,11 +259,12 @@ Mods: {
 			}
 
 			ServerConfig: {
+				CursedEnemies: Verfluchte Feinde
 				DisplayName: Serverkonfiguration
 				EnchantingTableOptions: Bezaubernde Tischoptionen
 				EnchantmentDropRates(%): Verzauberungs-Drop-Raten (%)
 				EnchantmentSettings: Verzauberungseinstellungen
-				EssenceandExperience: Essenz und Erfahrung
+				EssenceAndExperience: Essenz und Erfahrung
 				GeneralGameChanges: Allgemeine Spieländerungen
 				IndividualEnchantmentStrengths: Individuelle Verzauberungsstärken
 				Multipliers: Multiplikatoren
@@ -258,6 +296,11 @@ Mods: {
 						Vanilla Terraria begrenzt die Chance auf einen kritischen Treffer auf 100 %. Standardmäßig berechnet Weapon Enchantments zusätzliche kritische Treffer nach 100 %.
 						Bei einer kritischen Chance von 120 % wird der Schaden zu 100 % verdoppelt, dann beträgt die Chance auf einen kritischen Treffer 20 %, um den Schaden zu erhöhen. Weitere Informationen finden Sie in der nächsten Konfigurationsoption.
 						'''
+				}
+
+				AllowCursedEnemies: {
+					Label: Erlaube verfluchte Feinde
+					Tooltip: Aktivieren Sie diese Option, um zuzulassen, dass Feinde beim Erscheinen selten verflucht werden, wodurch sie keinen Schaden verursachen, aber Debuffs auf Spieler abfeuern.   Verfluchte Feinde haben außerdem 5x Gesundheit.
 				}
 
 				AllowHighTierOres: {
@@ -353,6 +396,46 @@ Mods: {
 				CritPerLevelDisabled: {
 					Label: Deaktiviere die Chance auf einen kritischen Waffentreffer pro Level
 					Tooltip: Waffen erhalten eine kritische Trefferchance entsprechend ihrer Stufe * Globaler Verzauberungsstärke-Multiplikator.
+				}
+
+				CuredEnemyDebuffTicksPerAttack: {
+					Label: Geheilte Debuff-Ticks des Gegners pro Angriff
+					Tooltip: Wie viele Ticks vergehen zwischen verfluchten Feinden, die ein Debuff-Projektil abfeuern?   20 Ticks / Angriff => (1 Sek. / 60 Ticks) / (20 Ticks / Angriff) => 3 Angriffe / Sekunde
+				}
+
+				CursedEnemyDamageMultiplier: {
+					Label: Schadensmultiplikator für verfluchte Feinde
+					Tooltip: Ändert den verursachten Schaden verfluchter Feinde.   0 führt dazu, dass sie Spielern weder Schaden zufügen noch sie zurückstoßen.   Wert wird durch 100 geteilt. 100 => 1x Multiplikator.
+				}
+
+				CursedEnemyDebuffAttackRange: {
+					Label: Angriffsreichweite des Schwächungseffekts des verfluchten Gegners
+					Tooltip: Verfluchte Feinde schießen mit Debuffs auf einen Spieler, wenn sie sich innerhalb dieser Entfernung zum Spieler befinden.   Der Wert wird durch 100 geteilt. 40000 => 400-Bereich.   Die Reichweite von 16 beträgt 1 im Spielplättchen/-block.
+				}
+
+				CursedEnemyDebuffChanceMultiplier: {
+					Label: Debuff-Chancenmultiplikator für verfluchte Feinde
+					Tooltip: Beeinflusst die Wahrscheinlichkeit, dass die Debuffs auftreten, wenn sie durch verfluchte feindliche Debuff-Projektile verursacht werden.   Die meisten sind standardmäßig 100 %.   „Verwirrt“ beträgt 10 %, „Gewebt“ und „Gefroren“ betragen 5 % und „Versteinerung“ beträgt 2,5 %.
+				}
+
+				CursedEnemyDebuffDurationMultiplier: {
+					Label: Multiplikator für die Schwächungsdauer des verfluchten Gegners
+					Tooltip: Beeinflusst, wie lange die Debuffs von verfluchten Feinden anhalten.
+				}
+
+				CursedEnemyLifeMultiplier: {
+					Label: Lebensmultiplikator für verfluchte Feinde
+					Tooltip: Ändert das maximale Leben verfluchter Feinde.   Wert wird durch 100 geteilt. 500 => 5x Multiplikator.
+				}
+
+				CursedEssenceDropChanceMultiplier: {
+					Label: Dropchance-Multiplikator für verfluchte Essenz
+					Tooltip: Beeinflusst, wie viel verfluchte Essenz von Feinden fallen gelassen wird.
+				}
+
+				CurseStrengthMultiplier: {
+					Label: Fluchstärke-Multiplikator
+					Tooltip: Beeinflusst, wie groß die Flüche auf verfluchten Verzauberungen sind.
 				}
 
 				DamagePerLevelInstead: {
@@ -454,6 +537,18 @@ Mods: {
 						'''
 				}
 
+				EnchantmentStrengthCurseScaling: {
+					Label: Verzauberungsstärke-Fluchskalierung
+					Tooltip:
+						'''
+						Diese Einstellung bewirkt, dass ein Bruchteil der anderen Verzauberungsstärkeeinstellungen auf die verfluchten Effekte angewendet wird.   Wert wird durch 100 geteilt. 50 => 50 %
+						Wenn dieser Wert 0 ist, hat er keine Auswirkung.   Wenn es 50 ist, hat es die Hälfte des Effekts der anderen Verzauberungsstärkeeinstellungen.
+						Im Schwierigkeitsgrad „Meisterwelt“ beträgt die Standardstärke der Verzauberung beispielsweise 25 % (Reduzierung um -75 %).
+						Bei dieser Einstellung von 50 würden die Flucheffekte um die Hälfte dieses Betrags reduziert, nämlich 62,5 % (-75 % * 50 % => -37,5 % Reduzierung).
+						Bei 100 würden die Flucheffekte genauso skalieren wie normale Verzauberungseffekte.
+						'''
+				}
+
 				EssenceGrabRange: {
 					Label: Essence Grab Range Multiplikator
 					Tooltip: Beeinflusst, wie weit die Essenz vom Spieler entfernt sein kann, wenn sie beginnt, sich auf den Spieler zuzubewegen.
@@ -512,6 +607,19 @@ Mods: {
 						Waffenverzauberungen nutzen die Chance auf einen kritischen Treffer über 100 % hinaus, damit Sie erneut einen kritischen Treffer erzielen können.
 						Standardmäßig ist dies ein additiver Bonus: 1. kritischer Schaden 200 % Schaden, 2. 300 % Schaden, 3. 400 % Schaden .....
 						Wenn Sie dies aktivieren, werden sie stattdessen multiplikativ: 1. kritischer Schaden 200 % Schaden, 2. kritischer Schaden 400 % Schaden, 3. kritischer Schaden 800 % ...
+						'''
+				}
+
+				NegativeDefensePenaltyMultiplier: {
+					Label: Negativer Verteidigungsstrafen-Multiplikator
+					Tooltip:
+						'''
+						Wenn diese Zahl größer als 0 ist, erleidet ein Spieler mit weniger als 0 Verteidigung mehr Schaden.
+						Dies ist eine Strafe dafür, dass Flüche die Verteidigung eines Spielers auf weniger als 0 reduzieren.
+						Der erlittene Schaden wird um den negativen Verteidigungsmalus-Multiplikator/1000 * erhöht -Spielerverteidigung
+						UND multipliziert mit 1 + (Multiplikator für negative Verteidigungsstrafen/1000 * -Spielerverteidigung / 100)Beispiel: -20 Verteidigung und der Spieler erleidet 200 Schaden, negativer Verteidigungsstrafen-Multiplikator = 1000:
+						finalDamage = (200 -(-20) * 1000/1000) * (1 + (1000/1000 * -(-20) / 100))
+						finalDamage = (200 + 20) * (1 + 0,2) => 220 * 1,2 => 264
 						'''
 				}
 
@@ -633,12 +741,14 @@ Mods: {
 
 		GameMessages: {
 			AlreadyMaxLevel: „Dein {0} hat bereits das maximale Level.“
+			ApplyCurse: Fluch anwenden
 			Back: Zurück
 			CannotGainAdditionalPower: „Dein {0}({1}) kann durch das angebotene {2}({3}) keine zusätzliche Kraft erhalten.“
 			CantInfusionArmorDifferentTypes: Es ist nicht möglich, Rüstungen unterschiedlicher Art wie Helm und Körper zu infundieren.
 			CongradulationsMaxLevel: „Herzlichen Glückwunsch! {1} von {0} hat das maximale Level {2} ({3} xp) erreicht.“
 			CouldntFindItemsInWeaponsList: Es konnten keine Gegenstände in WeaponsList oder WeaponCraftingIngredients mit den Namen gefunden werden:
 			CouldntFindNPCsInIngredientsList: Es konnten keine NPCs in NPCsThatDropWeaponsOrIngredients mit den Namen gefunden werden:
+			Curses: Flüche
 			DailyFishingQuestReset: „Die tägliche Angelquest wurde zurückgesetzt. Deine nächste Quest ist {0}.“
 			DetectedNonEnchantmentInEnchantmentSlot: „Auf deinem {1} wurde ein Nicht-Verzauberungsgegenstand entdeckt:{0}. Er wurde in dein Inventar zurückgebracht.“
 			EnchantmentNoLongerAllowed: „{0} ist auf {1} nicht mehr zulässig und wurde aus Ihrem {2} entfernt.“
@@ -649,7 +759,6 @@ Mods: {
 			FailedReplaceOldItem: Der alte Artikel konnte nicht ersetzt werden:
 			FailedReplaceWithCoins: „Artikel konnte nicht durch Münzen ersetzt werden: {0}“
 			FailedToCloneItem: „In EnchantedItem konnte das Klonen von (item: {0}, itemClone: {1}), cloneReforgedItem: {2}, resetGlobals: {3} nicht durchgeführt werden.“
-			FailedToFindInfusionPower: Für den Artikel konnte keine Infusionskraft gefunden werden:
 			FailedToLocateAngler: Der Angler konnte nicht gefunden werden. Sie erhalten weiterhin Belohnungen
 			FavoritedItemsCantBeConsumedForInfusion: Lieblingsartikel können nicht zur Infusion konsumiert werden.
 			FishingQuestTurnedIn: „Quest eingereicht. Deine nächste Quest ist {0}. Quests abgeschlossen: {1}“
@@ -672,7 +781,13 @@ Mods: {
 			MinSiphonXP: „Du kannst einen Gegenstand nur absaugen, wenn er mindestens {0} Erfahrung hat.“
 			MultipleUniqueEnchantments: „Auf Ihrem {0} wurden mehrere einzigartige Verzauberungen entdeckt. {1} wurde aus Ihrem {2} entfernt.“
 			MurasamaNoInfusion: Murasama kann nicht als Aufguss eingenommen werden.
+			NegativeDef:
+				'''
+				Erlittener Schaden um {0} und {0} % erhöht
+				(Waffenverzauberungen)
+				'''
 			NewItemIsAir: newItem war Luft.
+			Next: Nächste
 			NoLongerAllowedOnDamageType: „{0} ist auf {1}-Waffen nicht mehr zulässig und wurde von Ihrem {2} entfernt.“
 			NoLongerUtilityEnchantment: „{0} ist keine Hilfsverzauberung mehr und wurde von deinem {1} entfernt.“
 			NonEnchantableItemInTable:
@@ -693,12 +808,16 @@ Mods: {
 				Wenn du Verzauberungen, Essenzen und andere Waffenverzauberungen einsammelst, werden diese automatisch in den Verzauberungstabellenspeicher verschoben.
 				'''
 			OreInfusionPowerNotSetup: „Erz {0} Infusionsleistung nicht eingerichtet. Geschätzte Infusionsleistung:“
+			Owned: Im Besitz
+			PlaceHereCurse: Platzieren Sie hier eine Verzauberung, um einen Fluch anzuwenden
+			PlaceHereReRoll: Platziere hier eine Verzauberung, um erneut zu würfeln
 			PreventedIssueLooseExperience: „Ein Problem wurde verhindert, das dazu führen würde, dass deine XP reduziert werden. (xpInt < 0) Gegenstand: {0}, Ziel: {1}, Treffer: {2}, Nahkampf: {3}, Main.GameMode: {4}, target.defense: {5}, xpDamage: {6}, lowDamagePerHitXPBoost: {7}"
 			PreventedIssueLooseExperienceTwo: „Ein Problem wurde verhindert, das dazu führen würde, dass du Erfahrung verlierst. (xpInt < 0) Gegenstand: {0}, Ziel: {1}, Treffer: {2}, Nahkampf: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, lowDamagePerHitXPBoost: {7}, "
 			PreventedLoosingExperience: „Es wurde verhindert, dass Ihr {0} aufgrund eines Berechnungsfehlers Erfahrungspunkte verliert.“
 			PreventedWitchShopDuplication: Es wurde ein Problem behoben, das dazu führte, dass dem Shop-Artikel der Hexe ein doppelter Artikel hinzugefügt wurde:
 			RemovedEnchantedItemData: „EnchantedItem-Daten aus Element entfernt: {0}, Anzahl: {1}, newCount: {2}“
 			RemovedUnloadedEnchantmentFromItem: „Ungeladener Gegenstand:{0} aus deinem {1} entfernt. Bitte informiere andro951(WeaponEnchantments).“
+			ReRoll: Noch einmal rollen
 			RerollEnchantment: Verzauberung erneut würfeln
 			ResistsYourAttemptToEmpower: „Die {0} haben sich Ihrem Versuch widersetzt, es zu stärken.“
 			SameSetBonusNoEffect: Der aufzuwertende Gegenstand hat den gleichen Setbonus wie der verbrauchte Gegenstand und hat keine Wirkung.
@@ -707,6 +826,7 @@ Mods: {
 			TryInfuseFailed: „TryInfuseItem fehlgeschlagen, tableItem: {0}{1}, infusionConsumeItem: {2}{3}“
 			WeaponInfusionPowersNotSetup: Waffeninfusionskräfte nicht eingerichtet
 			WitchChatText: Was willst du noch? Ich bin beschäftigt.
+			WitchEnchantmentCurseText: Flüche sind eine mächtige Magie, aber sie haben ihren Preis. Ich kann Ihnen nicht helfen, wenn Sie Ihre Meinung ändern. Die Dryade kann dabei vielleicht helfen. Sind Sie sicher, dass Sie fortfahren möchten?
 			WitchEnchantmentRerolText: Ich denke, ich könnte versuchen, Ihre Verzauberungen zu verbessern, aber keine Rückerstattung oder Beschwerden.
 			WitchSpawnCondition: Haben Sie eine Verzauberung in Ihrem Inventar oder auf Ihrer Ausrüstung.
 		}
@@ -714,41 +834,49 @@ Mods: {
 		Items: {
 			AllForOneEnchantmentBasic.DisplayName: Alle für einen Verzauberung Basic
 			AllForOneEnchantmentCommon.DisplayName: Alle für einen Verzauberung Gewöhnlich
+			AllForOneEnchantmentCursed.DisplayName: All For One Verzauberung verflucht
 			AllForOneEnchantmentEpic.DisplayName: All For One Enchantment-Epos
 			AllForOneEnchantmentLegendary.DisplayName: All For One Verzauberung Legendär
 			AllForOneEnchantmentRare.DisplayName: Alle für einen Verzauberung Selten
 			AmmoCostEnchantmentBasic.DisplayName: Munitionskosten Verzauberung Basic
 			AmmoCostEnchantmentCommon.DisplayName: Munitionskosten Verzauberung Gewöhnlich
+			AmmoCostEnchantmentCursed.DisplayName: Munitionskosten-Verzauberung: Verflucht
 			AmmoCostEnchantmentEpic.DisplayName: Munitionskosten-Verzauberung Epic
 			AmmoCostEnchantmentLegendary.DisplayName: Munitionskostenverzauberung Legendär
 			AmmoCostEnchantmentRare.DisplayName: Munitionskosten Verzauberung Selten
 			AttackSpeedEnchantmentBasic.DisplayName: Geschwindigkeit Verzauberung Basic
 			AttackSpeedEnchantmentCommon.DisplayName: Geschwindigkeit Verzauberung Gewöhnlich
+			AttackSpeedEnchantmentCursed.DisplayName: Angriffsgeschwindigkeitsverzauberung verflucht
 			AttackSpeedEnchantmentEpic.DisplayName: Angriffsgeschwindigkeitsverzauberung Epic
 			AttackSpeedEnchantmentLegendary.DisplayName: Angriffsgeschwindigkeitsverzauberung Legendär
 			AttackSpeedEnchantmentRare.DisplayName: Geschwindigkeit Verzauberung Selten
 			BardClassSwapEnchantmentBasic.DisplayName: Barden-Klassentausch-Verzauberung Basic
 			BardClassSwapEnchantmentCommon.DisplayName: Barden-Klassentausch-Verzauberung Gewöhnlich
+			BardClassSwapEnchantmentCursed.DisplayName: Barden-Klassentausch-Verzauberung: Verflucht
 			BardClassSwapEnchantmentEpic.DisplayName: Barden-Klassentausch-Verzauberungs-Epos
 			BardClassSwapEnchantmentLegendary.DisplayName: Barden-Klassentausch-Verzauberung Legendär
 			BardClassSwapEnchantmentRare.DisplayName: Barden-Klassentausch-Verzauberung Selten
 			BerserkersRageEnchantmentBasic.DisplayName: Berserker Rage Enchantment Basic
 			BerserkersRageEnchantmentCommon.DisplayName: Berserker Rage Enchantment Common
+			BerserkersRageEnchantmentCursed.DisplayName: Berserker-Wutverzauberung verflucht
 			BerserkersRageEnchantmentEpic.DisplayName: Berserkers Rage Enchantment Epos
 			BerserkersRageEnchantmentLegendary.DisplayName: Berserker Rage Enchantment Legendär
 			BerserkersRageEnchantmentRare.DisplayName: Berserker Rage Enchantment Selten
 			CalmWatersEnchantmentBasic.DisplayName: Ruhiges Wasser Verzauberung Basic
 			CalmWatersEnchantmentCommon.DisplayName: Ruhiges Wasser Verzauberung Common
+			CalmWatersEnchantmentCursed.DisplayName: Verzauberung des ruhigen Wassers verflucht
 			CalmWatersEnchantmentEpic.DisplayName: Calm Waters Enchantment Epos
 			CalmWatersEnchantmentLegendary.DisplayName: Calm Waters Verzauberung Legendär
 			CalmWatersEnchantmentRare.DisplayName: Verzauberung der ruhigen Gewässer Selten
 			ChaoticFishingEnchantmentBasic.DisplayName: Chaotische Angelverzauberung Basic
 			ChaoticFishingEnchantmentCommon.DisplayName: Chaotische Angelverzauberung Häufig
+			ChaoticFishingEnchantmentCursed.DisplayName: Verzauberung „Chaotisches Angeln“ verflucht
 			ChaoticFishingEnchantmentEpic.DisplayName: Chaotic Fishing Enchantment Epos
 			ChaoticFishingEnchantmentLegendary.DisplayName: Chaotische Angelverzauberung Legendär
 			ChaoticFishingEnchantmentRare.DisplayName: Chaotische Angelverzauberung Selten
 			ColdSteelEnchantmentBasic.DisplayName: Kalter Stahl Verzauberung Basic
 			ColdSteelEnchantmentCommon.DisplayName: Kalter Stahl Verzauberung Gewöhnlich
+			ColdSteelEnchantmentCursed.DisplayName: Kaltstahl-Verzauberung verflucht
 			ColdSteelEnchantmentEpic.DisplayName: Cold Steel Enchantment-Epos
 			ColdSteelEnchantmentLegendary.DisplayName: Legendäre Verzauberung von Cold Steel
 			ColdSteelEnchantmentRare.DisplayName: Kalter Stahl Verzauberung Gewöhnlich
@@ -760,6 +888,7 @@ Mods: {
 
 			CrateChanceEnchantmentBasic.DisplayName: Crate Chance Verzauberung Basic
 			CrateChanceEnchantmentCommon.DisplayName: Crate Chance Verzauberung Common
+			CrateChanceEnchantmentCursed.DisplayName: Kisten-Chance-Verzauberung: Verflucht
 			CrateChanceEnchantmentEpic.DisplayName: Crate Chance Enchantment Epos
 			CrateChanceEnchantmentLegendary.DisplayName: Kistenchance-Verzauberung Legendär
 			CrateChanceEnchantmentRare.DisplayName: Kisten-Chance-Verzauberung Selten
@@ -770,26 +899,37 @@ Mods: {
 			CrateEnchantmentRare.DisplayName: Kistenverzauberung Selten
 			CriticalStrikeChanceEnchantmentBasic.DisplayName: Kritische Trefferchance Verzauberung Basic
 			CriticalStrikeChanceEnchantmentCommon.DisplayName: Kritische Trefferchance Verzauberung Gewöhnlich
+			CriticalStrikeChanceEnchantmentCursed.DisplayName: Verzauberung mit kritischer Trefferchance. Verflucht
 			CriticalStrikeChanceEnchantmentEpic.DisplayName: Verzauberungs-Epos mit kritischer Trefferchance
 			CriticalStrikeChanceEnchantmentLegendary.DisplayName: Verzauberung mit kritischer Trefferchance Legendär
 			CriticalStrikeChanceEnchantmentRare.DisplayName: Kritische Trefferchance Verzauberung Selten
 			CriticalStrikeDamageEnchantmentBasic.DisplayName: Kritische Trefferschaden-Verzauberung Basic
 			CriticalStrikeDamageEnchantmentCommon.DisplayName: Verzauberung für Schaden durch kritische Treffer Häufig
+			CriticalStrikeDamageEnchantmentCursed.DisplayName: Verzauberung für kritischen Trefferschaden. Verzaubert
 			CriticalStrikeDamageEnchantmentEpic.DisplayName: Verzauberung mit kritischem Trefferschaden episch
 			CriticalStrikeDamageEnchantmentLegendary.DisplayName: Verzauberung für kritischen Trefferschaden Legendär
 			CriticalStrikeDamageEnchantmentRare.DisplayName: Verzauberung mit kritischem Trefferschaden Selten
+
+			CursedEssence: {
+				DisplayName: Verfluchte Essenz
+				// Tooltip: ""
+			}
+
 			CursedInfernoEnchantmentBasic.DisplayName: Verfluchte Inferno-Verzauberung Basic
 			CursedInfernoEnchantmentCommon.DisplayName: Verfluchte Inferno-Verzauberung
+			CursedInfernoEnchantmentCursed.DisplayName: Verfluchte Inferno-Verzauberung. Verflucht
 			CursedInfernoEnchantmentEpic.DisplayName: Verfluchtes Inferno-Verzauberungs-Epos
 			CursedInfernoEnchantmentLegendary.DisplayName: Verfluchte Inferno-Verzauberung Legendär
 			CursedInfernoEnchantmentRare.DisplayName: Verfluchte Inferno-Verzauberung Selten
 			DamageEnchantmentBasic.DisplayName: Schaden Verzauberung Basic
 			DamageEnchantmentCommon.DisplayName: Schaden Verzauberung Gewöhnlich
+			DamageEnchantmentCursed.DisplayName: Schadensverzauberung verflucht
 			DamageEnchantmentEpic.DisplayName: Schadensverzauberung Epic
 			DamageEnchantmentLegendary.DisplayName: Beschädigen Sie die Verzauberung Legendär
 			DamageEnchantmentRare.DisplayName: Schaden Verzauberung Selten
 			DamageReductionEnchantmentBasic.DisplayName: Grundlegende Verzauberung zur Schadensreduzierung
 			DamageReductionEnchantmentCommon.DisplayName: Verzauberung zur Schadensminderung Gewöhnlich
+			DamageReductionEnchantmentCursed.DisplayName: Schadensreduzierende Verzauberung. Verflucht
 			DamageReductionEnchantmentEpic.DisplayName: Epic-Verzauberung zur Schadensreduzierung
 			DamageReductionEnchantmentLegendary.DisplayName: Verzauberung zur Schadensreduzierung Legendär
 			DamageReductionEnchantmentRare.DisplayName: Verzauberung zur Schadensreduzierung Selten
@@ -800,11 +940,13 @@ Mods: {
 			DangerSenseEnchantmentRare.DisplayName: Verzauberung der Gefahrenwahrnehmung Selten
 			DaybreakEnchantmentBasic.DisplayName: Tagesanbruch-Verzauberung Basic
 			DaybreakEnchantmentCommon.DisplayName: Daybreak-Verzauberung Common
+			DaybreakEnchantmentCursed.DisplayName: Tagesanbruch-Verzauberung verflucht
 			DaybreakEnchantmentEpic.DisplayName: Daybreak Enchantment-Epos
 			DaybreakEnchantmentLegendary.DisplayName: Daybreak-Verzauberung Legendär
 			DaybreakEnchantmentRare.DisplayName: Daybreak-Verzauberung Selten
 			DefenseEnchantmentBasic.DisplayName: Verteidigungsverzauberung Basic
 			DefenseEnchantmentCommon.DisplayName: Verzauberung der Verteidigung Gewöhnlich
+			DefenseEnchantmentCursed.DisplayName: Verteidigungsverzauberung verflucht
 			DefenseEnchantmentEpic.DisplayName: Verteidigungszauber-Epos
 			DefenseEnchantmentLegendary.DisplayName: Verteidigungsverzauberung Legendär
 			DefenseEnchantmentRare.DisplayName: Verteidigungszauber Selten
@@ -865,6 +1007,7 @@ Mods: {
 
 			ExtraFishingLineEnchantmentBasic.DisplayName: Zusätzliche Angelschnur-Verzauberung Basic
 			ExtraFishingLineEnchantmentCommon.DisplayName: Zusätzliche Angelschnur-Verzauberung
+			ExtraFishingLineEnchantmentCursed.DisplayName: Zusätzliche Angelschnur-Verzauberung „Verflucht“.
 			ExtraFishingLineEnchantmentEpic.DisplayName: Extra Angelschnur-Verzauberung Epic
 			ExtraFishingLineEnchantmentLegendary.DisplayName: Zusätzliche Angelschnur-Verzauberung Legendär
 			ExtraFishingLineEnchantmentRare.DisplayName: Zusätzliche Angelschnur-Verzauberung Selten
@@ -875,21 +1018,25 @@ Mods: {
 			FishingEnchantmentRare.DisplayName: Angelverzauberung Selten
 			FishingPowerEnchantmentBasic.DisplayName: Angelkraft-Verzauberung Basic
 			FishingPowerEnchantmentCommon.DisplayName: Angelkraft Verzauberung Allgemein
+			FishingPowerEnchantmentCursed.DisplayName: Angelkraft-Verzauberung verflucht
 			FishingPowerEnchantmentEpic.DisplayName: Fischen Power Enchantment Epic
 			FishingPowerEnchantmentLegendary.DisplayName: Angelkraft-Verzauberung Legendär
 			FishingPowerEnchantmentRare.DisplayName: Angelkraft-Verzauberung Selten
 			FrostburnEnchantmentBasic.DisplayName: Frostbrand-Verzauberung Basic
 			FrostburnEnchantmentCommon.DisplayName: Frostbrand-Verzauberung Häufig
+			FrostburnEnchantmentCursed.DisplayName: Verzauberung „Frostbrand“ verflucht
 			FrostburnEnchantmentEpic.DisplayName: Eisbrand-Verzauberung Epos
 			FrostburnEnchantmentLegendary.DisplayName: Frostbrand-Verzauberung Legendär
 			FrostburnEnchantmentRare.DisplayName: Frostbrand-Verzauberung Selten
 			GodSlayerEnchantmentBasic.DisplayName: Gotttöter Verzauberung Basic
 			GodSlayerEnchantmentCommon.DisplayName: Gotttöter Verzauberung Gewöhnlich
+			GodSlayerEnchantmentCursed.DisplayName: Gottestöter-Verzauberung verflucht
 			GodSlayerEnchantmentEpic.DisplayName: God Slayer Enchantment Epos
 			GodSlayerEnchantmentLegendary.DisplayName: Gotttöter-Verzauberung Legendär
 			GodSlayerEnchantmentRare.DisplayName: Gotttöter Verzauberung Selten
 			HealerClassSwapEnchantmentBasic.DisplayName: Heiler-Klassentausch-Verzauberung Basic
 			HealerClassSwapEnchantmentCommon.DisplayName: Heiler-Klassentausch-Verzauberung Häufig
+			HealerClassSwapEnchantmentCursed.DisplayName: Verzauberung „Heiler-Klassentausch“ verflucht
 			HealerClassSwapEnchantmentEpic.DisplayName: Heiler-Klassentausch-Verzauberungs-Epos
 			HealerClassSwapEnchantmentLegendary.DisplayName: Heiler-Klassentausch-Verzauberung Legendär
 			HealerClassSwapEnchantmentRare.DisplayName: Heiler-Klassentausch-Verzauberung Selten
@@ -905,6 +1052,7 @@ Mods: {
 
 			HellsWrathEnchantmentBasic.DisplayName: Höllen Zorn Verzauberung Basic
 			HellsWrathEnchantmentCommon.DisplayName: Höllen Zorn Verzauberung Gewöhnlich
+			HellsWrathEnchantmentCursed.DisplayName: Höllenzorn-Verzauberung verflucht
 			HellsWrathEnchantmentEpic.DisplayName: Hells Wrath Enchantment-Epos
 			HellsWrathEnchantmentLegendary.DisplayName: Hells Wrath-Verzauberung Legendär
 			HellsWrathEnchantmentRare.DisplayName: Höllen Zorn Verzauberung Selten
@@ -915,66 +1063,79 @@ Mods: {
 			HunterEnchantmentRare.DisplayName: Jägerverzauberung Selten
 			IchorEnchantmentBasic.DisplayName: Grundlegende Ichor-Verzauberung
 			IchorEnchantmentCommon.DisplayName: Ichor-Verzauberung
+			IchorEnchantmentCursed.DisplayName: Sekretverzauberung verflucht
 			IchorEnchantmentEpic.DisplayName: Epos der Ichor-Verzauberung
 			IchorEnchantmentLegendary.DisplayName: Ichor-Verzauberung Legendär
 			IchorEnchantmentRare.DisplayName: Ichor-Verzauberung Selten
 			JuicedEnchantmentBasic.DisplayName: Entsaftete Verzauberung Basic
 			JuicedEnchantmentCommon.DisplayName: Entsaftete Verzauberung
+			JuicedEnchantmentCursed.DisplayName: Saftige Verzauberung verflucht
 			JuicedEnchantmentEpic.DisplayName: Juiced Enchantment Epos
 			JuicedEnchantmentLegendary.DisplayName: Entsaftete Verzauberung Legendär
 			JuicedEnchantmentRare.DisplayName: Entsaftete Verzauberung Selten
 			JunglesFuryEnchantmentBasic.DisplayName: Jungle Zorn Verzauberung Basic
 			JunglesFuryEnchantmentCommon.DisplayName: Jungle Zorn Verzauberung Gewöhnlich
+			JunglesFuryEnchantmentCursed.DisplayName: Jungles Fury-Verzauberung verflucht
 			JunglesFuryEnchantmentEpic.DisplayName: Jungles Fury Enchantment Epos
 			JunglesFuryEnchantmentLegendary.DisplayName: Jungles Fury Enchantment Legendär
 			JunglesFuryEnchantmentRare.DisplayName: Jungle Zorn Verzauberung Selten
 			KiClassSwapEnchantmentBasic.DisplayName: Ki-Klassentausch-Verzauberung Basic
 			KiClassSwapEnchantmentCommon.DisplayName: Ki-Klassentausch-Verzauberung Gewöhnlich
+			KiClassSwapEnchantmentCursed.DisplayName: Ki-Klassentauschverzauberung verflucht
 			KiClassSwapEnchantmentEpic.DisplayName: Ki-Klassentausch-Verzauberungs-Epos
 			KiClassSwapEnchantmentLegendary.DisplayName: Ki-Klassentausch-Verzauberung Legendär
 			KiClassSwapEnchantmentRare.DisplayName: Ki-Klassentausch-Verzauberung Selten
 			KiEnchantmentBasic.DisplayName: Ki-Verzauberung Basic
 			KiEnchantmentCommon.DisplayName: Ki Verzauberung Allgemein
+			KiEnchantmentCursed.DisplayName: Ki-Verzauberung verflucht
 			KiEnchantmentEpic.DisplayName: Ki-Verzauberungs-Epos
 			KiEnchantmentLegendary.DisplayName: Ki-Verzauberung Legendär
 			KiEnchantmentRare.DisplayName: Ki-Verzauberung Selten
 			LavaFishingEnchantmentBasic.DisplayName: Lavafischen Verzauberung Basic
 			LavaFishingEnchantmentCommon.DisplayName: Lavafischen Verzauberung Allgemein
+			LavaFishingEnchantmentCursed.DisplayName: Verzauberung „Lavafischen“ verflucht
 			LavaFishingEnchantmentEpic.DisplayName: Epische Lavafischen-Verzauberung
 			LavaFishingEnchantmentLegendary.DisplayName: Lavafischen Verzauberung Legendär
 			LavaFishingEnchantmentRare.DisplayName: Lavafischen Verzauberung Selten
 			LethalCombinationEnchantmentBasic.DisplayName: Tödliche Kombinationsverzauberung Basic
 			LethalCombinationEnchantmentCommon.DisplayName: Tödliche Kombinationsverzauberung, häufig
+			LethalCombinationEnchantmentCursed.DisplayName: Tödliche Kombinationsverzauberung verflucht
 			LethalCombinationEnchantmentEpic.DisplayName: Tödliche Kombinationsverzauberung, episch
 			LethalCombinationEnchantmentLegendary.DisplayName: Tödliche Kombinationsverzauberung, legendär
 			LethalCombinationEnchantmentRare.DisplayName: Tödliche Kombinationsverzauberung, selten
 			LifeRegenEnchantmentBasic.DisplayName: Lebensregenerierungs-Verzauberung Basic
 			LifeRegenEnchantmentCommon.DisplayName: Verzauberung der Lebensregeneration
+			LifeRegenEnchantmentCursed.DisplayName: Lebensregenerationsverzauberung verflucht
 			LifeRegenEnchantmentEpic.DisplayName: Epische Lebensregenerierungsverzauberung
 			LifeRegenEnchantmentLegendary.DisplayName: Verzauberung der Lebensregeneration Legendär
 			LifeRegenEnchantmentRare.DisplayName: Verzauberung der Lebensregeneration Selten
 			LifeStealEnchantmentBasic.DisplayName: Lebensraub Verzauberung Basic
 			LifeStealEnchantmentCommon.DisplayName: Lebensraub Verzauberung Gewöhnlich
+			LifeStealEnchantmentCursed.DisplayName: Lebensraub-Verzauberung verflucht
 			LifeStealEnchantmentEpic.DisplayName: Life Steal Enchantment-Epos
 			LifeStealEnchantmentLegendary.DisplayName: Lebensraub-Verzauberung Legendär
 			LifeStealEnchantmentRare.DisplayName: Lebensraub Verzauberung Selten
 			LuckEnchantmentBasic.DisplayName: Glücksverzauberung Basic
 			LuckEnchantmentCommon.DisplayName: Glücksverzauberung Common
+			LuckEnchantmentCursed.DisplayName: Glücksverzauberung verflucht
 			LuckEnchantmentEpic.DisplayName: Glückszauber-Epos
 			LuckEnchantmentLegendary.DisplayName: Glücksverzauberung Legendär
 			LuckEnchantmentRare.DisplayName: Glücksverzauberung Selten
 			MagicClassSwapEnchantmentBasic.DisplayName: Magic Class Swap-Verzauberung Basic
 			MagicClassSwapEnchantmentCommon.DisplayName: Magische Klassentausch-Verzauberung Allgemein
+			MagicClassSwapEnchantmentCursed.DisplayName: Magie-Klassentausch-Verzauberung: Verflucht
 			MagicClassSwapEnchantmentEpic.DisplayName: Magische Klassentausch-Verzauberung Epic
 			MagicClassSwapEnchantmentLegendary.DisplayName: Magische Klassentausch-Verzauberung Legendär
 			MagicClassSwapEnchantmentRare.DisplayName: Magische Klassentausch-Verzauberung Selten
 			MagneticEnchantmentBasic.DisplayName: Magnetische Verzauberung Basic
 			MagneticEnchantmentCommon.DisplayName: Magnetische Verzauberung Gewöhnlich
+			MagneticEnchantmentCursed.DisplayName: Magnetische Verzauberung verflucht
 			MagneticEnchantmentEpic.DisplayName: Magnetische Verzauberung, episch
 			MagneticEnchantmentLegendary.DisplayName: Legendäre magnetische Verzauberung
 			MagneticEnchantmentRare.DisplayName: Magnetische Verzauberung Selten
 			MaxMinionsEnchantmentBasic.DisplayName: Max Günstlinge Verzauberung Basic
 			MaxMinionsEnchantmentCommon.DisplayName: Max Günstlinge Verzauberung Gewöhnlich
+			MaxMinionsEnchantmentCursed.DisplayName: Max Minions Verzauberung verflucht
 			MaxMinionsEnchantmentEpic.DisplayName: Max Minions Verzauberung Epic
 			MaxMinionsEnchantmentLegendary.DisplayName: Max Minions Verzauberung Legendär
 			MaxMinionsEnchantmentRare.DisplayName: Max Günstlinge Verzauberung Selten
@@ -986,31 +1147,37 @@ Mods: {
 
 			MeleeClassSwapEnchantmentBasic.DisplayName: Nahkampf-Klassentausch-Verzauberung Basic
 			MeleeClassSwapEnchantmentCommon.DisplayName: Nahkampf-Klassentausch-Verzauberung Gewöhnlich
+			MeleeClassSwapEnchantmentCursed.DisplayName: Nahkampf-Klassenwechsel-Verzauberung: Verflucht
 			MeleeClassSwapEnchantmentEpic.DisplayName: Nahkampf-Klassentausch-Verzauberung Epic
 			MeleeClassSwapEnchantmentLegendary.DisplayName: Nahkampf-Klassentausch-Verzauberung Legendär
 			MeleeClassSwapEnchantmentRare.DisplayName: Nahkampf-Klassentausch-Verzauberung Selten
 			MobilityControlEnchantmentBasic.DisplayName: Mobilitätskontrollverzauberung Basic
 			MobilityControlEnchantmentCommon.DisplayName: Verzauberung der Mobilitätskontrolle Gewöhnlich
+			MobilityControlEnchantmentCursed.DisplayName: Verzauberung zur Mobilitätskontrolle: Verflucht
 			MobilityControlEnchantmentEpic.DisplayName: Epische Verzauberung zur Mobilitätskontrolle
 			MobilityControlEnchantmentLegendary.DisplayName: Mobilitätskontrolle Verzauberung Legendär
 			MobilityControlEnchantmentRare.DisplayName: Verzauberung zur Mobilitätskontrolle Selten
 			MoonlightEnchantmentBasic.DisplayName: Mondlicht Verzauberung Basic
 			MoonlightEnchantmentCommon.DisplayName: Mondlicht Verzauberung Gewöhnlich
+			MoonlightEnchantmentCursed.DisplayName: Mondlichtverzauberung verflucht
 			MoonlightEnchantmentEpic.DisplayName: Mondschein-Verzauberungs-Epos
 			MoonlightEnchantmentLegendary.DisplayName: Mondlichtverzauberung Legendär
 			MoonlightEnchantmentRare.DisplayName: Mondlicht Verzauberung Selten
 			MovementSpeedEnchantmentBasic.DisplayName: Bewegungsgeschwindigkeit Verzauberung Basic
 			MovementSpeedEnchantmentCommon.DisplayName: Bewegungsgeschwindigkeit Verzauberung Gewöhnlich
+			MovementSpeedEnchantmentCursed.DisplayName: Bewegungsgeschwindigkeitsverzauberung verflucht
 			MovementSpeedEnchantmentEpic.DisplayName: Bewegungsgeschwindigkeitsverzauberung Epic
 			MovementSpeedEnchantmentLegendary.DisplayName: Bewegungsgeschwindigkeitsverzauberung Legendär
 			MovementSpeedEnchantmentRare.DisplayName: Bewegungsgeschwindigkeit Verzauberung Selten
 			MultishotEnchantmentBasic.DisplayName: Multischuss Verzauberung Basic
 			MultishotEnchantmentCommon.DisplayName: Multischuss Verzauberung Gewöhnlich
+			MultishotEnchantmentCursed.DisplayName: Mehrfachschuss-Verzauberung verflucht
 			MultishotEnchantmentEpic.DisplayName: Multishot-Verzauberung Epic
 			MultishotEnchantmentLegendary.DisplayName: Multishot-Verzauberung Legendär
 			MultishotEnchantmentRare.DisplayName: Multischuss Verzauberung Selten
 			NpcContactAnglerEnchantmentBasic.DisplayName: NPC Kontakt Angler Verzauberung Basic
 			NpcContactAnglerEnchantmentCommon.DisplayName: NPC Kontakt Angler Verzauberung Allgemein
+			NpcContactAnglerEnchantmentCursed.DisplayName: NPC-Kontaktangler-Verzauberung verflucht
 			NpcContactAnglerEnchantmentEpic.DisplayName: NPC Kontakt Angler Verzauberung Epic
 			NpcContactAnglerEnchantmentLegendary.DisplayName: NPC Kontakt Angler Verzauberung Legendär
 			NpcContactAnglerEnchantmentRare.DisplayName: NPC Kontakt Angler Verzauberung Selten
@@ -1021,11 +1188,13 @@ Mods: {
 			ObsidianSkinEnchantmentRare.DisplayName: Obsidian Skin Enchantment Selten
 			OneForAllEnchantmentBasic.DisplayName: Einer für alle Verzauberung Basic
 			OneForAllEnchantmentCommon.DisplayName: Einer für alle Verzauberung Gewöhnlich
+			OneForAllEnchantmentCursed.DisplayName: Einer für alle Verzauberung verflucht
 			OneForAllEnchantmentEpic.DisplayName: One For All Enchantment-Epos
 			OneForAllEnchantmentLegendary.DisplayName: One For All Verzauberung Legendär
 			OneForAllEnchantmentRare.DisplayName: Einer für alle Verzauberung Selten
 			OnFireEnchantmentBasic.DisplayName: On Fire Verzauberung Basic
 			OnFireEnchantmentCommon.DisplayName: Auf Feuer Verzauberung Common
+			OnFireEnchantmentCursed.DisplayName: Auf Feuer Verzauberung verflucht
 			OnFireEnchantmentEpic.DisplayName: On Fire Enchantment Epos
 			OnFireEnchantmentLegendary.DisplayName: On Fire Verzauberung Legendär
 			OnFireEnchantmentRare.DisplayName: On Fire Enchantment Selten
@@ -1036,16 +1205,19 @@ Mods: {
 			PeaceEnchantmentRare.DisplayName: Frieden Verzauberung Selten
 			PennyPinchingEnchantmentBasic.DisplayName: Penny Kneifen Verzauberung Basic
 			PennyPinchingEnchantmentCommon.DisplayName: Penny Pinching-Verzauberung Common
+			PennyPinchingEnchantmentCursed.DisplayName: Penny Pinching Enchantment Verflucht
 			PennyPinchingEnchantmentEpic.DisplayName: Penny Pinching Enchantment Epos
 			PennyPinchingEnchantmentLegendary.DisplayName: Penny Pinching Enchantment Legendär
 			PennyPinchingEnchantmentRare.DisplayName: Penny Pinching Enchantment Selten
 			PercentArmorPenetrationEnchantmentBasic.DisplayName: Prozentuale Rüstungsdurchdringungsverzauberung Basic
 			PercentArmorPenetrationEnchantmentCommon.DisplayName: Prozentuale Rüstungsdurchdringungsverzauberung, häufig
+			PercentArmorPenetrationEnchantmentCursed.DisplayName: Prozentuale Rüstungsdurchdringungsverzauberung verflucht
 			PercentArmorPenetrationEnchantmentEpic.DisplayName: Verzauberung mit prozentualer Rüstungsdurchdringung, episch
 			PercentArmorPenetrationEnchantmentLegendary.DisplayName: Verzauberung mit prozentualer Rüstungsdurchdringung, legendär
 			PercentArmorPenetrationEnchantmentRare.DisplayName: Verzauberung mit prozentualer Rüstungsdurchdringung, selten
 			PoisonEnchantmentBasic.DisplayName: Giftverzauberung Basic
 			PoisonEnchantmentCommon.DisplayName: Giftverzauberung Gewöhnlich
+			PoisonEnchantmentCursed.DisplayName: Giftverzauberung verflucht
 			PoisonEnchantmentEpic.DisplayName: Epische Vergiftungsverzauberung
 			PoisonEnchantmentLegendary.DisplayName: Legendäre Giftverzauberung
 			PoisonEnchantmentRare.DisplayName: Giftverzauberung Selten
@@ -1067,26 +1239,31 @@ Mods: {
 			PrideOfTheWeakEnchantmentRare.DisplayName: Stolz der schwachen Verzauberung Selten
 			ProjectileVelocityEnchantmentBasic.DisplayName: Schussgeschwindigkeit ​​Verzauberung Basic
 			ProjectileVelocityEnchantmentCommon.DisplayName: Schussgeschwindigkeit ​​Verzauberung Gewöhnlich
+			ProjectileVelocityEnchantmentCursed.DisplayName: Projektilgeschwindigkeitsverzauberung verflucht
 			ProjectileVelocityEnchantmentEpic.DisplayName: Projektilgeschwindigkeitsverzauberung Epos
 			ProjectileVelocityEnchantmentLegendary.DisplayName: Geschossgeschwindigkeitsverzauberung Legendär
 			ProjectileVelocityEnchantmentRare.DisplayName: Schussgeschwindigkeit ​​Verzauberung Selten
 			RangedClassSwapEnchantmentBasic.DisplayName: Fernkampf-Klassentausch-Verzauberung Basic
 			RangedClassSwapEnchantmentCommon.DisplayName: Fernkampf-Klassentausch-Verzauberung Gewöhnlich
+			RangedClassSwapEnchantmentCursed.DisplayName: Fernkampf-Klassentausch-Verzauberung: Verflucht
 			RangedClassSwapEnchantmentEpic.DisplayName: Fernkampf-Klassentausch-Verzauberungs-Epos
 			RangedClassSwapEnchantmentLegendary.DisplayName: Fernkampf-Klassentausch-Verzauberung Legendär
 			RangedClassSwapEnchantmentRare.DisplayName: Fernkampf-Klassentausch-Verzauberung Selten
 			ReducedManaUsageEnchantmentBasic.DisplayName: Mana Verzauberung Basic
 			ReducedManaUsageEnchantmentCommon.DisplayName: Mana Verzauberung Gewöhnlich
+			ReducedManaUsageEnchantmentCursed.DisplayName: Reduzierter Manaverbrauch. Verzauberung. Verflucht
 			ReducedManaUsageEnchantmentEpic.DisplayName: Epic-Verzauberung mit reduziertem Manaverbrauch
 			ReducedManaUsageEnchantmentLegendary.DisplayName: Legendäre Verzauberung mit reduziertem Manaverbrauch
 			ReducedManaUsageEnchantmentRare.DisplayName: Mana Verzauberung Selten
 			RogueClassSwapEnchantmentBasic.DisplayName: Rogue Class Swap-Verzauberung Basic
 			RogueClassSwapEnchantmentCommon.DisplayName: Rogue Class Swap Verzauberung Common
+			RogueClassSwapEnchantmentCursed.DisplayName: Schurken-Klassentauschverzauberung verflucht
 			RogueClassSwapEnchantmentEpic.DisplayName: Rogue-Klassentausch-Verzauberung, episch
 			RogueClassSwapEnchantmentLegendary.DisplayName: Rogue Class Swap-Verzauberung Legendär
 			RogueClassSwapEnchantmentRare.DisplayName: Rogue Class Swap Enchantment Selten
 			ShadowflameEnchantmentBasic.DisplayName: Basis der Schattenflammenverzauberung
 			ShadowflameEnchantmentCommon.DisplayName: Schattenflammenverzauberung Gewöhnlich
+			ShadowflameEnchantmentCursed.DisplayName: Schattenflammenverzauberung verflucht
 			ShadowflameEnchantmentEpic.DisplayName: Schattenflammen-Verzauberung, episch
 			ShadowflameEnchantmentLegendary.DisplayName: Legendäre Schattenflammenverzauberung
 			ShadowflameEnchantmentRare.DisplayName: Schattenflammenverzauberung Selten
@@ -1097,11 +1274,13 @@ Mods: {
 			ShineEnchantmentRare.DisplayName: Glanzverzauberung Selten
 			SizeEnchantmentBasic.DisplayName: Skalierung Verzauberung Basic
 			SizeEnchantmentCommon.DisplayName: Skalierung Verzauberung Gewöhnlich
+			SizeEnchantmentCursed.DisplayName: Größenverzauberung verflucht
 			SizeEnchantmentEpic.DisplayName: Größe Verzauberung Epic
 			SizeEnchantmentLegendary.DisplayName: Größe Verzauberung Legendär
 			SizeEnchantmentRare.DisplayName: Skalierung Verzauberung Selten
 			SolarDashEnchantmentBasic.DisplayName: Solar Dash-Verzauberung Basic
 			SolarDashEnchantmentCommon.DisplayName: Solar Dash-Verzauberung Häufig
+			SolarDashEnchantmentCursed.DisplayName: Solar Dash-Verzauberung verflucht
 			SolarDashEnchantmentEpic.DisplayName: Solar Dash Enchantment Epos
 			SolarDashEnchantmentLegendary.DisplayName: Solar Dash-Verzauberung Legendär
 			SolarDashEnchantmentRare.DisplayName: Solar Dash-Verzauberung Selten
@@ -1133,11 +1312,13 @@ Mods: {
 
 			ThrowingClassSwapEnchantmentBasic.DisplayName: Klassentausch-Verzauberung werfen Basic
 			ThrowingClassSwapEnchantmentCommon.DisplayName: Klasse tauschen Verzauberung werfen Gewöhnlich
+			ThrowingClassSwapEnchantmentCursed.DisplayName: Wirf die Klassenwechselverzauberung „Verflucht“.
 			ThrowingClassSwapEnchantmentEpic.DisplayName: Klassentausch-Verzauberungs-Epos werfen
 			ThrowingClassSwapEnchantmentLegendary.DisplayName: Klassentauschverzauberung Legendär werfen
 			ThrowingClassSwapEnchantmentRare.DisplayName: Klassentausch-Verzauberung werfen Selten
 			TimeEnchantmentBasic.DisplayName: Zeitverzauberung Basic
 			TimeEnchantmentCommon.DisplayName: Gewöhnliche Zeitverzauberung
+			TimeEnchantmentCursed.DisplayName: Zeitverzauberung verflucht
 			TimeEnchantmentEpic.DisplayName: Epische Zeitverzauberung
 			TimeEnchantmentLegendary.DisplayName: Legendäre Zeitverzauberung
 			TimeEnchantmentRare.DisplayName: Zeitverzauberung Selten
@@ -1163,16 +1344,19 @@ Mods: {
 
 			VenomEnchantmentBasic.DisplayName: Giftverzauberung Basic
 			VenomEnchantmentCommon.DisplayName: Giftverzauberung Allgemein
+			VenomEnchantmentCursed.DisplayName: Giftverzauberung verflucht
 			VenomEnchantmentEpic.DisplayName: Giftverzauberung Epic
 			VenomEnchantmentLegendary.DisplayName: Giftverzauberung Legendär
 			VenomEnchantmentRare.DisplayName: Giftverzauberung Selten
 			WarEnchantmentBasic.DisplayName: Krieg Verzauberung Basic
 			WarEnchantmentCommon.DisplayName: Krieg Verzauberung Gewöhnlich
+			WarEnchantmentCursed.DisplayName: Kriegsverzauberung verflucht
 			WarEnchantmentEpic.DisplayName: Epos der Kriegsverzauberung
 			WarEnchantmentLegendary.DisplayName: Kriegsverzauberung Legendär
 			WarEnchantmentRare.DisplayName: Krieg Verzauberung Selten
 			WhipClassSwapEnchantmentBasic.DisplayName: Peitschen-Klassentausch-Verzauberung Basic
 			WhipClassSwapEnchantmentCommon.DisplayName: Peitschen-Klassentausch-Verzauberung Gewöhnlich
+			WhipClassSwapEnchantmentCursed.DisplayName: Klassenwechsel-Verzauberung „Peitsche“ verflucht
 			WhipClassSwapEnchantmentEpic.DisplayName: Peitschen-Klassentausch-Verzauberung Epic
 			WhipClassSwapEnchantmentLegendary.DisplayName: Peitschen-Klassentausch-Verzauberung Legendär
 			WhipClassSwapEnchantmentRare.DisplayName: Peitschenklassentausch-Verzauberung Selten
@@ -1188,6 +1372,7 @@ Mods: {
 
 			WorldAblazeEnchantmentBasic.DisplayName: Welt in Flammen Verzauberung Basic
 			WorldAblazeEnchantmentCommon.DisplayName: Welt in Flammen Verzauberung Gewöhnlich
+			WorldAblazeEnchantmentCursed.DisplayName: Weltenflammenverzauberung verflucht
 			WorldAblazeEnchantmentEpic.DisplayName: World Ablaze Enchantment-Epos
 			WorldAblazeEnchantmentLegendary.DisplayName: Legendäre Verzauberung der Welt
 			WorldAblazeEnchantmentRare.DisplayName: Welt in Flammen Verzauberung Selten
@@ -1428,6 +1613,8 @@ Mods: {
 				FishingEnemySpawnChance: Angeln Gegner-Spawn-Chance
 				FishingPower: Fischfang
 				FlatMPRegen: Flach MP Regen
+				FlightAcceleration: Flugbeschleunigung
+				FlightSpeed: Fluggeschwindigkeit
 				Frostburn: Frostbrand
 				GodSlayer: Gottestöter
 				HealerClassSwap: Heiler-Klassentausch
@@ -1564,6 +1751,8 @@ Mods: {
 				FishingEnemySpawnChance: "{0} (Tagsüber um das 5-fache reduziert. Betroffen von Chum Caster. Kann auch Duke Fishron spawnen.)"
 				FishingPower: Angelkraft
 				FlatMPRegen: Flache MP-Regeneration
+				FlightAcceleration: Flugbeschleunigung
+				FlightSpeed: Fluggeschwindigkeit
 				GodSlayer:
 					'''
 					{0}
@@ -1665,6 +1854,14 @@ Mods: {
 			}
 
 			EnchantmentShortTooltip.OnTickPlayerBuff: Gewährt passiv {0} für {1} alle {2}
+			ItemTooltip.CursedEssence:
+				'''
+				Die Energie eines Fluches, der so mächtig ist, dass er Gestalt angenommen hat. Andere Flüche werden von seiner Macht angezogen.
+				Verfluchte Essenz trägt zu den folgenden Effekten bei, wenn sie sich in Ihrem Inventar oder Verzauberungslager befindet. (Verfluchte Essenz: {0})
+				    Erhöht die Spawn-Rate des Gegners. (Aktueller Bonus: {1}x)
+				    Erhöht die maximale Anzahl an Spawns des Gegners. (Aktueller Bonus: {2}x)
+				    Erhöhte Chance auf verfluchte Feinde. (Chance, dass ein gespawnter Feind verflucht wird: {3})
+				'''
 
 			ItemType: {
 				Accessories: Zubehör
@@ -1727,5 +1924,7 @@ Mods: {
 				}
 			}
 		}
+
+		// Projectiles.CursedEffectProjectile.DisplayName: Cursed Effect Projectile
 	}
 }

@@ -63,6 +63,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class MeleeClassSwapEnchantmentEpic : MeleeClassSwapEnchantment { }
 	[Autoload(false)]
 	public class MeleeClassSwapEnchantmentLegendary : MeleeClassSwapEnchantment { }
+	[Autoload(false)]
+	public class MeleeClassSwapEnchantmentCursed : MeleeClassSwapEnchantment { }
 
 	public abstract class WhipClassSwapEnchantment : ClassSwapEnchantment
 	{
@@ -89,6 +91,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class WhipClassSwapEnchantmentEpic : WhipClassSwapEnchantment { }
 	[Autoload(false)]
 	public class WhipClassSwapEnchantmentLegendary : WhipClassSwapEnchantment { }
+	[Autoload(false)]
+	public class WhipClassSwapEnchantmentCursed : WhipClassSwapEnchantment { }
 
 
 	public abstract class MagicClassSwapEnchantment : ClassSwapEnchantment
@@ -112,6 +116,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class MagicClassSwapEnchantmentEpic : MagicClassSwapEnchantment { }
 	[Autoload(false)]
 	public class MagicClassSwapEnchantmentLegendary : MagicClassSwapEnchantment { }
+	[Autoload(false)]
+	public class MagicClassSwapEnchantmentCursed : MagicClassSwapEnchantment { }
 
 
 	public abstract class RangedClassSwapEnchantment : ClassSwapEnchantment
@@ -135,6 +141,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class RangedClassSwapEnchantmentEpic : RangedClassSwapEnchantment { }
 	[Autoload(false)]
 	public class RangedClassSwapEnchantmentLegendary : RangedClassSwapEnchantment { }
+	[Autoload(false)]
+	public class RangedClassSwapEnchantmentCursed : RangedClassSwapEnchantment { }
 
 	public abstract class ThrowingClassSwapEnchantment : ClassSwapEnchantment
 	{
@@ -156,6 +164,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class ThrowingClassSwapEnchantmentEpic : ThrowingClassSwapEnchantment { }
 	[Autoload(false)]
 	public class ThrowingClassSwapEnchantmentLegendary : ThrowingClassSwapEnchantment { }
+	[Autoload(false)]
+	public class ThrowingClassSwapEnchantmentCursed : ThrowingClassSwapEnchantment { }
 
 
 	public abstract class RogueClassSwapEnchantment : ClassSwapEnchantment
@@ -180,6 +190,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class RogueClassSwapEnchantmentEpic : RogueClassSwapEnchantment { }
 	[Autoload(false)]
 	public class RogueClassSwapEnchantmentLegendary : RogueClassSwapEnchantment { }
+	[Autoload(false)]
+	public class RogueClassSwapEnchantmentCursed : RogueClassSwapEnchantment { }
 
 
 	public abstract class KiClassSwapEnchantment : ClassSwapEnchantment
@@ -209,6 +221,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class KiClassSwapEnchantmentEpic : KiClassSwapEnchantment { }
 	[Autoload(false)]
 	public class KiClassSwapEnchantmentLegendary : KiClassSwapEnchantment { }
+	[Autoload(false)]
+	public class KiClassSwapEnchantmentCursed : KiClassSwapEnchantment { }
 
 	public abstract class BardClassSwapEnchantment : ClassSwapEnchantment
 	{
@@ -231,6 +245,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class BardClassSwapEnchantmentEpic : BardClassSwapEnchantment { }
 	[Autoload(false)]
 	public class BardClassSwapEnchantmentLegendary : BardClassSwapEnchantment { }
+	[Autoload(false)]
+	public class BardClassSwapEnchantmentCursed : BardClassSwapEnchantment { }
 
 	public abstract class HealerClassSwapEnchantment : ClassSwapEnchantment
 	{
@@ -254,4 +270,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class HealerClassSwapEnchantmentEpic : HealerClassSwapEnchantment { }
 	[Autoload(false)]
 	public class HealerClassSwapEnchantmentLegendary : HealerClassSwapEnchantment { }
+	[Autoload(false)]
+	public class HealerClassSwapEnchantmentCursed : HealerClassSwapEnchantment { }
 }

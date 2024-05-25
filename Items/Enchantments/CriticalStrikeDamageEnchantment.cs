@@ -49,4 +49,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class CriticalStrikeDamageEnchantmentEpic : CriticalStrikeDamageEnchantment { }
 	[Autoload(false)]
 	public class CriticalStrikeDamageEnchantmentLegendary : CriticalStrikeDamageEnchantment { }
+	[Autoload(false)]
+	public class CriticalStrikeDamageEnchantmentCursed : CriticalStrikeDamageEnchantment { }
 }

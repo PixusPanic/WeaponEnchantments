@@ -50,4 +50,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class AmmoCostEnchantmentEpic : AmmoCostEnchantment { }
 	[Autoload(false)]
 	public class AmmoCostEnchantmentLegendary : AmmoCostEnchantment { }
+	[Autoload(false)]
+	public class AmmoCostEnchantmentCursed : AmmoCostEnchantment { }
 }

@@ -49,5 +49,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class SizeEnchantmentEpic : SizeEnchantment { }
 	[Autoload(false)]
 	public class SizeEnchantmentLegendary : SizeEnchantment { }
+	[Autoload(false)]
+	public class SizeEnchantmentCursed : SizeEnchantment { }
 
 }

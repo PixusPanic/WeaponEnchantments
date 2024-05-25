@@ -25,6 +25,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 				{ EItemType.Armor, 1f }
 			};
 		}
+		protected override List<List<EnchantmentEffect>> cursedEffectPossibilities => defaultDefensiveCursedEffectPossibilities;
 
 		public override string Artist => "andro951";
 		public override string ArtModifiedBy => null;
@@ -47,4 +48,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class JuicedEnchantmentEpic : JuicedEnchantment { }
 	[Autoload(false)]
 	public class JuicedEnchantmentLegendary : JuicedEnchantment { }
+	[Autoload(false)]
+	public class JuicedEnchantmentCursed : JuicedEnchantment { }
 }

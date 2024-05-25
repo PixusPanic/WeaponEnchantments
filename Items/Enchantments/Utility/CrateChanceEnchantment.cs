@@ -67,5 +67,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 	public class CrateChanceEnchantmentEpic : CrateChanceEnchantment { }
     [Autoload(false)]
 	public class CrateChanceEnchantmentLegendary : CrateChanceEnchantment { }
+	[Autoload(false)]
+	public class CrateChanceEnchantmentCursed : CrateChanceEnchantment { }
 
 }

@@ -69,5 +69,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 	public class LavaFishingEnchantmentEpic : LavaFishingEnchantment { }
     [Autoload(false)]
 	public class LavaFishingEnchantmentLegendary : LavaFishingEnchantment { }
+	[Autoload(false)]
+	public class LavaFishingEnchantmentCursed : LavaFishingEnchantment { }
 
 }

@@ -80,12 +80,15 @@ namespace WeaponEnchantments.Items
 
 			base.SetStaticDefaults();
 		}
+
+		public const int valueMult = 25;
+		public const int valuePower = 8;
 		private void SetupStaticValues() {
 			if (values[EssenceTier] != 0)
 				return;
 
 			//Values and xp per essence
-			values[EssenceTier] = (float)(25 * Math.Pow(8, EssenceTier));
+			values[EssenceTier] = (float)(valueMult * Math.Pow(valuePower, EssenceTier));
 			xpPerEssence[EssenceTier] = (float)(400 * Math.Pow(4, EssenceTier));
 		}
 		public override void PostUpdate() {
@@ -144,7 +147,7 @@ namespace WeaponEnchantments.Items
 				recipe.Register();
 			}
 
-			if (EssenceTier < tierNames.Length - 1) {
+			if (EssenceTier < Enchantment.CursedTier - 1) {
 				recipe = CreateRecipe();
 				recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[EssenceTier + 1], 1);
 				int num = 4;

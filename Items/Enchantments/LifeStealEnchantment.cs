@@ -72,5 +72,7 @@ namespace WeaponEnchantments.Items.Enchantments {
 	public class LifeStealEnchantmentEpic : LifeStealEnchantment { }
     [Autoload(false)]
 	public class LifeStealEnchantmentLegendary : LifeStealEnchantment { }
+	[Autoload(false)]
+	public class LifeStealEnchantmentCursed : LifeStealEnchantment { }
 
 }

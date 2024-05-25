@@ -48,5 +48,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class CalmWatersEnchantmentEpic : CalmWatersEnchantment { }
 	[Autoload(false)]
 	public class CalmWatersEnchantmentLegendary : CalmWatersEnchantment { }
+	[Autoload(false)]
+	public class CalmWatersEnchantmentCursed : CalmWatersEnchantment { }
 
 }

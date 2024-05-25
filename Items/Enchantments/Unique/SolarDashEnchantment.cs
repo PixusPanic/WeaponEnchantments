@@ -8,8 +8,7 @@ using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
-	public abstract class SolarDashEnchantment : Enchantment
-	{
+	public abstract class SolarDashEnchantment : Enchantment {
 		public override int StrengthGroup => 1;
 		public override int ArmorSlotSpecific => (int)ArmorSlotSpecificID.Legs;
 		public override void GetMyStats() {
@@ -26,6 +25,22 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 				{ EItemType.Armor, 1f }
 			};
 		}
+		protected override List<List<EnchantmentEffect>> cursedEffectPossibilities => MyCursedEffectPossibilities;
+		private List<List<EnchantmentEffect>> MyCursedEffectPossibilities {
+			get {
+				if (myCursedEffectPossibilities == null) {
+					myCursedEffectPossibilities = new() {
+						defense,
+						damageReduction,
+						moveControl,
+						damage
+					};
+				}
+
+				return myCursedEffectPossibilities;
+			}
+		}
+		private List<List<EnchantmentEffect>> myCursedEffectPossibilities;
 
 		public override string ShortTooltip => GetShortTooltip(showValue: false);
 		public override string Artist => "Zorutan";
@@ -48,4 +63,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class SolarDashEnchantmentEpic : SolarDashEnchantment { }
 	[Autoload(false)]
 	public class SolarDashEnchantmentLegendary : SolarDashEnchantment { }
+	[Autoload(false)]
+	public class SolarDashEnchantmentCursed : SolarDashEnchantment { }
 }

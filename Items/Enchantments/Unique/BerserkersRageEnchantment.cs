@@ -57,4 +57,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class BerserkersRageEnchantmentEpic : BerserkersRageEnchantment { }
 	[Autoload(false)]
 	public class BerserkersRageEnchantmentLegendary : BerserkersRageEnchantment { }
+	[Autoload(false)]
+	public class BerserkersRageEnchantmentCursed : BerserkersRageEnchantment { }
 }

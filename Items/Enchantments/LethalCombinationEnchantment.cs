@@ -54,4 +54,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class LethalCombinationEnchantmentEpic : LethalCombinationEnchantment { }
 	[Autoload(false)]
 	public class LethalCombinationEnchantmentLegendary : LethalCombinationEnchantment { }
+	[Autoload(false)]
+	public class LethalCombinationEnchantmentCursed : LethalCombinationEnchantment { }
 }

@@ -72,5 +72,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class AttackSpeedEnchantmentEpic : AttackSpeedEnchantment { }
 	[Autoload(false)]
 	public class AttackSpeedEnchantmentLegendary : AttackSpeedEnchantment { }
+	[Autoload(false)]
+	public class AttackSpeedEnchantmentCursed : AttackSpeedEnchantment { }
 
 }

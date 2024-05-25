@@ -58,4 +58,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class WarEnchantmentEpic : WarEnchantment { }
 	[Autoload(false)]
 	public class WarEnchantmentLegendary : WarEnchantment { }
+	[Autoload(false)]
+	public class WarEnchantmentCursed : WarEnchantment { }
 }

@@ -20,6 +20,7 @@ namespace WeaponEnchantments.Items.Enchantments
 				{ EItemType.FishingPoles, 1f }
 			};
 		}
+		protected override List<List<EnchantmentEffect>> cursedEffectPossibilities => defaultUtilityCursedEffectPossibilities;
 		public override string Artist => "andro951";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
@@ -67,5 +68,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class ExtraFishingLineEnchantmentEpic : ExtraFishingLineEnchantment { }
 	[Autoload(false)]
 	public class ExtraFishingLineEnchantmentLegendary : ExtraFishingLineEnchantment { }
+	[Autoload(false)]
+	public class ExtraFishingLineEnchantmentCursed : ExtraFishingLineEnchantment { }
 
 }

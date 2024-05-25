@@ -15,6 +15,7 @@ using Terraria.ModLoader;
 using WeaponEnchantments.UI;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
+using System.IO;
 
 namespace WeaponEnchantments.ModLib.KokoLib
 {
@@ -28,6 +29,8 @@ namespace WeaponEnchantments.ModLib.KokoLib
 		public void NetOfferChestItems(SortedDictionary<int, SortedSet<short>> chestItems);
 		public void NetResetEnchantedItemInChest(int chestNum, short index);
 		public void NetAnglerQuestSwap();
+		public void SyncCursedNPCData(NPCNetInfoCursedNPC npc);
+		public void SyncCursedEssenceCount(int cursedEssenceCount);
 	}
 	public class NetManager : ModHandler<INetMethods>, INetMethods
 	{
@@ -89,11 +92,105 @@ namespace WeaponEnchantments.ModLib.KokoLib
 		public void NetAnglerQuestSwap() {
 			if (Main.netMode == NetmodeID.Server) {
 				Main.AnglerQuestSwap();
+				Net.IgnoreClient = WhoAmI;
 				Net<INetMethods>.Proxy.NetAnglerQuestSwap();
 			}
 			else {
 				QuestFish.PrintAnglerQuest();
 			}
+		}
+
+		public void SyncCursedNPCData(NPCNetInfoCursedNPC npc) {
+			if (Main.netMode == NetmodeID.Server) {
+				//npc.SetStatsFromInfo();
+				Net<INetMethods>.Proxy.SyncCursedNPCData(npc);
+			}
+			else {
+				npc.SetStatsFromInfoCursedNPC();
+			}
+		}
+
+		public void SyncCursedEssenceCount(int cursedEssenceCount) {
+			if (Main.netMode == NetmodeID.Server) {
+				Net.IgnoreClient = WhoAmI;
+				Net<INetMethods>.Proxy.SyncCursedEssenceCount(cursedEssenceCount);
+			}
+
+			CurseAttractionNPC.UpdateCursedEssenceCount(WhoAmI, cursedEssenceCount);
+		}
+	}
+	public class NetFunctions {
+		public static void SyncCursedNPCData(int npcWhoAmI) => Net<INetMethods>.Proxy.SyncCursedNPCData(new NPCNetInfoCursedNPC(Main.npc[npcWhoAmI]));
+
+		public static void SynchCursedEssenceCount(int cursedEssenceCount) => Net<INetMethods>.Proxy.SyncCursedEssenceCount(cursedEssenceCount);
+	}
+	public struct NPCNetInfoCursedNPC {
+		public bool cursed;
+		public bool spawnedByBoss;
+		public int curseIndex = -1;
+		public int whoAmI;
+		public int lifeMax;
+		public float npcSlots;
+		public int damage;
+		public int defDamage;
+		public NPCNetInfoCursedNPC(NPC npc) {
+			if (npc.TryGetGlobalNPC(out CursedNPC cursedNPC)) {
+				cursed = cursedNPC.Cursed;
+				spawnedByBoss = cursedNPC.SpawnedByBoss;
+
+				if (!cursed)
+					return;
+
+				curseIndex = cursedNPC.curseEffectIndex;
+			}
+
+			whoAmI = npc.whoAmI;
+			lifeMax = npc.lifeMax;
+			npcSlots = npc.npcSlots;
+			damage = npc.damage;
+			defDamage = npc.defDamage;
+		}
+		public NPCNetInfoCursedNPC(BinaryReader reader) {
+			cursed = reader.ReadBoolean();
+			spawnedByBoss = reader.ReadBoolean();
+			if (!cursed)
+				return;
+
+			curseIndex = reader.ReadInt32();
+			whoAmI = reader.ReadInt32();
+			lifeMax = reader.ReadInt32();
+			npcSlots = reader.ReadInt32();
+			damage = reader.ReadInt32();
+			defDamage = reader.ReadInt32();
+		}
+		public void Write(BinaryWriter writer) {
+			writer.Write(cursed);
+			writer.Write(spawnedByBoss);
+			if (!cursed)
+				return;
+
+			writer.Write(curseIndex);
+			writer.Write(whoAmI);
+			writer.Write(lifeMax);
+			writer.Write(npcSlots);
+			writer.Write(damage);
+			writer.Write(defDamage);
+		}
+		public void SetStatsFromInfoCursedNPC() {
+			NPC npc = Main.npc[whoAmI];
+			if (npc.TryGetGlobalNPC(out CursedNPC cursedNPC)) {
+				cursedNPC.Cursed = cursed;
+				cursedNPC.SpawnedByBoss = spawnedByBoss;
+				if (!cursed)
+					return;
+
+				cursedNPC.curseEffectIndex = curseIndex;
+			}
+
+			npc.lifeMax = lifeMax;
+			npc.npcSlots = npcSlots;
+			npc.damage = damage;
+			npc.defDamage = defDamage;
 		}
 	}
 }

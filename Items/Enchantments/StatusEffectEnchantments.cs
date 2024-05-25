@@ -58,6 +58,8 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class OnFireEnchantmentEpic : OnFireEnchantment { }
 	[Autoload(false)]
 	public class OnFireEnchantmentLegendary : OnFireEnchantment { }
+	[Autoload(false)]
+	public class OnFireEnchantmentCursed : OnFireEnchantment { }
 
 	public abstract class PoisonEnchantment : StatusEffectEnchantment
 	{
@@ -80,6 +82,8 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class PoisonEnchantmentEpic : PoisonEnchantment { }
 	[Autoload(false)]
 	public class PoisonEnchantmentLegendary : PoisonEnchantment { }
+	[Autoload(false)]
+	public class PoisonEnchantmentCursed : PoisonEnchantment { }
 
 	public abstract class FrostburnEnchantment : StatusEffectEnchantment
 	{
@@ -96,6 +100,8 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class FrostburnEnchantmentEpic : FrostburnEnchantment { }
 	[Autoload(false)]
 	public class FrostburnEnchantmentLegendary : FrostburnEnchantment { }
+	[Autoload(false)]
+	public class FrostburnEnchantmentCursed : FrostburnEnchantment { }
 
 
 	public abstract class CursedInfernoEnchantment : StatusEffectEnchantment
@@ -116,6 +122,8 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class CursedInfernoEnchantmentEpic : CursedInfernoEnchantment { }
 	[Autoload(false)]
 	public class CursedInfernoEnchantmentLegendary : CursedInfernoEnchantment { }
+	[Autoload(false)]
+	public class CursedInfernoEnchantmentCursed : CursedInfernoEnchantment { }
 
 	public abstract class IchorEnchantment : StatusEffectEnchantment
 	{
@@ -135,6 +143,8 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class IchorEnchantmentEpic : IchorEnchantment { }
 	[Autoload(false)]
 	public class IchorEnchantmentLegendary : IchorEnchantment { }
+	[Autoload(false)]
+	public class IchorEnchantmentCursed : IchorEnchantment { }
 
 	public abstract class VenomEnchantment : StatusEffectEnchantment
 	{
@@ -154,6 +164,8 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class VenomEnchantmentEpic : VenomEnchantment { }
 	[Autoload(false)]
 	public class VenomEnchantmentLegendary : VenomEnchantment { }
+	[Autoload(false)]
+	public class VenomEnchantmentCursed : VenomEnchantment { }
 
 
 	public abstract class DaybreakEnchantment : StatusEffectEnchantment
@@ -176,6 +188,8 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class DaybreakEnchantmentEpic : DaybreakEnchantment { }
 	[Autoload(false)]
 	public class DaybreakEnchantmentLegendary : DaybreakEnchantment { }
+	[Autoload(false)]
+	public class DaybreakEnchantmentCursed : DaybreakEnchantment { }
 
 	public abstract class ShadowflameEnchantment : StatusEffectEnchantment
 	{
@@ -202,4 +216,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class ShadowflameEnchantmentEpic : ShadowflameEnchantment { }
 	[Autoload(false)]
 	public class ShadowflameEnchantmentLegendary : ShadowflameEnchantment { }
+	[Autoload(false)]
+	public class ShadowflameEnchantmentCursed : ShadowflameEnchantment { }
 }

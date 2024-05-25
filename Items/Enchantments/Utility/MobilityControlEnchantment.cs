@@ -14,7 +14,8 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
                 new MaxFallSpeed(EnchantmentStrengthData),
                 new MovementSlowdown(EnchantmentStrengthData),
                 new MovementAcceleration(EnchantmentStrengthData),
-                new JumpSpeed(@base: EnchantmentStrengthData * 2.5f),
+                new FlightAcceleration(EnchantmentStrengthData),
+                new JumpSpeed(EnchantmentStrengthData / 2f),
             };
             
             AllowedList = new Dictionary<EItemType, float>() {
@@ -24,7 +25,23 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
                 { EItemType.FishingPoles, 1f },
                 { EItemType.Tools, 1f }
             };
-        }
+		}
+		protected override List<List<EnchantmentEffect>> cursedEffectPossibilities => MyCursedEffectPossibilities;
+		private List<List<EnchantmentEffect>> MyCursedEffectPossibilities {
+			get {
+				if (myCursedEffectPossibilities == null) {
+					myCursedEffectPossibilities = new() {
+						defense,
+						damageReduction,
+						moveSpeed,
+						damage
+					};
+				}
+
+				return myCursedEffectPossibilities;
+			}
+		}
+		private List<List<EnchantmentEffect>> myCursedEffectPossibilities;
 
 		public override string Artist => "Sir Bumpleton ✿";
         public override string ArtModifiedBy => null;
@@ -54,4 +71,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 	public class MobilityControlEnchantmentEpic : MobilityControlEnchantment { }
     [Autoload(false)]
 	public class MobilityControlEnchantmentLegendary : MobilityControlEnchantment { }
+	[Autoload(false)]
+	public class MobilityControlEnchantmentCursed : MobilityControlEnchantment { }
 }

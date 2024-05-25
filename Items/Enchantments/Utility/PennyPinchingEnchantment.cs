@@ -52,5 +52,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class PennyPinchingEnchantmentEpic : PennyPinchingEnchantment { }
 	[Autoload(false)]
 	public class PennyPinchingEnchantmentLegendary : PennyPinchingEnchantment { }
+	[Autoload(false)]
+	public class PennyPinchingEnchantmentCursed : PennyPinchingEnchantment { }
 
 }

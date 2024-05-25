@@ -29,6 +29,7 @@ using static WeaponEnchantments.Common.Configs.ClientConfig;
 using static WeaponEnchantments.Common.Configs.ServerConfig;
 using static WeaponEnchantments.Common.Configs.PresetData;
 using Terraria.ID;
+using WeaponEnchantments.Debuffs;
 
 namespace WeaponEnchantments.Localization
 {
@@ -180,6 +181,14 @@ namespace WeaponEnchantments.Localization
 							}) },
 							{ L_ID2.DamageClassNames.ToString(), new(values: new() {
 								//Filled Automatically
+							}) },
+							{ L_ID2.ItemTooltip.ToString(), new(dict: new() {
+								{ $"{nameof(CursedEssence)}",
+									"Energy of a curse so powerful it's taken form.  Other curses will be drawn to its power.\n" +
+									"Cursed Essence will contribute to the below effects when in your inventory or Enchantment Storage.  (Cursed Essence: {0})\n" +
+									"   Increases enemy spawn rate.  (Current bonus: {1}x)\n" +
+									"   Increases enemy max spawns.  (Current bonus: {2}x)\n" +
+									"   Increased chance of cursed enemies. (Chance a spawned enemy will be cursed: {3})" }
 							}) }
 						}) },
 						{ L_ID1.Dialogue.ToString(), new(children: new() {
@@ -431,10 +440,21 @@ namespace WeaponEnchantments.Localization
 								{ GameMessageTextID.WitchChatText.ToString(), "What more do you want?  I'm busy." },
 								{ GameMessageTextID.RerollEnchantment.ToString(), "Re-roll Enchantment" },
 								{ GameMessageTextID.Back.ToString(), "Back" },
-								{ GameMessageTextID.WitchSpawnCondition.ToString(), "Have an enchantment in your inventory or on your equipment." } ,
+								{ GameMessageTextID.WitchSpawnCondition.ToString(), "Have an enchantment in your inventory or on your equipment." },
 								{ GameMessageTextID.OpenEnchantingTableFirstTime.ToString(), "You feel all of your Enchantments and Essence get pulled into the Enchanting Table.\n" +
 									"Weapon Enchantments has it's own storage inside the Enchanting Table.\n" +
-									"Picking up Enchantments, Essence and other Weapon Enchantments items will automatically send them to the Enchanting Table storage." }
+									"Picking up Enchantments, Essence and other Weapon Enchantments items will automatically send them to the Enchanting Table storage." },
+								{ GameMessageTextID.Next.ToString(), "Next" },
+								{ GameMessageTextID.Curses.ToString(), "Curses" },
+								{ GameMessageTextID.ApplyCurse.ToString(), "Apply Curse" },
+								{ GameMessageTextID.WitchEnchantmentCurseText.ToString(), "Curses are a powerful magic, but at a cost.  I can't help you if you change your mind.  The Dryad may be able to help with that.  Are you certain you wish to continue?" },
+								{ GameMessageTextID.PlaceHereReRoll.ToString(), "Place an enchantment here to re-roll" },
+								{ GameMessageTextID.PlaceHereCurse.ToString(), "Place an enchantment here to apply a curse" },
+								{ GameMessageTextID.ReRoll.ToString(), "Re-roll" },
+								{ GameMessageTextID.Owned.ToString(), GameMessageTextID.Owned.ToString() }, 
+								{ GameMessageTextID.NegativeDef.ToString(),
+									"Damage taken increased by {0} and {0}%\n" +
+									"(Weapon Enchantments)" }
 						}) },
 						{ L_ID1.Configs.ToString(), new(children: new() {
 							//Server Config
@@ -655,6 +675,17 @@ namespace WeaponEnchantments.Localization
 									{ L_ID3.Label.ToString(), "Minion Life Steal Multiplier (%)" },
 									{ L_ID3.Tooltip.ToString(), "Allows you to reduce the amount of healing received by minions with the Lifesteal Enchantment." }
 								}) },
+								{ nameof(ServerConfig.NegativeDefensePenaltyMultiplier), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ServerConfig.NegativeDefensePenaltyMultiplier).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(), 
+										$"If this number is greater than 0, a player having less than 0 defense will cause them to take more damage.\n" +
+										$"This is a penalty for allowing curses to reduce a player's defense to less than 0.\n" +
+										$"Damage taken is increased by {nameof(ServerConfig.NegativeDefensePenaltyMultiplier).AddSpaces()}/1000 * -playerDefense\n" +
+										$"AND multiplied by 1 + ({nameof(ServerConfig.NegativeDefensePenaltyMultiplier).AddSpaces()}/1000 * -playerDefense / 100)" +
+										$"Example: -20 defense and player takes 200 damage, {nameof(ServerConfig.NegativeDefensePenaltyMultiplier).AddSpaces()} = 1000:\n" +
+										$"finalDamage = (200 -(-20) * 1000/1000) * (1 + (1000/1000 * -(-20) / 100))\n" +
+										$"finalDamage = (200 + 20) * (1 + 0.2) => 220 * 1.2 => 264" }
+								}) },
 								{ nameof(ServerConfig.DCUStart), new(dict: new() {
 									{ L_ID3.Label.ToString(), "Start with a Drill Containment Unit" },
 									{ L_ID3.Tooltip.ToString(), "All players will get a Drill Containment Unit when they first spawn.\nThis is just for fun when you feel like a faster playthrough." }
@@ -663,16 +694,62 @@ namespace WeaponEnchantments.Localization
 									{ L_ID3.Label.ToString(), "Disable Ability to research Weapon Enchantment items." },
 									{ L_ID3.Tooltip.ToString(), "When enabled, all essence and enchantments will not be researchable, preventing them being duplicated in Journey mode." }
 								}) },
+								{ nameof(ServerConfig.AllowCursedEnemies), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ServerConfig.AllowCursedEnemies).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(), "Enable to allow enemies to rarely be cursed when they spawn causing them to deal no damage, but shoot debuffs at players.  Cursed Enemies also have 5x health." }
+								}) },
+								{ nameof(ServerConfig.CursedEnemyLifeMultiplier), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ServerConfig.CursedEnemyLifeMultiplier).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(), "Modifies cursed enemies max life.  Value is divided by 100.  500 => 5x multiplier." }
+								}) },
+								{ nameof(ServerConfig.CursedEnemyDamageMultiplier), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ServerConfig.CursedEnemyDamageMultiplier).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(), "Modifies cursed enemies damage dealt.  0 will cause them to not damage or knockback players.  Value is divided by 100.  100 => 1x multiplier." }
+								}) },
+								{ nameof(ServerConfig.CursedEssenceDropChanceMultiplier), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ServerConfig.CursedEssenceDropChanceMultiplier).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(), "Affects how much cursed essence is dropped by enemies." }
+								}) },
+								{ nameof(ServerConfig.CursedEnemyDebuffAttackRange), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ServerConfig.CursedEnemyDebuffAttackRange).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(), "Cursed Enemies will shoot debuffs at a player if they are within this distance of the player.  Value is divided by 100.  40000 => 400 range.  16 range is 1 in game tile/block." }
+								}) },
+								{ nameof(ServerConfig.CursedEnemyDebuffDurationMultiplier), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ServerConfig.CursedEnemyDebuffDurationMultiplier).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(), "Affects how long the debuffs from cursed enemies last." }
+								}) },
+								{ nameof(ServerConfig.CursedEnemyDebuffChanceMultiplier), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ServerConfig.CursedEnemyDebuffChanceMultiplier).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(), "Affects how likely the debuffs are to occur when it by cursed enemy debuff projectiles.  Most are 100% by default.  Confused is 10%, Webbed and Frozen are 5% and Petrification is 2.5%." }
+								}) },
+								{ nameof(ServerConfig.CuredEnemyDebuffTicksPerAttack), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ServerConfig.CuredEnemyDebuffTicksPerAttack).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(), "How many ticks between Cursed Enemies shooting a debuff projectile.  20 ticks / attack => (1 sec / 60 ticks) / (20 ticks / attack) => 3 attacks / second" }
+								}) },
+								{ nameof(ServerConfig.EnchantmentStrengthCurseScaling), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ServerConfig.EnchantmentStrengthCurseScaling).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(), 
+										$"This setting causes a fraction of the other enchantment strength settings to apply to the cursed effects.  Value is divided by 100.  50 => 50%\n" +
+										$"If this value is 0, it will have no effect.  If it is 50, it will have half of the effect of the other enchantment strength settings.\n" +
+										$"For instance, on Master world difficulty, the default enchantment strength is 25% (-75% reduction).\n" +
+										$"With this setting at 50, the curse effects would be reduced by half of that amount, 62.5% (-75% * 50% => -37.5% reduction).\n" +
+										$"At 100, the curse effects would scale the same as normal enchantment effects." }
+								}) },
+								{ nameof(ServerConfig.CurseStrengthMultiplier), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ServerConfig.CurseStrengthMultiplier).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(), "Affects how large the curses are on cursed enchantments." }
+								}) },
 							},
 							dict: new() {
 								{ L_ID2.DisplayName.ToString(), nameof(ServerConfig).AddSpaces() },
 								{ ServerConfigKey, ServerConfigKey.AddSpaces() },
 								{ IndividualEnchantmentStrengthsKey, IndividualEnchantmentStrengthsKey.AddSpaces() },
 								{ EnchantmentSettingsKey, EnchantmentSettingsKey.AddSpaces() },
-								{ EssenceandExperienceKey, "Essence and Experience" },
+								{ EssenceAndExperienceKey, "Essence and Experience" },
 								{ EnchantmentDropRatesKey, "Enchantment Drop Rates(%)" },
 								{ OtherDropRatesKey, OtherDropRatesKey.AddSpaces() },
 								{ EnchantingTableOptionsKey, EnchantingTableOptionsKey.AddSpaces() },
+								{ CursedEnemiesKey, CursedEnemiesKey.AddSpaces() },
 								{ GeneralGameChangesKey, GeneralGameChangesKey.AddSpaces() },
 								{ RandomExtraStuffKey, RandomExtraStuffKey.AddSpaces() },
 								{ PresetsKey, PresetsKey.AddSpaces() },
@@ -751,6 +828,18 @@ namespace WeaponEnchantments.Localization
 														$"Press num8 to print all stored dps values to the client.log\\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs\n" +
 														$"Starting a new test by pressing num0 resets the previous dps data for the held item to allow re-doing a test." }
 								}) },
+								{ nameof(ClientConfig.CursedEnemyVisualShaking), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ClientConfig.CursedEnemyVisualShaking).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(), 
+										"Cursed enemies shake or vibrate to help distinguish them from normal enemies.\n" +
+										"This setting controls how strong the visual shaking is of cursed enemies.  Set to 0 to disable the shaking." }
+								}) },
+								{ nameof(ClientConfig.CursedEnemyParticles), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ClientConfig.CursedEnemyParticles).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(),
+										"Cursed enemies produce small particles to help distinguish them from normal enemies.\n" +
+										"Turn off to prevent these particles from being created." }
+								}) },
 							},
 							dict: new() {
 								{ L_ID2.DisplayName.ToString(), nameof(ClientConfig).AddSpaces() },
@@ -789,8 +878,8 @@ namespace WeaponEnchantments.Localization
 							}) },
 							//Preset Data
 							{ nameof(PresetData), new(children: new() {
-								{ nameof(PresetData.AutomaticallyMatchPreseTtoWorldDifficulty), new(dict: new() {
-									{ L_ID3.Label.ToString(), "Automatically Match Preset to World Difficulty" },
+								{ nameof(PresetData.AutomaticallyMatchPresetToWorldDifficulty), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(PresetData.AutomaticallyMatchPresetToWorldDifficulty).AddSpaces() },
 									{ L_ID3.Tooltip.ToString(), "Must be turned off for the other options to be edited." }
 								}) },
 								{ nameof(PresetData.Preset), new(dict: new() {
@@ -822,6 +911,10 @@ namespace WeaponEnchantments.Localization
 								{ nameof(PresetData.LegendaryEnchantmentStrengthMultiplier), new(dict: new() {
 									{ L_ID3.Label.ToString(), "Legendary" },
 									{ L_ID3.Tooltip.ToString(), "Affects the strength of all Legendary Enchantments.  Overrides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored." }
+								}) },
+								{ nameof(PresetData.CursedEnchantmentStrengthMultiplier), new(dict: new() {
+									{ L_ID3.Label.ToString(), "Cursed" },
+									{ L_ID3.Tooltip.ToString(), "Affects the strength of all Cursed Enchantments.  Overrides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored." }
 								}) }
 							},
 							dict: new() {
@@ -843,8 +936,12 @@ namespace WeaponEnchantments.Localization
 						allData[L_ID1.Items.ToString()].Children.Add(modItem.Name, new(dict: new() { { L_ID2.DisplayName.ToString(), modItem.Name.AddSpaces() } }));
 					}
 
-					foreach (string buffName in weMod.GetContent<ModBuff>().Select(b => b.Name)) {
+					foreach (ModBuff modBuff in weMod.GetContent<ModBuff>()) {
+						string buffName = modBuff.Name;
 						allData[L_ID1.Buffs.ToString()].Children.Add(buffName, new(dict: new() { { L_ID2.DisplayName.ToString(), buffName } }));
+						if (modBuff is WEBuff weBuff && weBuff.LocalizationDescription != null) {
+							allData[L_ID1.Buffs.ToString()].Children[buffName].Dict.Add(L_ID2.Description.ToString(), weBuff.LocalizationDescription);
+						}
 					}
 
 					IEnumerable<Type> types = null;

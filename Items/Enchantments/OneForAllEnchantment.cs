@@ -53,5 +53,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class OneForAllEnchantmentEpic : OneForAllEnchantment { }
 	[Autoload(false)]
 	public class OneForAllEnchantmentLegendary : OneForAllEnchantment { }
+	[Autoload(false)]
+	public class OneForAllEnchantmentCursed : OneForAllEnchantment { }
 
 }

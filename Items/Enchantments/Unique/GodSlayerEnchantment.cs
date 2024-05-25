@@ -40,5 +40,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class GodSlayerEnchantmentEpic : GodSlayerEnchantment { }
 	[Autoload(false)]
 	public class GodSlayerEnchantmentLegendary : GodSlayerEnchantment { }
+	[Autoload(false)]
+	public class GodSlayerEnchantmentCursed : GodSlayerEnchantment { }
 
 }

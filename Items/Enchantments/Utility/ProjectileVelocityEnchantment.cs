@@ -45,4 +45,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class ProjectileVelocityEnchantmentEpic : ProjectileVelocityEnchantment { }
 	[Autoload(false)]
 	public class ProjectileVelocityEnchantmentLegendary : ProjectileVelocityEnchantment { }
+	[Autoload(false)]
+	public class ProjectileVelocityEnchantmentCursed : ProjectileVelocityEnchantment { }
 }

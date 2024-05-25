@@ -33,6 +33,11 @@ using androLib.Localization;
 using WeaponEnchantments.Localization;
 using Terraria.Map;
 using WeaponEnchantments.Common.Utility.LogSystem;
+using ReLogic.Graphics;
+using Microsoft.Xna.Framework;
+using androLib.Common.Utility;
+using Terraria.DataStructures;
+using WeaponEnchantments.Content.Projectiles;
 
 namespace WeaponEnchantments
 {
@@ -65,11 +70,13 @@ namespace WeaponEnchantments
 			hooks.Add(new(ModLoaderUpdateArmorSetMethodInfo, UpdateArmorSetDetour));
 			//hooks.Add(new(ModLoaderToHitInfoMethodInfo, ToHitInfoDetour));
 			//hooks.Add(new(ModLoaderCaughtFishStackMethodInfo, CaughtFishStackDetour));
+			hooks.Add(new(ModLoaderHorizontalWingSpeedsMethodInfo, HorizontalWingSpeeds));
 			foreach (Hook hook in hooks) {
 				hook.Apply();
 			}
 
 			On_Projectile.AI_061_FishingBobber_GiveItemToPlayer += OnProjectile_AI_061_FishingBobber_GiveItemToPlayer;
+			On_Projectile.NewProjectile_IEntitySource_float_float_float_float_int_int_float_int_float_float_float += On_Projectile_NewProjectile;
 			On_Item.GetShimmered += On_Item_GetShimmered;
 			On_WorldGen.KillTile_GetItemDrops += On_WorldGen_KillTile_GetItemDrops;
 			On_WorldGen.KillTile_DropItems += On_WorldGen_KillTile_DropItems;
@@ -80,6 +87,7 @@ namespace WeaponEnchantments
 			IL_Projectile.AI_099_1 += WEPlayer.HookAI_099_1;
 			IL_Projectile.AI_099_2 += WEPlayer.HookAI_099_2;
 			IL_Main.MouseText_DrawItemTooltip_GetLinesInfo += OnMouseText_DrawItemTooltip_GetLinesInfo;
+			IL_Main.DrawDefenseCounter += OnDrawDefenseCounter;
 
 			UIManager.RegisterWithMaster();
 
@@ -87,6 +95,33 @@ namespace WeaponEnchantments
 			AndroModSystem.RegisterChestSpawnChanceMultiplier(this, () => ConfigValues.EnchantmentDropChance, () => ConfigValues.BossEnchantmentDropChance, () => ConfigValues.ChestSpawnChance, () => ConfigValues.CrateDropChance);
 			RecipeData_WE.RegisterWithRecipeData(this);
 		}
+
+		private int On_Projectile_NewProjectile(On_Projectile.orig_NewProjectile_IEntitySource_float_float_float_float_int_int_float_int_float_float_float orig, Terraria.DataStructures.IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2) {
+			if (Type != ModContent.ProjectileType<CursedEffectProjectile>() && spawnSource is EntitySource_Parent parent && parent.Entity is NPC npc && npc.TryGetGlobalNPC(out CursedNPC cursedNPC) && cursedNPC.Cursed) {
+				Damage = (int)Math.Round(ConfigValues.CursedEnemyDamageMultiplier * Damage);
+
+				if (Damage <= 0) {
+					//Don't create a projectile
+					int num = 1000;
+					for (int i = 0; i < 1000; i++) {
+						if (!Main.projectile[i].active) {
+							num = i;
+							break;
+						}
+					}
+
+					if (num == 1000)
+						num = Projectile.FindOldestProjectile();
+
+					Main.projectile[num].active = false;
+
+					return num;
+				}
+			}
+
+			return orig(spawnSource, X, Y, SpeedX, SpeedY, Type, Damage, KnockBack, Owner, ai0, ai1, ai2);
+		}
+
 		private void AddAllContent(WEMod weMod) {
 			IEnumerable<Type> types = null;
 			try {
@@ -185,6 +220,15 @@ namespace WeaponEnchantments
 				legs = wePlyaer.Equipment.InfusedLegs;
 
 			orig(player, head, body, legs);
+		}
+
+		private delegate void orig_HorizontalWingSpeeds(Player player);
+		private delegate void hook_HorizontalWingSpeeds(orig_HorizontalWingSpeeds orig, Player player);
+		private static readonly MethodInfo ModLoaderHorizontalWingSpeedsMethodInfo = typeof(ItemLoader).GetMethod("HorizontalWingSpeeds");
+		private void HorizontalWingSpeeds(orig_HorizontalWingSpeeds orig, Player player) {
+			orig(player);
+			if (player.TryGetWEPlayer(out WEPlayer wePlayer))
+				wePlayer.ModifyHorizontalWingSpeeds();
 		}
 
 		/*
@@ -308,6 +352,82 @@ namespace WeaponEnchantments
 					return useStandardCritCalcs;
 
 				return shouldShowCritChance;
+			});
+		}
+		private void OnDrawDefenseCounter(ILContext il) {
+			var c = new ILCursor(il);
+
+			if (!c.TryGotoNext(MoveType.Before,
+				i => i.MatchCallvirt<DynamicSpriteFont>("MeasureString")
+			)) {
+				throw new Exception("Failed to find the IL instructions for OnDrawDefenseCounter 1/4.");
+			}
+
+			c.EmitDelegate((string defString) => {
+				if (ConfigValues.NegativeDefensePenaltyMultiplier <= 0f)
+					return defString;
+
+				string realDefString = Main.LocalPlayer.GetRealDefense().ToString();
+				return realDefString;
+			});
+
+			//IL_00c4: ldloc.0
+			//IL_00c5: ldloc.1
+			//IL_00c6: ldc.r4 0.5
+
+			if (!c.TryGotoNext(MoveType.Before,
+				i => i.MatchLdloc0(),
+				i => i.MatchLdloc1(),
+				i => i.MatchLdcR4(0.5f)
+			)) {
+				throw new Exception("Failed to find the IL instructions for OnDrawDefenseCounter 2/4.");
+			}
+
+			c.EmitDelegate((string defString) => {
+				if (ConfigValues.NegativeDefensePenaltyMultiplier <= 0f)
+					return defString;
+
+				string realDefString = Main.LocalPlayer.GetRealDefense().ToString();
+				return realDefString;
+			});
+
+			if (!c.TryGotoNext(MoveType.After,
+				i => i.MatchCall(typeof(Color).GetProperty("White").GetGetMethod())
+			)) {
+				throw new Exception("Failed to find the IL instructions for OnDrawDefenseCounter 3/4.");
+			}
+
+			c.EmitDelegate((Color defStringColor) => {
+				if (ConfigValues.NegativeDefensePenaltyMultiplier <= 0f)
+					return defStringColor;
+
+				int realDefense = Main.LocalPlayer.GetRealDefense();
+				if (realDefense < 0)
+					defStringColor = new Color(255, 0, 0);
+
+				return defStringColor;
+			});
+
+			if (!c.TryGotoNext(MoveType.Before,
+				i => i.MatchStsfld(typeof(Main), "hoverItemName")
+			)) {
+				throw new Exception("Failed to find the IL instructions for OnDrawDefenseCounter 4/4.");
+			}
+
+			c.EmitDelegate((string defHoverString) => {
+				float configMult = ConfigValues.NegativeDefensePenaltyMultiplier;
+				if (configMult <= 0f)
+					return defHoverString;
+
+				int realDef = Main.LocalPlayer.GetRealDefense();
+				if (realDef < 0) {
+					float realDefPenalty = configMult * realDef;
+					string realDefPenaltyStr = (-realDefPenalty).S(1);
+					defHoverString = $"{realDef} {Lang.inter[10].Value}\n" +
+					GameMessageTextID.NegativeDef.ToString().Lang_WE(L_ID1.GameMessages, new object[] { realDefPenaltyStr });
+				}
+				
+				return defHoverString;
 			});
 		}
 		/*

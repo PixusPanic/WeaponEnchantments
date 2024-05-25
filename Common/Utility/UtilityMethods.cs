@@ -251,8 +251,10 @@ namespace WeaponEnchantments.Common.Utility
 				GameMessageTextID.FailedConvertExcessExperience.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), consumedItem.S() }).LogNT(ChatMessagesIDs.FailedCheckConvertExcessExperience);// $"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()})".LogNT_WE(ChatMessagesIDs.FailedCheckConvertExcessExperience);
             }
         }
-        
-        public static string Lang_WE(this string s, L_ID1 id = L_ID1.Tooltip) => s.Lang_WE(out string result, id) ? result : "";
+        public static List<Item> SearchForItemIncludeEnchantmentStorage(int itemType, out int itemCount) => AndroUtilityMethods.SearchForItem(itemType, out itemCount, LocalWEPlayer.enchantmentStorageItems);
+
+
+		public static string Lang_WE(this string s, L_ID1 id = L_ID1.Tooltip) => s.Lang_WE(out string result, id) ? result : "";
         public static bool Lang_WE(this string s, out string result, L_ID1 id = L_ID1.Tooltip) {
             string key = $"Mods.WeaponEnchantments.{id}.{s}";
             result = Language.GetTextValue(key);

@@ -154,5 +154,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 	public class LuckEnchantmentEpic : LuckEnchantment { }
     [Autoload(false)]
 	public class LuckEnchantmentLegendary : LuckEnchantment { }
+	[Autoload(false)]
+	public class LuckEnchantmentCursed : LuckEnchantment { }
 
 }

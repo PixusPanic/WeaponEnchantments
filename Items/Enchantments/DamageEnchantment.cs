@@ -40,4 +40,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	[Autoload(false)]
 	public class DamageEnchantmentLegendary : DamageEnchantment { }
 
+	[Autoload(false)]
+	public class DamageEnchantmentCursed : DamageEnchantment {}
 }

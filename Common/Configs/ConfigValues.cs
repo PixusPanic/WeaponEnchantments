@@ -8,11 +8,12 @@ namespace WeaponEnchantments.Common.Configs
 {
 	public class ConfigValues {
 		public static readonly float[] PresetMultipliers = { 1f, 0.5f, 0.25f, 2.5f };
+		public static readonly float[] CursePresetMultipliers = { 1f, 0.5f, 0.25f, 1f };
 
 		private static float _globalStrengthMultiplier = serverConfig.presetData.GlobalEnchantmentStrengthMultiplier / 100f;
 		public static float GlobalStrengthMultiplier {
 			get {
-				if (serverConfig.presetData.AutomaticallyMatchPreseTtoWorldDifficulty)
+				if (serverConfig.presetData.AutomaticallyMatchPresetToWorldDifficulty)
 					return PresetMultipliers[Main.GameMode];
 
 				return _globalStrengthMultiplier;
@@ -41,7 +42,8 @@ namespace WeaponEnchantments.Common.Configs
 			(float)serverConfig.presetData.CommonEnchantmentStrengthMultiplier / 100f,
 			(float)serverConfig.presetData.RareEnchantmentStrengthMultiplier / 100f,
 			(float)serverConfig.presetData.EpicEnchantmentStrengthMultiplier / 100f,
-			(float)serverConfig.presetData.LegendaryEnchantmentStrengthMultiplier / 100f
+			(float)serverConfig.presetData.LegendaryEnchantmentStrengthMultiplier / 100f,
+			(float)serverConfig.presetData.CursedEnchantmentStrengthMultiplier / 100f
 		};
 
 		public static bool useAllRecipes = !recursiveCraftEnabled && !serverConfig.ReduceRecipesToMinimum;
@@ -65,5 +67,15 @@ namespace WeaponEnchantments.Common.Configs
 		};
 		public static float MinionLifeStealMultiplier => serverConfig.MinionLifeStealMultiplier / 100f;
 		public static float SiphonExperienceCost => serverConfig.SiphonExperiencePercentCost / 100f;
+		public static float NegativeDefensePenaltyMultiplier => serverConfig.NegativeDefensePenaltyMultiplier / 1000f;
+		public static float CursedEnemyLifeMult => serverConfig.CursedEnemyLifeMultiplier / 100f;
+		public static float CursedEnemyDamageMultiplier => serverConfig.CursedEnemyDamageMultiplier / 100f;
+		public static float CursedEssenceDropChanceMultiplier => serverConfig.CursedEssenceDropChanceMultiplier / 100f;
+		public static float CursedEnemyDebuffAttackRange = serverConfig.CursedEnemyDebuffAttackRange / 100f;
+		public static float CursedEnemyDebuffDurationMultiplier = serverConfig.CursedEnemyDebuffDurationMultiplier / 100f;
+		public static float CursedEnemyDebuffChanceMultiplier = serverConfig.CursedEnemyDebuffChanceMultiplier / 100f;
+		public static float EnchantmentStrengthCurseScaling = serverConfig.EnchantmentStrengthCurseScaling / 100f;
+		public static float CurseStrengthMultiplier = serverConfig.CurseStrengthMultiplier / 100f;
+		public static float CursedEnemyVisualShaking => clientConfig.CursedEnemyVisualShaking / 100f;
 	}
 }

@@ -23,7 +23,9 @@ namespace WeaponEnchantments.Items.Enchantments {
 				{ EItemType.Armor, 1f },
                 { EItemType.Accessories, 1f }
             };
-        }
+		}
+		protected override List<List<EnchantmentEffect>> cursedEffectPossibilities => defaultDefensiveCursedEffectPossibilities;
+
 		public override string Artist => "Zorutan";
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
@@ -52,5 +54,7 @@ namespace WeaponEnchantments.Items.Enchantments {
 	public class DamageReductionEnchantmentEpic : DamageReductionEnchantment { }
     [Autoload(false)]
 	public class DamageReductionEnchantmentLegendary : DamageReductionEnchantment { }
+	[Autoload(false)]
+	public class DamageReductionEnchantmentCursed : DamageReductionEnchantment { }
 
 }

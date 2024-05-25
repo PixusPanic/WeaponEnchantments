@@ -46,4 +46,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class PercentArmorPenetrationEnchantmentEpic : PercentArmorPenetrationEnchantment { }
 	[Autoload(false)]
 	public class PercentArmorPenetrationEnchantmentLegendary : PercentArmorPenetrationEnchantment { }
+	[Autoload(false)]
+	public class PercentArmorPenetrationEnchantmentCursed : PercentArmorPenetrationEnchantment { }
 }

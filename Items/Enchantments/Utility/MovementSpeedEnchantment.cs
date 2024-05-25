@@ -13,7 +13,8 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override int StrengthGroup => 11;
 		public override void GetMyStats() {
 			Effects = new() {
-				new MovementSpeed(EnchantmentStrengthData)
+				new MovementSpeed(EnchantmentStrengthData),
+				new FlightSpeed(EnchantmentStrengthData),
 			};
 
 			AllowedList = new Dictionary<EItemType, float>() {
@@ -24,7 +25,22 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 				{ EItemType.Tools, 1f }
 			};
 		}
+		protected override List<List<EnchantmentEffect>> cursedEffectPossibilities => MyCursedEffectPossibilities;
+		private List<List<EnchantmentEffect>> MyCursedEffectPossibilities {
+			get {
+				if (myCursedEffectPossibilities == null) {
+					myCursedEffectPossibilities = new() {
+						defense,
+						damageReduction,
+						moveControl,
+						damage
+					};
+				}
 
+				return myCursedEffectPossibilities;
+			}
+		}
+		private List<List<EnchantmentEffect>> myCursedEffectPossibilities;
 		public override string ShortTooltip => GetShortTooltip(sign: true);
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;
@@ -52,4 +68,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class MovementSpeedEnchantmentEpic : MovementSpeedEnchantment { }
 	[Autoload(false)]
 	public class MovementSpeedEnchantmentLegendary : MovementSpeedEnchantment { }
+	[Autoload(false)]
+	public class MovementSpeedEnchantmentCursed : MovementSpeedEnchantment { }
 }

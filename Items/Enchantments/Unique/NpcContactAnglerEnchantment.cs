@@ -16,9 +16,10 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
             AllowedList = new Dictionary<EItemType, float>() {
                 { EItemType.FishingPoles, 1f }
             };
-        }
+		}
+		protected override List<List<EnchantmentEffect>> cursedEffectPossibilities => defaultUtilityCursedEffectPossibilities;
 
-        public override string Artist => "andro951";
+		public override string Artist => "andro951";
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
     }
@@ -44,5 +45,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
 	public class NpcContactAnglerEnchantmentEpic : NpcContactAnglerEnchantment { }
     [Autoload(false)]
 	public class NpcContactAnglerEnchantmentLegendary : NpcContactAnglerEnchantment { }
+	[Autoload(false)]
+	public class NpcContactAnglerEnchantmentCursed : NpcContactAnglerEnchantment { }
 
 }

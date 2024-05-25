@@ -55,4 +55,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class MoonlightEnchantmentEpic : MoonlightEnchantment { }
 	[Autoload(false)]
 	public class MoonlightEnchantmentLegendary : MoonlightEnchantment { }
+	[Autoload(false)]
+	public class MoonlightEnchantmentCursed : MoonlightEnchantment { }
 }

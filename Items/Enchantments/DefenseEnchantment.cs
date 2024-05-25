@@ -25,6 +25,7 @@ namespace WeaponEnchantments.Items.Enchantments
 				{ EItemType.Accessories, 1f }
 			};
 		}
+		protected override List<List<EnchantmentEffect>> cursedEffectPossibilities => defaultDefensiveCursedEffectPossibilities;
 
 		public override string ShortTooltip => GetShortTooltip(sign: true, percent: false, multiply100: false);
 		public override string Artist => "Zorutan";
@@ -47,5 +48,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class DefenseEnchantmentEpic : DefenseEnchantment { }
 	[Autoload(false)]
 	public class DefenseEnchantmentLegendary : DefenseEnchantment { }
+	[Autoload(false)]
+	public class DefenseEnchantmentCursed : DefenseEnchantment { }
 
 }

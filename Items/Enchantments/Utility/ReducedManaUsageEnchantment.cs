@@ -50,5 +50,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class ReducedManaUsageEnchantmentEpic : ReducedManaUsageEnchantment { }
 	[Autoload(false)]
 	public class ReducedManaUsageEnchantmentLegendary : ReducedManaUsageEnchantment { }
+	[Autoload(false)]
+	public class ReducedManaUsageEnchantmentCursed : ReducedManaUsageEnchantment { }
 
 }

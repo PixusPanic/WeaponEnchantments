@@ -25,8 +25,9 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
                 { EItemType.Accessories, 1f }
             };
         }
+        protected override List<List<EnchantmentEffect>> cursedEffectPossibilities => defaultDefensiveCursedEffectPossibilities;
 
-        public override string ShortTooltip => GetShortTooltip(sign: true, percent: false, multiply100: false);
+		public override string ShortTooltip => GetShortTooltip(sign: true, percent: false, multiply100: false);
         public override string Artist => "Auseawesome";
         public override string ArtModifiedBy => null;
         public override string Designer => "Auseawesome";
@@ -54,4 +55,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class LifeRegenEnchantmentEpic : LifeRegenEnchantment { }
     [Autoload(false)]
 	public class LifeRegenEnchantmentLegendary : LifeRegenEnchantment { }
+	[Autoload(false)]
+	public class LifeRegenEnchantmentCursed : LifeRegenEnchantment { }
 }

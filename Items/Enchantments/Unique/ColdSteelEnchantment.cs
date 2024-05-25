@@ -55,4 +55,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class ColdSteelEnchantmentEpic : ColdSteelEnchantment { }
 	[Autoload(false)]
 	public class ColdSteelEnchantmentLegendary : ColdSteelEnchantment { }
+	[Autoload(false)]
+	public class ColdSteelEnchantmentCursed : ColdSteelEnchantment { }
 }

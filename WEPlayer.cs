@@ -69,9 +69,21 @@ namespace WeaponEnchantments
         public DuplicateDictionary<int, Item> CalamityRespawnMinionSourceItems = new();
         public Item[] enchantmentStorageItems = Enumerable.Repeat(new Item(), EnchantmentStorageSize).ToArray();
 		public const int EnchantmentStorageSize = 300;
-        public int enchantmentStorageUILeft;
-		public int enchantmentStorageUITop;
-        public bool displayEnchantmentStorage;
+        public ref int EnchantmentStorageUILeft {
+            get {
+                return ref (Witch.DisplayingUI ? ref enchantmentStorageUILeftWitchUI : ref enchantmentStorageUILeft);
+            }
+		}
+        public ref int EnchantmentStorageUITop {
+            get {
+				return ref (Witch.DisplayingUI ? ref enchantmentStorageUITopWitchUI : ref enchantmentStorageUITop);
+			}
+		}
+        private int enchantmentStorageUILeft;
+		private int enchantmentStorageUITop;
+        private int enchantmentStorageUILeftWitchUI;
+		private int enchantmentStorageUITopWitchUI;
+		public bool displayEnchantmentStorage;
         public int enchantingTableUILeft;
 		public int enchantingTableUITop;
         public bool vacuumItemsIntoEnchantmentStorage = true;
@@ -353,6 +365,9 @@ namespace WeaponEnchantments
 			tag["enchantmentStorageItems"] = enchantmentStorageItems;
 			tag["enchantmentStorageUILocationX"] = enchantmentStorageUILeft;
 			tag["enchantmentStorageUILocationY"] = enchantmentStorageUITop;
+			tag["enchantmentStorageUILocationLeftWitchUI"] = enchantmentStorageUILeftWitchUI;
+			tag["enchantmentStorageUILocationTopWitchUI"] = enchantmentStorageUITopWitchUI;
+
 			tag["enchantingTableUILocationX"] = enchantingTableUILeft;
 			tag["enchantingTableUILocationY"] = enchantingTableUITop;
 			tag["vacuumItemsIntoEnchantmentStorage"] = vacuumItemsIntoEnchantmentStorage;
@@ -405,7 +420,11 @@ namespace WeaponEnchantments
 			enchantmentStorageUITop = tag.Get<int>("enchantmentStorageUILocationY");
             MasterUIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantmentStorageUILeft, ref enchantmentStorageUITop, EnchantmentStorage.EnchantmentStorageUIDefaultLeft, EnchantmentStorage.EnchantmentStorageUIDefaultTop);
 
-            enchantingTableUILeft = tag.Get<int>("enchantingTableUILocationX");
+			enchantmentStorageUILeftWitchUI = tag.Get<int>("enchantmentStorageUILocationLeftWitchUI");
+			enchantmentStorageUITopWitchUI = tag.Get<int>("enchantmentStorageUILocationTopWitchUI");
+			MasterUIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantmentStorageUILeftWitchUI, ref enchantmentStorageUITopWitchUI, EnchantmentStorage.EnchantmentStorageUIDefaultLeftWitchUI, EnchantmentStorage.EnchantmentStorageUIDefaultTopWitchUI);
+
+			enchantingTableUILeft = tag.Get<int>("enchantingTableUILocationX");
             enchantingTableUITop = tag.Get<int>("enchantingTableUILocationY");
 			MasterUIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantingTableUILeft, ref enchantingTableUITop, EnchantingTableUI.DefaultLeft, EnchantingTableUI.DefaultTop);
 
@@ -497,6 +516,14 @@ namespace WeaponEnchantments
                 }
 			}
 
+            if (Witch.DisplayingUI) {
+                if (!UIManager.HoveringWitchReroll) {
+                    //Move to Witch UI
+                    if (CheckShiftClickValid_WitchUI(ref inventory[slot], true))
+                        return true;
+                }
+            }
+
             if (context == 3 && EnchantmentStorage.CanVacuumItem(item, Player)) {
                 if (EnchantmentStorage.TryVacuumItem(ref item, Player))
                     return true;
@@ -504,6 +531,61 @@ namespace WeaponEnchantments
 
             return false;
 		}
+
+		public bool CheckShiftClickValid_WitchUI(ref Item item, bool moveItem = false) {
+			bool valid = false;
+			if (!item.NullOrAir()) {
+				//Trash Item
+				if (!Player.trashItem.IsAir) {
+					if (Player.trashItem.TryGetEnchantedItemSearchAll(out EnchantedItem tGlobal) && !tGlobal.trashItem) {
+						if (trackedTrashItem.TryGetEnchantedItemSearchAll(out EnchantedItem trackedTrashGlobal))
+							trackedTrashGlobal.trashItem = false;
+
+						tGlobal.trashItem = true;
+					}
+				}
+				else if (trackedTrashItem.TryGetEnchantedItemSearchAll(out EnchantedItem trackedTrashGlobal)) {
+					trackedTrashGlobal.trashItem = false;
+				}
+
+				bool hoveringOverTrash = false;
+				if (!item.IsAir) {
+					if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.trashItem)
+						hoveringOverTrash = true;
+				}
+
+				bool allowShiftClick = WEMod.clientConfig.AllowShiftClickMoveFavoritedItems;
+				bool canMoveItem = !item.favorited || allowShiftClick;
+
+				if (!hoveringOverTrash && canMoveItem) {
+                    if (Witch.witchUI_Item.NullOrAir() && WitchRerollUI.WitchUICanAcceptItem(item)) {
+                        valid = true;
+                        if (moveItem) {
+							SoundEngine.PlaySound(SoundID.Grab);
+                            Witch.witchUI_Item = item.Clone();
+                            item.TurnToAir();
+						}
+                    }
+				}
+
+				if (!valid && moveItem) {
+					//Pick up item
+					MasterUIManager.SwapMouseItem(ref item);
+				}
+				else if (valid && !moveItem && !hoveringOverTrash) {
+					Main.cursorOverride = CursorOverrideID.InventoryToChest;
+				}
+			}
+			else if (moveItem) {
+				//Put item down
+				MasterUIManager.SwapMouseItem(ref item);
+
+				return true;//Return true to prevent trashing the item after it's put down
+			}
+
+            return valid;
+		}
+
 		public bool CheckShiftClickValid(ref Item item, bool moveItem = false) {
             if (EnchantingTableUI.DisplayOfferUI)
                 return false;
@@ -804,7 +886,7 @@ namespace WeaponEnchantments
 				}
 			}
 
-            if (displayEnchantmentStorage || EnchantmentStorage.crafting) {
+            if (EnchantmentStorage.DisplayStorage || EnchantmentStorage.crafting) {
                 for (int i = 0; i < enchantmentStorageItems.Length; i++) {
                     ref Item item = ref enchantmentStorageItems[i];
                     if (!item.NullOrAir() && item.stack > 0 && !item.favorited)
@@ -813,9 +895,6 @@ namespace WeaponEnchantments
             }
 
             return items.Count > 0 ? items : null;
-		}
-		public override void ResetEffects() {
-			cursedEssenceCount = 0;
 		}
 		public override void PostUpdateMiscEffects() {
 			ApplyPostMiscEnchants();
@@ -832,6 +911,14 @@ namespace WeaponEnchantments
 		public override void PostBuyItem(NPC vendor, Item[] shopInventory, Item item) {
 			if (vendor.ModNPC is Witch)
                 Witch.OnPurchaseItem(item, shopInventory);
+		}
+
+        private uint CurseHardCrowdControlImmunityReset = Main.GameUpdateCount;
+        private const uint CurseHardCrowdControlImmunityDuration = 60;
+        public bool CanBeCurseHardCrowdControlled => Main.GameUpdateCount >= CurseHardCrowdControlImmunityReset;
+		public override void PostUpdate() {
+            if (Player.webbed || Player.stoned || Player.frozen)
+                CurseHardCrowdControlImmunityReset = Main.GameUpdateCount + CurseHardCrowdControlImmunityDuration;
 		}
 
 		#endregion
@@ -1483,6 +1570,15 @@ namespace WeaponEnchantments
 
             return false;
         }
+        public bool CheckVanillaEnchantmentStats(EnchantmentStat playerStat, out float value, float baseValue = 0f) {
+            value = baseValue;
+            if (CombinedVanillaStats.TryGetValue(playerStat, out EStatModifier eStatModifier)) {
+                eStatModifier.ApplyTo(ref value);
+                return true;
+            }
+
+            return false;
+        }
         private void CheckClearTimers() {
             uint updateCount = Main.GameUpdateCount;
             List<uint> toRemove = new List<uint>();
@@ -1539,8 +1635,19 @@ namespace WeaponEnchantments
             uint endTime = Main.GameUpdateCount + (uint)duration;
             OnTickBuffTimers.Add(id, endTime);
         }
-		public override void ModifyHurt(ref Player.HurtModifiers modifiers)/* tModPorter Override ImmuneTo, FreeDodge or ConsumableDodge instead to prevent taking damage */ {
-			if (CheckEnchantmentStats(EnchantmentStat.DamageReduction, out float mult)) {
+		public override void ModifyHurt(ref Player.HurtModifiers modifiers) {
+            //Increase damage by flat 1 and 1% for every 1 defense less than zero. (Disincentive for having less than 0 defense from curses)
+            float configStrength = ConfigValues.NegativeDefensePenaltyMultiplier;
+            if (configStrength > 0f) {
+				float realDefense = Player.GetRealDefense();
+				if (realDefense < 0) {
+                    realDefense *= -configStrength;
+                    modifiers.FinalDamage.Base += realDefense;
+                    modifiers.FinalDamage *= (1f + (float)realDefense / 100f);
+				}
+			}
+
+            if (CheckEnchantmentStats(EnchantmentStat.DamageReduction, out float mult)) {
 				float damageMultiplier = 1f - mult;
 				if (WEMod.serverConfig.CalculateDamageReductionBeforeDefense) {
                     modifiers.IncomingDamageMultiplier *= damageMultiplier;
@@ -1573,6 +1680,14 @@ namespace WeaponEnchantments
 			}
 		}
 
+		/// <summary>
+		/// Player.accRunSpeed = speed, Player.runAcceleration = acceleration
+		/// </summary>
+		public void ModifyHorizontalWingSpeeds() {
+			CheckVanillaEnchantmentStats(EnchantmentStat.FlightSpeed, out Player.accRunSpeed, Player.accRunSpeed);
+            CheckVanillaEnchantmentStats(EnchantmentStat.FlightAcceleration, out Player.runAcceleration, Player.runAcceleration);
+		}
+
 		#endregion
 
 		#region Enchantment Effect Management
@@ -1603,7 +1718,7 @@ namespace WeaponEnchantments
         public void ApplyOnTickBuffs(SortedDictionary<short, BuffStats> buffs) {
             foreach (KeyValuePair<short, BuffStats> buff in buffs) {
                 if (OnTickBuffTimerOver(buff.Key)) {
-                    Player.ApplyBuff(buff, true);
+                    buff.Value.TryApplyToPlayer(Player, true);
                     SetOnTickBuffTimer(buff.Key, BuffDurationTicks);
                 }
             }
@@ -1654,7 +1769,7 @@ namespace WeaponEnchantments
                     Player.fishingSkill = (int)sm.ApplyTo(Player.fishingSkill);
                     break;
                 case EnchantmentStat.JumpSpeed:
-                    Player.jumpSpeedBoost = sm.ApplyTo(Player.jumpSpeedBoost);
+                    Player.jumpSpeedBoost += sm.ApplyTo(Player.jumpSpeed) - Player.jumpSpeed;
                     break;
                 case EnchantmentStat.LifeRegen:
                     Player.lifeRegen = (int)sm.ApplyTo(Player.lifeRegen);
@@ -2023,24 +2138,8 @@ namespace WeaponEnchantments
 	public static class PlayerFunctions {
         public static void ApplyBuffs(this Player player, SortedDictionary<short, BuffStats> buffs, bool addToExisting = false) {
             foreach (KeyValuePair<short, BuffStats> buff in buffs) {
-                player.ApplyBuff(buff, addToExisting);
+                buff.Value.TryApplyToPlayer(player, addToExisting);
             }
         }
-        public static void ApplyBuff(this Player player, KeyValuePair<short, BuffStats> buff, bool addToExisting = false) {
-            float chance = buff.Value.Chance;
-            if (chance >= 1f || chance >= Main.rand.NextFloat()) {
-                int buffIndex = player.FindBuffIndex(buff.Key);
-                int ticks = addToExisting ? Math.Min(buff.Value.Duration.Ticks, BuffDurationTicks) : buff.Value.Duration.Ticks;
-                if (!addToExisting || buffIndex < 0) {
-                    if (addToExisting)
-                        ticks++;
-
-                    player.AddBuff(buff.Key, ticks);
-                }
-                else {
-                    player.buffTime[buffIndex] += ticks;
-                }
-            }
-		}
 	}
 }

@@ -69,5 +69,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 	public class FishingPowerEnchantmentEpic : FishingPowerEnchantment { }
     [Autoload(false)]
 	public class FishingPowerEnchantmentLegendary : FishingPowerEnchantment { }
+	[Autoload(false)]
+	public class FishingPowerEnchantmentCursed : FishingPowerEnchantment { }
 
 }

@@ -53,4 +53,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class HellsWrathEnchantmentEpic : HellsWrathEnchantment { }
 	[Autoload(false)]
 	public class HellsWrathEnchantmentLegendary : HellsWrathEnchantment { }
+	[Autoload(false)]
+	public class HellsWrathEnchantmentCursed : HellsWrathEnchantment { }
 }

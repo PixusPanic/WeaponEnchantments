@@ -2,7 +2,21 @@
 Mods: {
 	WeaponEnchantments: {
 		Bestiary.Witch: Czarownica jest brzydką i niegodziwą damą i zajmuje się dalszymi niegodziwymi rzeczami. Handluje wątpliwymi materiałami używanymi do ulepszania wyposażenia o tajemniczych efektach.
-		Buffs.Amaterasu.DisplayName: Amaterasu
+
+		Buffs: {
+			Amaterasu.DisplayName: Amaterasu
+
+			Cursed: {
+				Description:
+					'''
+					Przeklęta Esencja {0}
+					Częstotliwość pojawiania się x{1}
+					Maksymalna liczba spawnów x{2}
+					Przeklęta szansa {3}
+					'''
+				DisplayName: Przeklęty
+			}
+		}
 
 		Configs: {
 			AccessoryDRValues: „Akcesoria {0}% ({1}% przy 40)”
@@ -71,6 +85,24 @@ Mods: {
 				AlwaysDisplayWeaponLevelUpMessages: {
 					Label: Zawsze wyświetlaj komunikaty o podwyższeniu poziomu broni
 					Tooltip: Wyświetla komunikaty o podwyższeniu poziomu broni tylko podczas korzystania ze stołu zaklęć, jeśli ta opcja jest wyłączona.
+				}
+
+				CursedEnemyParticles: {
+					Label: Przeklęte cząstki wroga
+					Tooltip:
+						'''
+						Przeklęci wrogowie wytwarzają małe cząsteczki, które pomagają odróżnić ich od zwykłych wrogów.
+						Wyłącz, aby zapobiec tworzeniu się tych cząstek.
+						'''
+				}
+
+				CursedEnemyVisualShaking: {
+					Label: Przeklęty Wróg Wizualny Drżenie
+					Tooltip:
+						'''
+						Przeklęci wrogowie trzęsą się lub wibrują, aby odróżnić ich od zwykłych wrogów.
+						To ustawienie kontroluje siłę drgań wizualnych przeklętych wrogów.   Ustaw na 0, aby wyłączyć drżenie.
+						'''
 				}
 
 				DisplayDamageTooltipSeperatly: {
@@ -171,7 +203,7 @@ Mods: {
 			PresetData: {
 				Tooltip: Ustawienia wstępne pozwalają łatwo wpływać na wszystkie zaklęcia na raz.
 
-				AutomaticallyMatchPreseTtoWorldDifficulty: {
+				AutomaticallyMatchPresetToWorldDifficulty: {
 					Label: Automatycznie dopasuj ustawienie wstępne do poziomu trudności świata
 					Tooltip: Aby można było edytować pozostałe opcje, należy je wyłączyć.
 				}
@@ -184,6 +216,11 @@ Mods: {
 				CommonEnchantmentStrengthMultiplier: {
 					Label: Wspólny
 					Tooltip: Wpływa na siłę wszystkich powszechnych zaklęć. Zastępuje wszystkie mnożniki z wyjątkiem indywidualnych mnożników siły zaklęć. Ustaw na -1, aby ten mnożnik był ignorowany.
+				}
+
+				CursedEnchantmentStrengthMultiplier: {
+					Label: Przeklęty
+					Tooltip: Wpływa na siłę wszystkich Przeklętych Zaklęć. Zastępuje wszystkie mnożniki z wyjątkiem indywidualnych mnożników siły zaklęć. Ustaw na -1, aby ten mnożnik był ignorowany.
 				}
 
 				EpicEnchantmentStrengthMultiplier: {
@@ -222,11 +259,12 @@ Mods: {
 			}
 
 			ServerConfig: {
+				CursedEnemies: Przeklęci wrogowie
 				DisplayName: Konfiguracja serwera
 				EnchantingTableOptions: Czarujące opcje stołu
 				EnchantmentDropRates(%): Częstotliwość wypadania zaklęć (%)
 				EnchantmentSettings: Ustawienia zaklęć
-				EssenceandExperience: Esencja i doświadczenie
+				EssenceAndExperience: Esencja i doświadczenie
 				GeneralGameChanges: Ogólne zmiany w grze
 				IndividualEnchantmentStrengths: Indywidualne siły zaklęć
 				Multipliers: Mnożniki
@@ -258,6 +296,11 @@ Mods: {
 						Vanilla Terraria ogranicza szansę na trafienie krytyczne do 100%. Domyślnie zaklęcia broni obliczają dodatkowe trafienia krytyczne po 100%.
 						120% szansy na trafienie krytyczne to 100% na podwojenie obrażeń, a następnie 20% szans na trafienie krytyczne w celu zwiększenia obrażeń. Aby uzyskać więcej informacji, zobacz następną opcję konfiguracji.
 						'''
+				}
+
+				AllowCursedEnemies: {
+					Label: Zezwalaj na przeklętych wrogów
+					Tooltip: Włącz, aby wrogowie rzadko byli przeklinani, gdy się odradzają, powodując, że nie zadają obrażeń, ale strzelają do graczy debuffami.   Przeklęci wrogowie również mają 5x więcej zdrowia.
 				}
 
 				AllowHighTierOres: {
@@ -353,6 +396,46 @@ Mods: {
 				CritPerLevelDisabled: {
 					Label: Wyłącz szansę na trafienie krytyczne bronią na poziom
 					Tooltip: Broń zyskuje szansę na trafienie krytyczne równą swojemu poziomowi * Globalny mnożnik siły zaklęcia.
+				}
+
+				CuredEnemyDebuffTicksPerAttack: {
+					Label: Wyleczone osłabienie wroga zaznacza się przy każdym ataku
+					Tooltip: Ile cykli pomiędzy Przeklętymi Wrogami strzelającymi pociskami osłabiającymi.   20 tików / atak => (1 sek. / 60 tików) / (20 tików / atak) => 3 ataki / sekundę
+				}
+
+				CursedEnemyDamageMultiplier: {
+					Label: Mnożnik obrażeń przeklętego wroga
+					Tooltip: Modyfikuje obrażenia zadawane przez przeklętych wrogów.   0 spowoduje, że nie będą zadawać obrażeń ani odrzucać graczy.   Wartość jest dzielona przez 100. 100 => 1x mnożnik.
+				}
+
+				CursedEnemyDebuffAttackRange: {
+					Label: Zasięg ataku osłabiającego przeklętego wroga
+					Tooltip: Przeklęci wrogowie będą strzelać debuffami w gracza, jeśli znajdą się w tej odległości od gracza.   Wartość jest dzielona przez 100. 40000 => zakres 400.   Zasięg 16 to 1 w kafelku/bloku gry.
+				}
+
+				CursedEnemyDebuffChanceMultiplier: {
+					Label: Mnożnik szansy na debuff przeklętego wroga
+					Tooltip: Wpływa na prawdopodobieństwo wystąpienia osłabień, gdy zostaną one wyrzucone przez przeklęte pociski osłabiające wroga.   Większość ma domyślnie 100%.   Zagubienie wynosi 10%, Sieć i Zamrożenie wynoszą 5%, a Petryfikacja wynosi 2,5%.
+				}
+
+				CursedEnemyDebuffDurationMultiplier: {
+					Label: Mnożnik czasu trwania osłabienia przeklętego wroga
+					Tooltip: Wpływa na czas trwania osłabień przeklętych wrogów.
+				}
+
+				CursedEnemyLifeMultiplier: {
+					Label: Mnożnik życia przeklętego wroga
+					Tooltip: Modyfikuje maksymalne życie przeklętych wrogów.   Wartość jest dzielona przez 100. 500 => mnożnik 5x.
+				}
+
+				CursedEssenceDropChanceMultiplier: {
+					Label: Mnożnik szansy na wypadnięcie przeklętej esencji
+					Tooltip: Wpływa na ilość przeklętej esencji upuszczanej przez wrogów.
+				}
+
+				CurseStrengthMultiplier: {
+					Label: Mnożnik siły klątwy
+					Tooltip: Wpływa na wielkość klątw przeklętych zaklęć.
 				}
 
 				DamagePerLevelInstead: {
@@ -454,6 +537,18 @@ Mods: {
 						'''
 				}
 
+				EnchantmentStrengthCurseScaling: {
+					Label: Skalowanie siły zaklęcia i klątwy
+					Tooltip:
+						'''
+						To ustawienie powoduje, że część innych ustawień siły zaklęcia ma zastosowanie do przeklętych efektów.   Wartość jest dzielona przez 100. 50 => 50%
+						Jeśli ta wartość wynosi 0, nie będzie to miało żadnego efektu.   Jeśli wynosi 50, efekt będzie o połowę mniejszy niż w przypadku innych ustawień siły zaklęcia.
+						Na przykład na poziomie trudności Mistrza domyślna siła zaklęcia wynosi 25% (redukcja -75%).
+						Przy tym ustawieniu na 50, efekty klątwy zostaną zmniejszone o połowę, czyli 62,5% (-75% * 50% => -37,5% redukcji).
+						Przy wartości 100 efekty klątwy będą skalować się tak samo, jak normalne efekty zaklęć.
+						'''
+				}
+
 				EssenceGrabRange: {
 					Label: Mnożnik zasięgu chwytania esencji
 					Tooltip: Wpływa na to, jak daleko esencja może znajdować się od gracza, gdy zaczyna się do niego zbliżać.
@@ -512,6 +607,19 @@ Mods: {
 						Zaklęcia broni wykorzystują szansę na trafienie krytyczne powyżej 100%, aby umożliwić ci ponowne trafienie krytyczne.
 						Domyślnie jest to premia dodatkowa: 1. trafienie krytyczne 200% obrażeń, 2. 300% obrażeń, 3. 400% obrażeń.....
 						Włączenie tej opcji sprawia, że zamiast tego stają się multiplikatywne: 1. krytyczny 200% obrażeń, 2. krytyczny 400% obrażeń, 3. krytyczny 800% obrażeń...
+						'''
+				}
+
+				NegativeDefensePenaltyMultiplier: {
+					Label: Mnożnik kary ujemnej w obronie
+					Tooltip:
+						'''
+						Jeśli ta liczba jest większa niż 0, gracz posiadający mniej niż 0 obrony spowoduje, że otrzyma więcej obrażeń.
+						Jest to kara za pozwolenie, aby klątwy zmniejszyły obronę gracza do poziomu mniejszego niż 0.
+						Otrzymywane obrażenia są zwiększane o mnożnik kary za negatywną obronę/1000 * -playerDefense
+						ORAZ pomnożone przez 1 + (Mnożnik kary za negatywną obronę/1000 * -obrona gracza / 100) Przykład: -20 obrony i gracz otrzymuje 200 obrażeń, Mnożnik kary za negatywną obronę = 1000:
+						ostateczne obrażenia = (200 -(-20) * 1000/1000) * (1 + (1000/1000 * -(-20) / 100))
+						końcowe obrażenia = (200 + 20) * (1 + 0,2) => 220 * 1,2 => 264
 						'''
 				}
 
@@ -633,12 +741,14 @@ Mods: {
 
 		GameMessages: {
 			AlreadyMaxLevel: „Twój {0} jest już na maksymalnym poziomie.”
+			ApplyCurse: Zastosuj klątwę
 			Back: Z powrotem
 			CannotGainAdditionalPower: „Twoje {0}({1}) nie może zyskać dodatkowej mocy z oferowanego {2}({3}).”.
 			CantInfusionArmorDifferentTypes: Nie możesz napełniać zbroi różnych typów, np. hełmu i korpusu.
 			CongradulationsMaxLevel: „Gratulacje! {1} użytkownika {0} osiągnęło maksymalny poziom, {2} ({3} PD).”.
 			CouldntFindItemsInWeaponsList: Nie można znaleźć przedmiotów na liście broni lub składnikach wytwarzania broni o nazwach:
 			CouldntFindNPCsInIngredientsList: Nie można znaleźć NPC w NPCsThatDropWeaponsOrIngredients o nazwach:
+			Curses: Pomstowanie
 			DailyFishingQuestReset: „Codzienna misja wędkarska została zresetowana. Twoja następna misja to {0}.”
 			DetectedNonEnchantmentInEnchantmentSlot: „Wykryto przedmiot niebędący zaklęciem:{0} na Twoim {1}. Został on zwrócony do Twojego ekwipunku.”
 			EnchantmentNoLongerAllowed: „{0} nie jest już dozwolony w {1} i został usunięty z Twojego {2}.”
@@ -649,7 +759,6 @@ Mods: {
 			FailedReplaceOldItem: Nie udało się zastąpić starego elementu:
 			FailedReplaceWithCoins: „Nie udało się zastąpić przedmiotu: {0} monetami”
 			FailedToCloneItem: „W EnchantedItem nie udało się sklonować (element: {0}, itemClone: {1}), cloneReforgedItem: {2}, resetGlobals: {3}.”
-			FailedToFindInfusionPower: Nie udało się znaleźć mocy infuzji dla przedmiotu:
 			FailedToLocateAngler: Nie udało się zlokalizować wędkarza. Nadal będziesz otrzymywać nagrody
 			FavoritedItemsCantBeConsumedForInfusion: Ulubione przedmioty nie mogą być spożywane do naparu.
 			FishingQuestTurnedIn: „Misja oddana. Twoja następna misja to {0}. Zadania ukończone: {1}”
@@ -672,7 +781,13 @@ Mods: {
 			MinSiphonXP: „Możesz wyssać przedmiot tylko wtedy, gdy ma on co najmniej {0} doświadczenia.”
 			MultipleUniqueEnchantments: „Wykryto wiele unikalnych zaklęć na twoim {0}. {1} zostało usunięte z twojego {2}.”
 			MurasamaNoInfusion: Murasamy nie można spożywać do naparu.
+			NegativeDef:
+				'''
+				Otrzymywane obrażenia zwiększone o {0} i {0}%
+				(Zaklęcia Broni)
+				'''
 			NewItemIsAir: nowośćPrzedmiotem było powietrze.
+			Next: Następny
 			NoLongerAllowedOnDamageType: „{0} nie jest już dozwolony w broniach {1} i został usunięty z twojej broni {2}.”
 			NoLongerUtilityEnchantment: „{0} nie jest już zaklęciem użytkowym i zostało usunięte z twojego {1}.”
 			NonEnchantableItemInTable:
@@ -693,12 +808,16 @@ Mods: {
 				Podniesienie Zaklęć, Esencji i innych przedmiotów Zaklęć Broni spowoduje automatyczne wysłanie ich do magazynu Zaklinającego Stołu.
 				'''
 			OreInfusionPowerNotSetup: „Nie ustawiono mocy infuzji rudy {0}. Zgadywana moc infuzji:”
+			Owned: Posiadany
+			PlaceHereCurse: Umieść tutaj zaklęcie, aby zastosować klątwę
+			PlaceHereReRoll: Umieść tutaj zaklęcie, aby rzucić ponownie
 			PreventedIssueLooseExperience: „Zapobiegnięto problemowi, który powodowałby zmniejszenie twoich PD. (xpInt < 0) przedmiot: {0}, cel: {1}, trafienie: {2}, walka wręcz: {3}, Main.GameMode: {4}, target.obrona: {5}, xpDamage: {6}, niskie obrażenia na trafienieXPBoost: {7}"
 			PreventedIssueLooseExperienceTwo: „Zapobiegnięto problemowi, który powodował utratę doświadczenia. (xpInt < 0) przedmiot: {0}, cel: {1}, trafienie: {2}, walka wręcz: {3}, Main.GameMode: {4}, xpDamage : {5}, xpInt: {6}, niskie obrażenia na trafienieXPBoost: {7}, "
 			PreventedLoosingExperience: „Zapobiegłeś utracie doświadczenia przez {0} z powodu błędu w obliczeniach.”
 			PreventedWitchShopDuplication: Zapobiegnięto problemowi, który powodował dodanie zduplikowanego przedmiotu do przedmiotu w sklepie Wiedźmy:
 			RemovedEnchantedItemData: „Usunięto dane EnchantedItem z przedmiotu: {0}, liczba: {1}, nowa liczba: {2}”
 			RemovedUnloadedEnchantmentFromItem: „Usunięto niewyładowany przedmiot:{0} z Twojego {1}. Poinformuj andro951(WeaponEnchantments).”
+			ReRoll: Rzuć ponownie
 			RerollEnchantment: Rzuć ponownie Zaklęcie
 			ResistsYourAttemptToEmpower: „{0} oparł się twojej próbie wzmocnienia go.”
 			SameSetBonusNoEffect: Ulepszany przedmiot ma taką samą premię jak przedmiot zużywany i nie będzie miał żadnego efektu.
@@ -707,6 +826,7 @@ Mods: {
 			TryInfuseFailed: „TryInfuseItem nie powiodło się, tableItem: {0}{1}, infusionConsumeItem: {2}{3}”
 			WeaponInfusionPowersNotSetup: Moce infuzyjne broni nie są skonfigurowane
 			WitchChatText: Czego jeszcze chcesz? Jestem zajęty.
+			WitchEnchantmentCurseText: Klątwy to potężna magia, ale ma to swoją cenę. Nie pomogę ci, jeśli zmienisz zdanie. Driada może w tym pomóc. Czy na pewno chcesz kontynuować?
 			WitchEnchantmentRerolText: Myślę, że mógłbym spróbować ulepszyć twoje zaklęcia, ale bez zwrotów pieniędzy i reklamacji.
 			WitchSpawnCondition: Posiadaj zaklęcie w swoim ekwipunku lub na swoim wyposażeniu.
 		}
@@ -714,41 +834,49 @@ Mods: {
 		Items: {
 			AllForOneEnchantmentBasic.DisplayName: Wszystko za jednego Podstawowe zaklęcie
 			AllForOneEnchantmentCommon.DisplayName: Wszystko za jedno zaklęcie wspólne
+			AllForOneEnchantmentCursed.DisplayName: Wszyscy za jednego Zaklęcie przeklęte
 			AllForOneEnchantmentEpic.DisplayName: Epopeja zaklęcia „Wszystko za jednego”
 			AllForOneEnchantmentLegendary.DisplayName: Legendarne zaklęcie Wszystko za jednego
 			AllForOneEnchantmentRare.DisplayName: Wszystko za jednego zaklęcie rzadkie
 			AmmoCostEnchantmentBasic.DisplayName: Podstawowe zaklęcie kosztu amunicji
 			AmmoCostEnchantmentCommon.DisplayName: Koszt amunicji Zaklęcie Zwykłe
+			AmmoCostEnchantmentCursed.DisplayName: Przeklęte zaklęcie kosztu amunicji
 			AmmoCostEnchantmentEpic.DisplayName: Koszt amunicji Zaklęcie Epic
 			AmmoCostEnchantmentLegendary.DisplayName: Legendarne zaklęcie kosztu amunicji
 			AmmoCostEnchantmentRare.DisplayName: Koszt amunicji Zaklęcie Rzadkie
 			AttackSpeedEnchantmentBasic.DisplayName: Podstawowe zaklinanie szybkości ataku
 			AttackSpeedEnchantmentCommon.DisplayName: Zaklęcie szybkości ataku Powszechne
+			AttackSpeedEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Prędkości Ataku
 			AttackSpeedEnchantmentEpic.DisplayName: Epickie zaklęcie szybkości ataku
 			AttackSpeedEnchantmentLegendary.DisplayName: Legendarne zaklęcie szybkości ataku
 			AttackSpeedEnchantmentRare.DisplayName: Rzadkie zaklęcie prędkości ataku
 			BardClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmiany klasy barda
 			BardClassSwapEnchantmentCommon.DisplayName: Zaklęcie Zamiany Klas Barda Powszechne
+			BardClassSwapEnchantmentCursed.DisplayName: Zaklęcie Zamiana Klas Barda Przeklęte
 			BardClassSwapEnchantmentEpic.DisplayName: Epickie Zaklęcie Zamiany Klas Bardów
 			BardClassSwapEnchantmentLegendary.DisplayName: Zaklęcie zamiany klas bardów Legendarne
 			BardClassSwapEnchantmentRare.DisplayName: Rzadkie zaklęcie zmiany klasy barda
 			BerserkersRageEnchantmentBasic.DisplayName: Podstawowe zaklęcie furii berserkerów
 			BerserkersRageEnchantmentCommon.DisplayName: Zaklęcie Szału Berserkerów Powszechne
+			BerserkersRageEnchantmentCursed.DisplayName: Zaklęcie Szału Berserkerów Przeklęte
 			BerserkersRageEnchantmentEpic.DisplayName: Epickie zaklęcie zaklęcia furii berserkerów
 			BerserkersRageEnchantmentLegendary.DisplayName: Zaklęcie Szału Berserkerów Legendarne
 			BerserkersRageEnchantmentRare.DisplayName: Rzadkie zaklęcie furii berserkerów
 			CalmWatersEnchantmentBasic.DisplayName: Podstawowe zaklęcie spokojnych wód
 			CalmWatersEnchantmentCommon.DisplayName: Zaklęcie spokojnych wód Powszechne
+			CalmWatersEnchantmentCursed.DisplayName: Zaklęcie Spokojnych Wód przeklęte
 			CalmWatersEnchantmentEpic.DisplayName: Epic zaklęcia spokojnych wód
 			CalmWatersEnchantmentLegendary.DisplayName: Legendarne zaklęcie spokojnych wód
 			CalmWatersEnchantmentRare.DisplayName: Rzadkie zaklęcie spokojnych wód
 			ChaoticFishingEnchantmentBasic.DisplayName: Podstawowe zaklęcie chaotycznego wędkowania
 			ChaoticFishingEnchantmentCommon.DisplayName: Chaotyczne zaklęcie wędkarskie Powszechne
+			ChaoticFishingEnchantmentCursed.DisplayName: Zaklęcie Chaotycznego Połowu Przeklęte
 			ChaoticFishingEnchantmentEpic.DisplayName: Chaotyczne zaklęcie wędkarskie Epic
 			ChaoticFishingEnchantmentLegendary.DisplayName: Chaotyczne zaklęcie wędkarskie Legendarne
 			ChaoticFishingEnchantmentRare.DisplayName: Chaotyczne zaklęcie wędkarskie Rzadkie
 			ColdSteelEnchantmentBasic.DisplayName: Podstawowe zaklęcie zimnej stali
 			ColdSteelEnchantmentCommon.DisplayName: Zwykłe zaklęcie zimnej stali
+			ColdSteelEnchantmentCursed.DisplayName: Zaklęcie Cold Steel przeklęte
 			ColdSteelEnchantmentEpic.DisplayName: Epicka opowieść o zaklęciu zimnej stali
 			ColdSteelEnchantmentLegendary.DisplayName: Legendarne zaklęcie zimnej stali
 			ColdSteelEnchantmentRare.DisplayName: Rzadkie zaklęcie zimnej stali
@@ -760,6 +888,7 @@ Mods: {
 
 			CrateChanceEnchantmentBasic.DisplayName: Szansa na skrzynkę Podstawowe zaklęcie
 			CrateChanceEnchantmentCommon.DisplayName: Skrzynia Szansa Zaklęcie Zwykłe
+			CrateChanceEnchantmentCursed.DisplayName: Przeklęte zaklęcie szansy na skrzynię
 			CrateChanceEnchantmentEpic.DisplayName: Skrzynia Szansa Zaklęcia Epic
 			CrateChanceEnchantmentLegendary.DisplayName: Legendarna szansa na zaklęcie skrzyni
 			CrateChanceEnchantmentRare.DisplayName: Szansa na zaklęcie skrzyni Rzadkie
@@ -770,26 +899,37 @@ Mods: {
 			CrateEnchantmentRare.DisplayName: Zaklęcie w skrzyni Rzadkie
 			CriticalStrikeChanceEnchantmentBasic.DisplayName: Podstawowe zaklęcie szansy na trafienie krytyczne
 			CriticalStrikeChanceEnchantmentCommon.DisplayName: Szansa na trafienie krytyczne Zaklęcie Zwykłe
+			CriticalStrikeChanceEnchantmentCursed.DisplayName: Zaklęcie szansy na trafienie krytyczne
 			CriticalStrikeChanceEnchantmentEpic.DisplayName: Epickie zaklęcie Szansa na trafienie krytyczne
 			CriticalStrikeChanceEnchantmentLegendary.DisplayName: Legendarne zaklęcie Szansa na trafienie krytyczne
 			CriticalStrikeChanceEnchantmentRare.DisplayName: Zaklęcie Szansa na Trafienie Krytyczne Rzadkie
 			CriticalStrikeDamageEnchantmentBasic.DisplayName: Podstawowe zaklęcie obrażeń od trafień krytycznych
 			CriticalStrikeDamageEnchantmentCommon.DisplayName: Zaklęcie obrażeń od trafień krytycznych Powszechne
+			CriticalStrikeDamageEnchantmentCursed.DisplayName: Zaklęcie Zaklęcie Obrażenia od Uderzenia Krytycznego
 			CriticalStrikeDamageEnchantmentEpic.DisplayName: Epickie zaklęcie obrażeń od trafień krytycznych
 			CriticalStrikeDamageEnchantmentLegendary.DisplayName: Legendarne zaklęcie obrażeń od trafień krytycznych
 			CriticalStrikeDamageEnchantmentRare.DisplayName: Zaklęcie obrażeń od trafień krytycznych Rzadkie
+
+			CursedEssence: {
+				DisplayName: Przeklęta Esencja
+				// Tooltip: ""
+			}
+
 			CursedInfernoEnchantmentBasic.DisplayName: Podstawowe zaklęcie przeklętego piekła
 			CursedInfernoEnchantmentCommon.DisplayName: Zaklęcie Przeklętego Piekła Zwykłe
+			CursedInfernoEnchantmentCursed.DisplayName: Przeklęte Zaklęcie Piekło Przeklęte
 			CursedInfernoEnchantmentEpic.DisplayName: Epickie Zaklęcie Przeklętego Piekła
 			CursedInfernoEnchantmentLegendary.DisplayName: Legendarne zaklęcie Przeklętego Inferno
 			CursedInfernoEnchantmentRare.DisplayName: Zaklęcie Przeklętego Piekła Rzadkie
 			DamageEnchantmentBasic.DisplayName: Podstawowe zaklęcie obrażeń
 			DamageEnchantmentCommon.DisplayName: Zaklęcie obrażeń Zwykłe
+			DamageEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Obrażenia
 			DamageEnchantmentEpic.DisplayName: Epickie zaklęcie obrażeń
 			DamageEnchantmentLegendary.DisplayName: Legendarne zaklęcie obrażeń
 			DamageEnchantmentRare.DisplayName: Zaklęcie Obrażeń Rzadkie
 			DamageReductionEnchantmentBasic.DisplayName: Podstawowe zaklęcie redukcji obrażeń
 			DamageReductionEnchantmentCommon.DisplayName: Redukcja obrażeń Zaklęcie Zwykłe
+			DamageReductionEnchantmentCursed.DisplayName: Zaklęcie Redukujące obrażenia Zaklęcie
 			DamageReductionEnchantmentEpic.DisplayName: Epickie zaklęcie redukcji obrażeń
 			DamageReductionEnchantmentLegendary.DisplayName: Legendarne zaklęcie redukcji obrażeń
 			DamageReductionEnchantmentRare.DisplayName: Zaklęcie redukcji obrażeń Rzadkie
@@ -800,11 +940,13 @@ Mods: {
 			DangerSenseEnchantmentRare.DisplayName: Rzadkie zaklęcie zmysłu zagrożenia
 			DaybreakEnchantmentBasic.DisplayName: Podstawowe zaklęcie świtu
 			DaybreakEnchantmentCommon.DisplayName: Zaklęcie świtu Powszechne
+			DaybreakEnchantmentCursed.DisplayName: Zaklęcie Świtu Przeklęte
 			DaybreakEnchantmentEpic.DisplayName: Epickie zaklęcie brzasku
 			DaybreakEnchantmentLegendary.DisplayName: Legendarne zaklęcie Brzasku
 			DaybreakEnchantmentRare.DisplayName: Rzadkie zaklęcie brzasku
 			DefenseEnchantmentBasic.DisplayName: Podstawowe zaklęcie obrony
 			DefenseEnchantmentCommon.DisplayName: Zaklęcie Obronne Powszechne
+			DefenseEnchantmentCursed.DisplayName: Przeklęte zaklęcie obronne
 			DefenseEnchantmentEpic.DisplayName: Epickie zaklęcie obrony
 			DefenseEnchantmentLegendary.DisplayName: Legendarne zaklęcie obrony
 			DefenseEnchantmentRare.DisplayName: Zaklęcie Obronne Rzadkie
@@ -865,6 +1007,7 @@ Mods: {
 
 			ExtraFishingLineEnchantmentBasic.DisplayName: Dodatkowe zaklęcie żyłki Basic
 			ExtraFishingLineEnchantmentCommon.DisplayName: Dodatkowe zaklęcie żyłki Wspólne
+			ExtraFishingLineEnchantmentCursed.DisplayName: Zaklęcie dodatkowej żyłki wędkarskiej przeklęte
 			ExtraFishingLineEnchantmentEpic.DisplayName: Dodatkowe zaklęcie żyłki Epic
 			ExtraFishingLineEnchantmentLegendary.DisplayName: Dodatkowe zaklęcie żyłki Legendarne
 			ExtraFishingLineEnchantmentRare.DisplayName: Dodatkowe zaklęcie żyłki Rzadkie
@@ -875,21 +1018,25 @@ Mods: {
 			FishingEnchantmentRare.DisplayName: Zaklęcie wędkarskie Rzadkie
 			FishingPowerEnchantmentBasic.DisplayName: Podstawowe zaklinanie mocy wędkarskiej
 			FishingPowerEnchantmentCommon.DisplayName: Zaklinanie mocy rybackiej Powszechne
+			FishingPowerEnchantmentCursed.DisplayName: Zaklęcie mocy połowu przeklęte
 			FishingPowerEnchantmentEpic.DisplayName: Epicka moc zaklęcia wędkarskiego
 			FishingPowerEnchantmentLegendary.DisplayName: Legendarne zaklęcie wędkarskiej mocy
 			FishingPowerEnchantmentRare.DisplayName: Rzadkie zaklinanie mocy wędkarskiej
 			FrostburnEnchantmentBasic.DisplayName: Podstawowe zaklęcie Frostburn
 			FrostburnEnchantmentCommon.DisplayName: Zaklęcie Frostburn Zwykłe
+			FrostburnEnchantmentCursed.DisplayName: Zaklęcie Frostburn zostało przeklęte
 			FrostburnEnchantmentEpic.DisplayName: Epickie zaklęcie Frostburn
 			FrostburnEnchantmentLegendary.DisplayName: Legendarne zaklęcie Frostburn
 			FrostburnEnchantmentRare.DisplayName: Zaklęcie Mrozu Rzadkie
 			GodSlayerEnchantmentBasic.DisplayName: Podstawowe zaklęcie Zabójcy Boga
 			GodSlayerEnchantmentCommon.DisplayName: Zaklęcie Zabójcy Bogów Powszechne
+			GodSlayerEnchantmentCursed.DisplayName: Zaklęcie Zabójcy Boga Przeklęte
 			GodSlayerEnchantmentEpic.DisplayName: Epickie zaklęcie Zabójcy Boga
 			GodSlayerEnchantmentLegendary.DisplayName: Legendarne zaklęcie Zabójcy Boga
 			GodSlayerEnchantmentRare.DisplayName: Zaklęcie Zabójcy Boga Rzadkie
 			HealerClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmiany klasy uzdrowiciela
 			HealerClassSwapEnchantmentCommon.DisplayName: Zaklęcie Zamiany Klasy Uzdrowiciela Powszechne
+			HealerClassSwapEnchantmentCursed.DisplayName: Zaklęcie zmiany klasy uzdrowiciela Przeklęty
 			HealerClassSwapEnchantmentEpic.DisplayName: Epickie zaklęcie zmiany klasy uzdrowiciela
 			HealerClassSwapEnchantmentLegendary.DisplayName: Zaklęcie zamiany klas uzdrowicieli Legendarne
 			HealerClassSwapEnchantmentRare.DisplayName: Zaklęcie zmiany klasy uzdrowiciela Rzadko
@@ -905,6 +1052,7 @@ Mods: {
 
 			HellsWrathEnchantmentBasic.DisplayName: Podstawowe zaklęcie piekielnego gniewu
 			HellsWrathEnchantmentCommon.DisplayName: Zaklęcie piekielnego gniewu Powszechne
+			HellsWrathEnchantmentCursed.DisplayName: Zaklęcie Piekielnego Gniewu jest przeklęte
 			HellsWrathEnchantmentEpic.DisplayName: Epickie zaklęcie piekielnego gniewu
 			HellsWrathEnchantmentLegendary.DisplayName: Legendarne zaklęcie Hells Wrath
 			HellsWrathEnchantmentRare.DisplayName: Zaklęcie piekielnego gniewu rzadkie
@@ -915,66 +1063,79 @@ Mods: {
 			HunterEnchantmentRare.DisplayName: Zaklęcie Łowcy Rzadkie
 			IchorEnchantmentBasic.DisplayName: Podstawowe zaklęcie Ichor
 			IchorEnchantmentCommon.DisplayName: Zaklęcie Ichor Powszechne
+			IchorEnchantmentCursed.DisplayName: Zaklęcie Ichor przeklęte
 			IchorEnchantmentEpic.DisplayName: Epic zaklęcia Ichor
 			IchorEnchantmentLegendary.DisplayName: Legendarne zaklęcie Ichor
 			IchorEnchantmentRare.DisplayName: Zaklęcie Ichor Rzadkie
 			JuicedEnchantmentBasic.DisplayName: Podstawowe zaklęcie soku
 			JuicedEnchantmentCommon.DisplayName: Sok Zaklęcie Zwykłe
+			JuicedEnchantmentCursed.DisplayName: Soczyste Zaklęcie Przeklęte
 			JuicedEnchantmentEpic.DisplayName: Epic zaklęcia soku
 			JuicedEnchantmentLegendary.DisplayName: Legendarne zaklęcie z sokiem
 			JuicedEnchantmentRare.DisplayName: Sok Zaklęcie Rzadkie
 			JunglesFuryEnchantmentBasic.DisplayName: Podstawowe zaklęcie furii dżungli
 			JunglesFuryEnchantmentCommon.DisplayName: Zaklęcie Furii Dżungli Zwykłe
+			JunglesFuryEnchantmentCursed.DisplayName: Zaklęcie Furii Dżungli Przeklęte
 			JunglesFuryEnchantmentEpic.DisplayName: Epickie Zaklęcie Furii Dżungli
 			JunglesFuryEnchantmentLegendary.DisplayName: Legendarne Zaklęcie Furii Dżungli
 			JunglesFuryEnchantmentRare.DisplayName: Zaklęcie Furii Dżungli Rzadkie
 			KiClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zamiany klas Ki
 			KiClassSwapEnchantmentCommon.DisplayName: Zwykłe zaklęcie zamiany klas Ki
+			KiClassSwapEnchantmentCursed.DisplayName: Zaklęcie Zamiana Klasy Ki Przeklęte
 			KiClassSwapEnchantmentEpic.DisplayName: Epicki zaklęcie zamiany klas Ki
 			KiClassSwapEnchantmentLegendary.DisplayName: Zaklęcie zamiany klas Ki Legendarne
 			KiClassSwapEnchantmentRare.DisplayName: Rzadkie zaklęcie zamiany klas Ki
 			KiEnchantmentBasic.DisplayName: Podstawowe zaklęcie Ki
 			KiEnchantmentCommon.DisplayName: Wspólne Zaklęcie Ki
+			KiEnchantmentCursed.DisplayName: Zaklęcie Ki Przeklęte
 			KiEnchantmentEpic.DisplayName: Epickie zaklęcie Ki
 			KiEnchantmentLegendary.DisplayName: Legendarne zaklęcie Ki
 			KiEnchantmentRare.DisplayName: Rzadkie zaklęcie Ki
 			LavaFishingEnchantmentBasic.DisplayName: Podstawowe zaklęcie na lawę
 			LavaFishingEnchantmentCommon.DisplayName: Zaklęcie łowienia lawy Powszechne
+			LavaFishingEnchantmentCursed.DisplayName: Zaklęcie połowu lawy przeklęte
 			LavaFishingEnchantmentEpic.DisplayName: Epickie zaklęcie do połowów lawy
 			LavaFishingEnchantmentLegendary.DisplayName: Legendarne zaklęcie do połowu lawy
 			LavaFishingEnchantmentRare.DisplayName: Zaklęcie łowienia lawy Rzadkie
 			LethalCombinationEnchantmentBasic.DisplayName: Podstawowe zaklęcie Zabójczej Kombinacji
 			LethalCombinationEnchantmentCommon.DisplayName: Zabójcza kombinacja Zaklęć Powszechna
+			LethalCombinationEnchantmentCursed.DisplayName: Zaklęcie Zabójczej Kombinacji Przeklęte
 			LethalCombinationEnchantmentEpic.DisplayName: Epicka Zabójcza Kombinacja Zaklęć
 			LethalCombinationEnchantmentLegendary.DisplayName: Legendarne zaklęcie śmiercionośnej kombinacji
 			LethalCombinationEnchantmentRare.DisplayName: Zaklęcie Zabójczej Kombinacji Rzadkie
 			LifeRegenEnchantmentBasic.DisplayName: Podstawowe zaklęcie regeneracji życia
 			LifeRegenEnchantmentCommon.DisplayName: Zwykłe zaklęcie regeneracji życia
+			LifeRegenEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Regeneracji Życia
 			LifeRegenEnchantmentEpic.DisplayName: Epicki zaklęcie regeneracji życia
 			LifeRegenEnchantmentLegendary.DisplayName: Legendarne zaklęcie regeneracji życia
 			LifeRegenEnchantmentRare.DisplayName: Rzadkie zaklęcie regeneracji życia
 			LifeStealEnchantmentBasic.DisplayName: Podstawowe zaklęcie kradzieży życia
 			LifeStealEnchantmentCommon.DisplayName: Zaklęcie kradzieży życia Zwykłe
+			LifeStealEnchantmentCursed.DisplayName: Zaklęcie Kradzieży Życia Przeklęte
 			LifeStealEnchantmentEpic.DisplayName: Epic zaklęcia kradzieży życia
 			LifeStealEnchantmentLegendary.DisplayName: Legendarne zaklęcie kradzieży życia
 			LifeStealEnchantmentRare.DisplayName: Zaklęcie kradzieży życia Rzadkie
 			LuckEnchantmentBasic.DisplayName: Podstawowe zaklęcie szczęścia
 			LuckEnchantmentCommon.DisplayName: Szczęście Zaklęcie Zwykłe
+			LuckEnchantmentCursed.DisplayName: Zaklęcie szczęścia przeklęte
 			LuckEnchantmentEpic.DisplayName: Epickie zaklęcie szczęścia
 			LuckEnchantmentLegendary.DisplayName: Legendarne zaklęcie szczęścia
 			LuckEnchantmentRare.DisplayName: Rzadkie zaklęcie szczęścia
 			MagicClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zamiany klasy magii
 			MagicClassSwapEnchantmentCommon.DisplayName: Zmiana klasy magii Zaklęcie Zwykłe
+			MagicClassSwapEnchantmentCursed.DisplayName: Zaklęcie Zamiana Klas Magii Zaklęte
 			MagicClassSwapEnchantmentEpic.DisplayName: Epicka zamiana klas magicznych
 			MagicClassSwapEnchantmentLegendary.DisplayName: Legendarna zamiana klasy magii Legendarne zaklęcie
 			MagicClassSwapEnchantmentRare.DisplayName: Zaklęcie zamiany klasy magii Rzadkie
 			MagneticEnchantmentBasic.DisplayName: Podstawowe zaklęcie magnetyczne
 			MagneticEnchantmentCommon.DisplayName: Magnetyczne Zaklęcie Powszechne
+			MagneticEnchantmentCursed.DisplayName: Przeklęte zaklęcie magnetyczne
 			MagneticEnchantmentEpic.DisplayName: Epickie zaklęcie magnetyczne
 			MagneticEnchantmentLegendary.DisplayName: Legendarne zaklęcie magnetyczne
 			MagneticEnchantmentRare.DisplayName: Rzadkie zaklęcie magnetyczne
 			MaxMinionsEnchantmentBasic.DisplayName: Podstawowe zaklinanie maks. stworów
 			MaxMinionsEnchantmentCommon.DisplayName: Maksimum stworów Zaklęcie Zwykłe
+			MaxMinionsEnchantmentCursed.DisplayName: Zaklęcie zaklęcia Max Minions
 			MaxMinionsEnchantmentEpic.DisplayName: Epickie zaklęcie Max Minions
 			MaxMinionsEnchantmentLegendary.DisplayName: Legendarne zaklęcie Max Minions
 			MaxMinionsEnchantmentRare.DisplayName: Rzadkie zaklęcie maksymalnych stworów
@@ -986,31 +1147,37 @@ Mods: {
 
 			MeleeClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmiany klasy w zwarciu
 			MeleeClassSwapEnchantmentCommon.DisplayName: Zmiana klasy w zwarciu Zaklęcie Zwykłe
+			MeleeClassSwapEnchantmentCursed.DisplayName: Zaklęcie Zamiana Klas Walki Wręcz Przeklęte
 			MeleeClassSwapEnchantmentEpic.DisplayName: Epicka zamiana klas w zwarciu
 			MeleeClassSwapEnchantmentLegendary.DisplayName: Legendarne zaklęcie do zamiany klas w zwarciu
 			MeleeClassSwapEnchantmentRare.DisplayName: Rzadkie zaklęcie zmiany klasy w zwarciu
 			MobilityControlEnchantmentBasic.DisplayName: Podstawowe zaklęcie kontroli mobilności
 			MobilityControlEnchantmentCommon.DisplayName: Zaklęcie kontroli mobilności Często
+			MobilityControlEnchantmentCursed.DisplayName: Przeklęte zaklęcie kontroli mobilności
 			MobilityControlEnchantmentEpic.DisplayName: Epickie zaklęcie kontroli mobilności
 			MobilityControlEnchantmentLegendary.DisplayName: Legendarne zaklęcie kontroli mobilności
 			MobilityControlEnchantmentRare.DisplayName: Zaklęcie kontroli mobilności Rzadkie
 			MoonlightEnchantmentBasic.DisplayName: Podstawowe zaklęcie księżyca
 			MoonlightEnchantmentCommon.DisplayName: Zaklęcie Księżyca Zwykłe
+			MoonlightEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Księżyca przeklęte
 			MoonlightEnchantmentEpic.DisplayName: Epickie zaklęcie księżycowego światła
 			MoonlightEnchantmentLegendary.DisplayName: Legendarne zaklęcie księżycowego światła
 			MoonlightEnchantmentRare.DisplayName: Zaklęcie Księżyca Rzadkie
 			MovementSpeedEnchantmentBasic.DisplayName: Podstawowe zaklęcie szybkości ruchu
 			MovementSpeedEnchantmentCommon.DisplayName: Zaklęcie prędkości ruchu Zwykłe
+			MovementSpeedEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Prędkości Ruchu
 			MovementSpeedEnchantmentEpic.DisplayName: Epickie zaklęcie prędkości ruchu
 			MovementSpeedEnchantmentLegendary.DisplayName: Legendarne zaklęcie szybkości ruchu
 			MovementSpeedEnchantmentRare.DisplayName: Zaklęcie prędkości ruchu Rzadkie
 			MultishotEnchantmentBasic.DisplayName: Podstawowe zaklęcie wielostrzałowe
 			MultishotEnchantmentCommon.DisplayName: Zaklęcie wielostrzałowe Zwykłe
+			MultishotEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Wielostrzałowego
 			MultishotEnchantmentEpic.DisplayName: Wielostrzałowy Epicki Zaklęcie
 			MultishotEnchantmentLegendary.DisplayName: Legendarne zaklęcie wielostrzałowe
 			MultishotEnchantmentRare.DisplayName: Zaklęcie Wielostrzałowe Rzadkie
 			NpcContactAnglerEnchantmentBasic.DisplayName: Podstawowe zaklęcie Npc Contact Angler
 			NpcContactAnglerEnchantmentCommon.DisplayName: Npc Zaklęcie Wędkarza Kontaktowego Powszechne
+			NpcContactAnglerEnchantmentCursed.DisplayName: Zaklęcie Wędkarza Kontaktowego Npc Przeklęte
 			NpcContactAnglerEnchantmentEpic.DisplayName: Npc Kontakt Wędkarz Zaklęcie Epic
 			NpcContactAnglerEnchantmentLegendary.DisplayName: Npc Contact Angler Legendarne Enchantment
 			NpcContactAnglerEnchantmentRare.DisplayName: Npc Contact Angler Enchantment Rzadkie
@@ -1021,11 +1188,13 @@ Mods: {
 			ObsidianSkinEnchantmentRare.DisplayName: Rzadkie zaklęcie obsydianowej skóry
 			OneForAllEnchantmentBasic.DisplayName: Jeden za wszystkich Podstawowe zaklęcie
 			OneForAllEnchantmentCommon.DisplayName: Jeden za wszystkich Zaklęcie wspólne
+			OneForAllEnchantmentCursed.DisplayName: Jedno za wszystkich Zaklęcie przeklęte
 			OneForAllEnchantmentEpic.DisplayName: Jeden za wszystkich epicki zaklęcie
 			OneForAllEnchantmentLegendary.DisplayName: Jeden za wszystkich Legendarne zaklęcie
 			OneForAllEnchantmentRare.DisplayName: Jeden za wszystkich zaklęcie rzadkie
 			OnFireEnchantmentBasic.DisplayName: Podstawowe zaklęcie w ogniu
 			OnFireEnchantmentCommon.DisplayName: Zaklęcie w ogniu Zwykłe
+			OnFireEnchantmentCursed.DisplayName: Przeklęte zaklęcie w ogniu
 			OnFireEnchantmentEpic.DisplayName: Epickie zaklęcie w ogniu
 			OnFireEnchantmentLegendary.DisplayName: Legendarne zaklęcie w ogniu
 			OnFireEnchantmentRare.DisplayName: Zaklęcie w ogniu Rzadkie
@@ -1036,16 +1205,19 @@ Mods: {
 			PeaceEnchantmentRare.DisplayName: Zaklęcie Pokoju Rzadkie
 			PennyPinchingEnchantmentBasic.DisplayName: Podstawowe zaklęcie szczypania grosza
 			PennyPinchingEnchantmentCommon.DisplayName: Uszczypnięcie grosza Zaklęcie Zwykłe
+			PennyPinchingEnchantmentCursed.DisplayName: Zaklęcie Penny Pinching jest przeklęte
 			PennyPinchingEnchantmentEpic.DisplayName: Epickie zaklęcie szczypiące grosz
 			PennyPinchingEnchantmentLegendary.DisplayName: Penny Szczypanie Zaklęcie Legendarne
 			PennyPinchingEnchantmentRare.DisplayName: Zaklęcie Szczypiące Penny Rzadkie
 			PercentArmorPenetrationEnchantmentBasic.DisplayName: Podstawowe zaklęcie procentowej penetracji pancerza
 			PercentArmorPenetrationEnchantmentCommon.DisplayName: Zaklęcie procentowe penetracji pancerza Powszechne
+			PercentArmorPenetrationEnchantmentCursed.DisplayName: Zaklęcie Procent penetracji pancerza przeklęte
 			PercentArmorPenetrationEnchantmentEpic.DisplayName: Epickie zaklęcie procentowej penetracji pancerza
 			PercentArmorPenetrationEnchantmentLegendary.DisplayName: Zaklęcie procentowej penetracji pancerza Legendarne
 			PercentArmorPenetrationEnchantmentRare.DisplayName: Zaklęcie procentowej penetracji pancerza Rzadkie
 			PoisonEnchantmentBasic.DisplayName: Podstawowe zaklęcie trucizny
 			PoisonEnchantmentCommon.DisplayName: Zaklęcie Trucizny Powszechne
+			PoisonEnchantmentCursed.DisplayName: Przeklęte zaklęcie trucizny
 			PoisonEnchantmentEpic.DisplayName: Epickie zaklęcie trucizny
 			PoisonEnchantmentLegendary.DisplayName: Legendarne zaklęcie trucizny
 			PoisonEnchantmentRare.DisplayName: Zaklęcie Trucizny Rzadko
@@ -1067,26 +1239,31 @@ Mods: {
 			PrideOfTheWeakEnchantmentRare.DisplayName: Duma słabego zaklęcia Rzadkie
 			ProjectileVelocityEnchantmentBasic.DisplayName: Podstawowe zaklęcie prędkości pocisku
 			ProjectileVelocityEnchantmentCommon.DisplayName: Zaklęcie prędkości pocisku Powszechne
+			ProjectileVelocityEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Prędkości Pocisku
 			ProjectileVelocityEnchantmentEpic.DisplayName: Epickie zaklęcie prędkości pocisku
 			ProjectileVelocityEnchantmentLegendary.DisplayName: Legendarne zaklęcie prędkości pocisku
 			ProjectileVelocityEnchantmentRare.DisplayName: Rzadkie zaklęcie prędkości pocisku
 			RangedClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmiany klasy dystansowej
 			RangedClassSwapEnchantmentCommon.DisplayName: Zmiana klasy dystansowej Zaklęcie Zwykłe
+			RangedClassSwapEnchantmentCursed.DisplayName: Zaklęcie Przeklęte zaklęcie zmiany klasy dystansowej
 			RangedClassSwapEnchantmentEpic.DisplayName: Epicka zmiana klas dystansowych
 			RangedClassSwapEnchantmentLegendary.DisplayName: Legendarne zaklęcie do wymiany klas dystansowych
 			RangedClassSwapEnchantmentRare.DisplayName: Zaklęcie zmiany klasy dystansowej Rzadkie
 			ReducedManaUsageEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmniejszone zużycie many
 			ReducedManaUsageEnchantmentCommon.DisplayName: Zmniejszone zużycie many Zaklęcie powszechne
+			ReducedManaUsageEnchantmentCursed.DisplayName: Zaklęcie o zmniejszonym zużyciu many. Przeklęty
 			ReducedManaUsageEnchantmentEpic.DisplayName: Epic zaklęcia o zredukowanym zużyciu many
 			ReducedManaUsageEnchantmentLegendary.DisplayName: Legendarne zaklęcie zmniejszone zużycie many
 			ReducedManaUsageEnchantmentRare.DisplayName: Rzadkie zaklęcie zmniejszonego zużycia many
 			RogueClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmiany klasy łotrzyka
 			RogueClassSwapEnchantmentCommon.DisplayName: Rogue Zmiana klasy Zaklęcie Zwykłe
+			RogueClassSwapEnchantmentCursed.DisplayName: Zaklęcie zamiany klas Łotrzyka przeklęte
 			RogueClassSwapEnchantmentEpic.DisplayName: Epic zaklęcie zaklęcia łotrzyka
 			RogueClassSwapEnchantmentLegendary.DisplayName: Legendarne zaklęcie zaklęcia łotrzyka
 			RogueClassSwapEnchantmentRare.DisplayName: Rzadkie zaklęcie zmiany klasy Rzadkie
 			ShadowflameEnchantmentBasic.DisplayName: Podstawowe zaklęcie Shadowflame
 			ShadowflameEnchantmentCommon.DisplayName: Zaklęcie Cienistego Płomienia Powszechne
+			ShadowflameEnchantmentCursed.DisplayName: Zaklęcie Cienistego Płomienia Przeklęte
 			ShadowflameEnchantmentEpic.DisplayName: Epicki zaklęcie Shadowflame
 			ShadowflameEnchantmentLegendary.DisplayName: Zaklęcie Cienistego Płomienia Legendarne
 			ShadowflameEnchantmentRare.DisplayName: Zaklęcie Cienistego Płomienia Rzadkie
@@ -1097,11 +1274,13 @@ Mods: {
 			ShineEnchantmentRare.DisplayName: Rzadkie Zaklęcie Połysku
 			SizeEnchantmentBasic.DisplayName: Podstawowe zaklęcie rozmiaru
 			SizeEnchantmentCommon.DisplayName: Rozmiar Zaklęcie Powszechne
+			SizeEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Rozmiaru
 			SizeEnchantmentEpic.DisplayName: Epicki rozmiar zaklęcia
 			SizeEnchantmentLegendary.DisplayName: Legendarne zaklęcie rozmiaru
 			SizeEnchantmentRare.DisplayName: Rzadkie zaklęcie rozmiaru
 			SolarDashEnchantmentBasic.DisplayName: Podstawowe zaklęcie słonecznej kreski
 			SolarDashEnchantmentCommon.DisplayName: Zaklęcie Słonecznej Odskoku Zwykłe
+			SolarDashEnchantmentCursed.DisplayName: Zaklęcie Solar Dash przeklęte
 			SolarDashEnchantmentEpic.DisplayName: Epickie zaklęcie Solar Dash
 			SolarDashEnchantmentLegendary.DisplayName: Legendarne zaklęcie Solar Dash
 			SolarDashEnchantmentRare.DisplayName: Rzadkie zaklęcie Słonecznej kreski
@@ -1133,11 +1312,13 @@ Mods: {
 
 			ThrowingClassSwapEnchantmentBasic.DisplayName: Rzucanie Podstawowe zaklęcie zamiany klas
 			ThrowingClassSwapEnchantmentCommon.DisplayName: Rzucanie Zamiana klas Zaklęcie Powszechne
+			ThrowingClassSwapEnchantmentCursed.DisplayName: Rzucanie zaklęcia zamiany klas jest przeklęte
 			ThrowingClassSwapEnchantmentEpic.DisplayName: Rzucanie Zaklęcie Zamiana klas Epic
 			ThrowingClassSwapEnchantmentLegendary.DisplayName: Rzucanie Zaklęcie zamiany klas Legendarne
 			ThrowingClassSwapEnchantmentRare.DisplayName: Rzucanie Zaklęciem Zamiany Klas Rzadkie
 			TimeEnchantmentBasic.DisplayName: Podstawowe zaklęcie czasu
 			TimeEnchantmentCommon.DisplayName: Zaklęcie Czasu Powszechne
+			TimeEnchantmentCursed.DisplayName: Zaklęcie Zaklęcia Czasu
 			TimeEnchantmentEpic.DisplayName: Epickie zaklęcie czasu
 			TimeEnchantmentLegendary.DisplayName: Legendarne zaklęcie czasu
 			TimeEnchantmentRare.DisplayName: Zaklęcie czasu Rzadkie
@@ -1163,16 +1344,19 @@ Mods: {
 
 			VenomEnchantmentBasic.DisplayName: Podstawowe zaklęcie jadu
 			VenomEnchantmentCommon.DisplayName: Zaklęcie Jadu Zwykłe
+			VenomEnchantmentCursed.DisplayName: Zaklęcie Jadu jest przeklęte
 			VenomEnchantmentEpic.DisplayName: Epickie zaklęcie jadu
 			VenomEnchantmentLegendary.DisplayName: Legendarne Zaklęcie Jadu
 			VenomEnchantmentRare.DisplayName: Zaklęcie Jadu Rzadkie
 			WarEnchantmentBasic.DisplayName: Podstawowe zaklęcie wojenne
 			WarEnchantmentCommon.DisplayName: Zaklęcie wojenne Powszechne
+			WarEnchantmentCursed.DisplayName: Zaklęcie wojenne przeklęte
 			WarEnchantmentEpic.DisplayName: Epickie zaklęcie wojny
 			WarEnchantmentLegendary.DisplayName: Legendarne zaklęcie wojenne
 			WarEnchantmentRare.DisplayName: Zaklęcie Wojenne Rzadkie
 			WhipClassSwapEnchantmentBasic.DisplayName: Bicz Zmiana klasy Podstawowe zaklęcie
 			WhipClassSwapEnchantmentCommon.DisplayName: Bicz Zamiana klas Zaklęcie Zwykłe
+			WhipClassSwapEnchantmentCursed.DisplayName: Zaklęcie zmiany klasy bicza przeklęte
 			WhipClassSwapEnchantmentEpic.DisplayName: Bicz Zamień Zaklęcie Epic
 			WhipClassSwapEnchantmentLegendary.DisplayName: Bicz Zmiana klasy Legendarne zaklęcie
 			WhipClassSwapEnchantmentRare.DisplayName: Bicz Zamiana klasy Rzadkie zaklęcie
@@ -1188,6 +1372,7 @@ Mods: {
 
 			WorldAblazeEnchantmentBasic.DisplayName: Podstawowe zaklęcie Płomienia Świata
 			WorldAblazeEnchantmentCommon.DisplayName: Zaklęcie Płomienia Świata Powszechne
+			WorldAblazeEnchantmentCursed.DisplayName: Zaklęcie Płonącego Świata Przeklęte
 			WorldAblazeEnchantmentEpic.DisplayName: Epickie Zaklęcie Płomienia Świata
 			WorldAblazeEnchantmentLegendary.DisplayName: Legendarne Zaklęcie Płomienia Świata
 			WorldAblazeEnchantmentRare.DisplayName: Zaklęcie Płomienia Świata Rzadkie
@@ -1410,7 +1595,7 @@ Mods: {
 				CrateChance: Skrzynia Szansa
 				CriticalStrikeChance: Szansa krytycznego uderzenia
 				CriticalStrikeDamage: Obrażenia od trafienia krytycznego
-				CursedInferno: Przeklęte Piekło
+				CursedInferno: Przeklęte piekło
 				Damage: Szkoda
 				DamageAfterDefenses: Obrażenia (Zastosowane po obronie. Niewidoczne w opisie broni)
 				DamageClassSwap: Konwertuj typ uszkodzenia na {0}
@@ -1428,6 +1613,8 @@ Mods: {
 				FishingEnemySpawnChance: Szansa na pojawienie się wroga w łowieniu
 				FishingPower: Moc wędkarska
 				FlatMPRegen: Płaska regeneracja MP
+				FlightAcceleration: Przyspieszenie lotu
+				FlightSpeed: Prędkość lotu
 				Frostburn: Odmrożenie
 				GodSlayer: Zabójca Boga
 				HealerClassSwap: Zmiana klasy uzdrowiciela
@@ -1564,6 +1751,8 @@ Mods: {
 				FishingEnemySpawnChance: „{0} (zmniejsza się 5x w ciągu dnia. Wpływa na Chum Caster. Może również odrodzić Księcia Fishrona.)”
 				FishingPower: Moc połowów
 				FlatMPRegen: Płaska regeneracja MP
+				FlightAcceleration: Przyspieszenie lotu
+				FlightSpeed: Prędkość lotu
 				GodSlayer:
 					'''
 					{0}
@@ -1665,6 +1854,14 @@ Mods: {
 			}
 
 			EnchantmentShortTooltip.OnTickPlayerBuff: „Pasywnie przyznaje {0} za {1} co {2}”
+			ItemTooltip.CursedEssence:
+				'''
+				Energia klątwy tak potężna, że przybrała formę. Inne przekleństwa zostaną przyciągnięte przez jego moc.
+				Przeklęta Esencja będzie miała wpływ na poniższe efekty, gdy będzie znajdować się w Twoim ekwipunku lub w Magazynie Zaklęć. (Przeklęta Esencja: {0})
+				    Zwiększa częstotliwość pojawiania się wrogów. (Aktualny bonus: {1}x)
+				    Zwiększa maksymalne pojawianie się wrogów. (Aktualny bonus: {2}x)
+				    Zwiększona szansa na przeklętych wrogów. (Szansa, że odrodzony wróg zostanie przeklęty: {3})
+				'''
 
 			ItemType: {
 				Accessories: Akcesoria
@@ -1727,5 +1924,7 @@ Mods: {
 				}
 			}
 		}
+
+		// Projectiles.CursedEffectProjectile.DisplayName: Cursed Effect Projectile
 	}
 }

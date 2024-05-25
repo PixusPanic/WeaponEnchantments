@@ -10,14 +10,17 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using System.Linq;
 using androLib.Common.Utility;
+using System.IO;
+using MagicStorage;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
-	public abstract class TimeEnchantment : Enchantment, IRerollableEnchantment
+	public abstract class TimeEnchantment : Enchantment
 	{
 		public override string CustomTooltip => EnchantmentTypeName.Lang_WE(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		public override int StrengthGroup => 2;
 		public override float ScalePercent => -1f;
+		protected override bool isRerollable => true;
 		public override void GetMyStats() {
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f },
@@ -79,6 +82,37 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			List<string> effectNames = GetListsByNames(out List<bool> invertedList);
 			tag["effects"] = effectNames;
 			tag["effectsInverted"] = invertedList;
+		}
+		public override void NetSend(BinaryWriter writer) {
+			base.NetSend(writer);
+
+			List<string> effectNames = GetListsByNames(out List<bool> invertedList);
+			writer.Write(effectNames.Count);
+			foreach (string effectName in effectNames) {
+				writer.Write(effectName);
+			}
+
+			writer.Write(invertedList.Count);
+			foreach (bool invertedName in invertedList) {
+				writer.Write(invertedName);
+			}
+		}
+		public override void NetReceive(BinaryReader reader) {
+			base.NetReceive(reader);
+
+			int effectNamesCount = reader.ReadInt32();
+			List<string> effectNames = new();
+			for (int i = 0; i < effectNamesCount; i++) {
+				 effectNames.Add(reader.ReadString());
+			}
+
+			int invertedCount = reader.ReadInt32();
+			List<bool> invertedList = new();
+			for (int i = 0; i < invertedCount; i++) {
+				invertedList.Add(reader.ReadBoolean());
+			}
+
+			SetMyEffects(effectNames, invertedList);
 		}
 		public List<EnchantmentStat> GetListsByEnchantmentStat(out List<bool> inverted) {
 			inverted = Effects.Select(e => e.EffectStrength < 1f).ToList();
@@ -146,4 +180,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class TimeEnchantmentEpic : TimeEnchantment { }
 	[Autoload(false)]
 	public class TimeEnchantmentLegendary : TimeEnchantment { }
+	[Autoload(false)]
+	public class TimeEnchantmentCursed : TimeEnchantment { }
 }

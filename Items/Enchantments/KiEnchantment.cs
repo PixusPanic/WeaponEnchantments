@@ -56,4 +56,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class KiEnchantmentEpic : KiEnchantment { }
     [Autoload(false)]
 	public class KiEnchantmentLegendary : KiEnchantment { }
+	[Autoload(false)]
+	public class KiEnchantmentCursed : KiEnchantment { }
 }

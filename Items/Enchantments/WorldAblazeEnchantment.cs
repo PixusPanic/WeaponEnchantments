@@ -29,7 +29,7 @@ namespace WeaponEnchantments.Items.Enchantments
 			if (EnchantmentTier >= 3)
 				Effects.Add(new BuffEffect(BuffID.OnFire3, BuffStyle.OnHitEnemyDebuff, BuffDuration, EnchantmentStrengthData * 0.2f));
 
-			if (EnchantmentTier == 4)
+			if (EnchantmentTier >= 4)
 				Effects.Add(new BuffEffect((short)ModContent.BuffType<Amaterasu>(), BuffStyle.OnHitEnemyDebuff, 10000, buffStrength: EnchantmentStrengthData));
 
 			AllowedList = new Dictionary<EItemType, float>() {
@@ -58,5 +58,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class WorldAblazeEnchantmentEpic : WorldAblazeEnchantment { }
 	[Autoload(false)]
 	public class WorldAblazeEnchantmentLegendary : WorldAblazeEnchantment { }
+	[Autoload(false)]
+	public class WorldAblazeEnchantmentCursed : WorldAblazeEnchantment { }
 
 }

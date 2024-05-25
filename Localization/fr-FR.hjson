@@ -2,7 +2,21 @@
 Mods: {
 	WeaponEnchantments: {
 		Bestiary.Witch: La sorcière est une femme laide et méchante et s'occupe d'autres choses méchantes. Elle fait le commerce de matériaux douteux utilisés pour améliorer des équipements aux effets mystérieux.
-		Buffs.Amaterasu.DisplayName: Amaterasu
+
+		Buffs: {
+			Amaterasu.DisplayName: Amaterasu
+
+			Cursed: {
+				Description:
+					'''
+					Essence maudite {0}
+					Taux d'apparition x{1}
+					Nombre maximum d'apparitions x{2}
+					Chance maudite {3}
+					'''
+				DisplayName: Maudit
+			}
+		}
 
 		Configs: {
 			AccessoryDRValues: Accessoire {0}% ({1}% à 40)
@@ -71,6 +85,24 @@ Mods: {
 				AlwaysDisplayWeaponLevelUpMessages: {
 					Label: Toujours afficher les messages d'augmentation du niveau d'arme
 					Tooltip: N'affiche les messages d'augmentation du niveau des armes lors de l'utilisation de la table d'enchantement que si cette option est désactivée.
+				}
+
+				CursedEnemyParticles: {
+					Label: Particules ennemies maudites
+					Tooltip:
+						'''
+						Les ennemis maudits produisent de petites particules pour les distinguer des ennemis normaux.
+						Désactivez-le pour empêcher la création de ces particules.
+						'''
+				}
+
+				CursedEnemyVisualShaking: {
+					Label: Secousse visuelle de l'ennemi maudit
+					Tooltip:
+						'''
+						Les ennemis maudits tremblent ou vibrent pour les distinguer des ennemis normaux.
+						Ce paramètre contrôle la force du tremblement visuel des ennemis maudits.   Réglez sur 0 pour désactiver le tremblement.
+						'''
 				}
 
 				DisplayDamageTooltipSeperatly: {
@@ -171,7 +203,7 @@ Mods: {
 			PresetData: {
 				Tooltip: Les préréglages vous permettent d'affecter facilement tous les enchantements à la fois.
 
-				AutomaticallyMatchPreseTtoWorldDifficulty: {
+				AutomaticallyMatchPresetToWorldDifficulty: {
 					Label: Faire correspondre automatiquement le préréglage à la difficulté du monde
 					Tooltip: Doit être désactivé pour que les autres options soient modifiées.
 				}
@@ -184,6 +216,11 @@ Mods: {
 				CommonEnchantmentStrengthMultiplier: {
 					Label: Commun
 					Tooltip: Affecte la force de tous les enchantements communs. Remplace tous les multiplicateurs, à l'exception des multiplicateurs individuels de force d'enchantement. Réglez-le sur -1 pour que ce multiplicateur soit ignoré.
+				}
+
+				CursedEnchantmentStrengthMultiplier: {
+					Label: Maudit
+					Tooltip: Affecte la force de tous les enchantements maudits. Remplace tous les multiplicateurs, à l'exception des multiplicateurs individuels de force d'enchantement. Réglez-le sur -1 pour que ce multiplicateur soit ignoré.
 				}
 
 				EpicEnchantmentStrengthMultiplier: {
@@ -222,11 +259,12 @@ Mods: {
 			}
 
 			ServerConfig: {
+				CursedEnemies: Ennemis maudits
 				DisplayName: Configuration du serveur
 				EnchantingTableOptions: Options de table enchanteresse
 				EnchantmentDropRates(%): Taux de chute d'enchantement (%)
 				EnchantmentSettings: Paramètres d'enchantement
-				EssenceandExperience: Essence et expérience
+				EssenceAndExperience: Essence et expérience
 				GeneralGameChanges: Modifications générales du jeu
 				IndividualEnchantmentStrengths: Forces d'enchantement individuelles
 				Multipliers: Multiplicateurs
@@ -258,6 +296,11 @@ Mods: {
 						Les terrarias vanille limitent les chances de coup critique à 100 %. Par défaut, les enchantements d'armes calculent les critiques supplémentaires après 100 %.
 						120 % de chances de critique correspondent à 100 % pour doubler les dégâts, puis 20 % de chances de critiquer pour augmenter les dégâts. Voir l'option de configuration suivante pour plus d'informations.
 						'''
+				}
+
+				AllowCursedEnemies: {
+					Label: Autoriser les ennemis maudits
+					Tooltip: Permet de permettre aux ennemis d'être rarement maudits lorsqu'ils apparaissent, ce qui ne leur inflige aucun dégât, mais de tirer des débuffs sur les joueurs.   Les ennemis maudits ont également 5x de santé.
 				}
 
 				AllowHighTierOres: {
@@ -353,6 +396,46 @@ Mods: {
 				CritPerLevelDisabled: {
 					Label: Désactiver les chances de coup critique de l'arme par niveau
 					Tooltip: Les armes ont des chances de coup critique égales à leur niveau * Multiplicateur global de force d'enchantement.
+				}
+
+				CuredEnemyDebuffTicksPerAttack: {
+					Label: Tiques de débuff des ennemis guéris par attaque
+					Tooltip: Combien de ticks entre les Ennemis Maudits tirant un projectile de débuff.   20 ticks / attaque => (1 sec / 60 ticks) / (20 ticks / attaque) => 3 attaques / seconde
+				}
+
+				CursedEnemyDamageMultiplier: {
+					Label: Multiplicateur de dégâts de l'ennemi maudit
+					Tooltip: Modifie les dégâts infligés aux ennemis maudits.   0 les empêchera d’endommager ou de repousser les joueurs.   La valeur est divisée par 100. 100 => 1x multiplicateur.
+				}
+
+				CursedEnemyDebuffAttackRange: {
+					Label: Portée d'attaque du débuff de l'ennemi maudit
+					Tooltip: Les ennemis maudits tireront des débuffs sur un joueur s'ils se trouvent à cette distance du joueur.   La valeur est divisée par 100. 40000 => plage 400.   La portée 16 est de 1 dans la tuile/le bloc de jeu.
+				}
+
+				CursedEnemyDebuffChanceMultiplier: {
+					Label: Multiplicateur de chance de débuff de l'ennemi maudit
+					Tooltip: Affecte la probabilité que les débuffs se produisent lorsqu'ils sont causés par des projectiles de débuff ennemis maudits.   La plupart sont à 100 % par défaut.   Confus est de 10 %, Palmé et Gelé sont de 5 % et Pétrification est de 2,5 %.
+				}
+
+				CursedEnemyDebuffDurationMultiplier: {
+					Label: Multiplicateur de durée du débuff de l'ennemi maudit
+					Tooltip: Affecte la durée des débuffs des ennemis maudits.
+				}
+
+				CursedEnemyLifeMultiplier: {
+					Label: Multiplicateur de vie de l'ennemi maudit
+					Tooltip: Modifie la vie maximale des ennemis maudits.   La valeur est divisée par 100. 500 => multiplicateur 5x.
+				}
+
+				CursedEssenceDropChanceMultiplier: {
+					Label: Multiplicateur de chances de chute d'essence maudite
+					Tooltip: Affecte la quantité d'essence maudite lâchée par les ennemis.
+				}
+
+				CurseStrengthMultiplier: {
+					Label: Multiplicateur de force de malédiction
+					Tooltip: Affecte la taille des malédictions sur les enchantements maudits.
 				}
 
 				DamagePerLevelInstead: {
@@ -454,6 +537,18 @@ Mods: {
 						'''
 				}
 
+				EnchantmentStrengthCurseScaling: {
+					Label: Mise à l'échelle de la malédiction de la force d'enchantement
+					Tooltip:
+						'''
+						Ce paramètre entraîne l'application d'une fraction des autres paramètres de force d'enchantement aux effets maudits.   La valeur est divisée par 100. 50 => 50%
+						Si cette valeur est 0, cela n'aura aucun effet.   S'il est de 50, il aura la moitié de l'effet des autres paramètres de force d'enchantement.
+						Par exemple, en difficulté Maître, la force d’enchantement par défaut est de 25 % (-75 % de réduction).
+						Avec ce réglage à 50, les effets de la malédiction seraient réduits de moitié de ce montant, soit 62,5% (-75% * 50% => -37,5% de réduction).
+						À 100, les effets de malédiction s'échelonneraient de la même manière que les effets d'enchantement normaux.
+						'''
+				}
+
 				EssenceGrabRange: {
 					Label: Multiplicateur de portée d'essence
 					Tooltip: Affecte la distance à laquelle l'essence peut s'éloigner du joueur lorsqu'elle commence à se déplacer vers le joueur.
@@ -512,6 +607,19 @@ Mods: {
 						Les enchantements d'armes utilisent les chances de coup critique supérieures à 100 % pour vous permettre de critiquer à nouveau.
 						Par défaut, il s'agit d'un bonus additif : 1er critique 200% dégâts, 2ème 300% dégâts, 3ème 400% dégâts.....
 						Activer cela les rend plutôt multiplicatifs : 1er critique 200 % de dégâts, 2e critique 400 % de dégâts, 3e critique 800 % de dégâts...
+						'''
+				}
+
+				NegativeDefensePenaltyMultiplier: {
+					Label: Multiplicateur de pénalité de défense négative
+					Tooltip:
+						'''
+						Si ce nombre est supérieur à 0, un joueur ayant moins de 0 défense lui fera subir plus de dégâts.
+						Il s'agit d'une pénalité pour avoir permis à des malédictions de réduire la défense d'un joueur à moins de 0.
+						Les dégâts subis sont augmentés par le multiplicateur de pénalité de défense négative/1000 * -playerDefense
+						ET multiplié par 1 + (Multiplicateur de pénalité de défense négative/1000 * -playerDefense / 100)Exemple : -20 de défense et le joueur subit 200 dégâts, Multiplicateur de pénalité de défense négative = 1000 :
+						dommage final = (200 -(-20) * 1000/1000) * (1 + (1000/1000 * -(-20) / 100))
+						finalDamage = (200 + 20) * (1 + 0,2) => 220 * 1,2 => 264
 						'''
 				}
 
@@ -633,12 +741,14 @@ Mods: {
 
 		GameMessages: {
 			AlreadyMaxLevel: Votre {0} est déjà au niveau maximum.
+			ApplyCurse: Appliquer la malédiction
 			Back: Dos
 			CannotGainAdditionalPower: Votre {0}({1}) ne peut pas obtenir de puissance supplémentaire grâce au {2}({3}) proposé.
 			CantInfusionArmorDifferentTypes: Vous ne pouvez pas infuser des armures de différents types, comme un casque et un corps.
 			CongradulationsMaxLevel: Félicitations ! Le {1} de {0} a atteint le niveau maximum, {2} ({3} xp).
 			CouldntFindItemsInWeaponsList: Impossible de trouver des éléments dans WeaponsList ou WeaponCraftingIngredients avec les noms :
 			CouldntFindNPCsInIngredientsList: Impossible de trouver des PNJ dans NPCsThatDropWeaponsOrIngredients avec les noms :
+			Curses: Malédictions
 			DailyFishingQuestReset: La quête de pêche quotidienne a été réinitialisée. Votre prochaine quête est {0}.
 			DetectedNonEnchantmentInEnchantmentSlot: Détection d'un objet non-enchantement :{0} sur votre {1}. Il a été renvoyé dans votre inventaire.
 			EnchantmentNoLongerAllowed: "{0} n'est plus autorisé sur {1} et a été supprimé de votre {2}."
@@ -649,7 +759,6 @@ Mods: {
 			FailedReplaceOldItem: Échec du remplacement de l'ancien élément :
 			FailedReplaceWithCoins: Échec du remplacement de l'élément : {0} par des pièces
 			FailedToCloneItem: Dans EnchantedItem, échec du clonage (élément : {0}, itemClone : {1}), cloneReforgedItem : {2}, resetGlobals : {3}.
-			FailedToFindInfusionPower: Impossible de trouver un pouvoir d'infusion pour l'élément :
 			FailedToLocateAngler: Impossible de localiser le pêcheur. Vous recevrez toujours des récompenses
 			FavoritedItemsCantBeConsumedForInfusion: Les articles favoris ne peuvent pas être consommés pour infusion.
 			FishingQuestTurnedIn: Quête terminée. Votre prochaine quête est {0}. Quêtes terminées : {1}
@@ -672,7 +781,13 @@ Mods: {
 			MinSiphonXP: Vous ne pouvez siphonner un objet que s'il possède au moins {0} d'expérience.
 			MultipleUniqueEnchantments: Plusieurs enchantements uniques ont été détectés sur votre {0}. {1} a été supprimé de votre {2}.
 			MurasamaNoInfusion: Murasama ne peut pas être consommé en infusion.
+			NegativeDef:
+				'''
+				Dégâts subis augmentés de {0} et {0} %
+				(Enchantements d'armes)
+				'''
 			NewItemIsAir: newItem était air.
+			Next: Suivant
 			NoLongerAllowedOnDamageType: "{0} n'est plus autorisé sur les armes {1} et a été supprimé de votre {2}."
 			NoLongerUtilityEnchantment: "{0} n'est plus un enchantement utilitaire et a été supprimé de votre {1}."
 			NonEnchantableItemInTable:
@@ -693,12 +808,16 @@ Mods: {
 				Récupérer des enchantements, des essences et d’autres objets d’enchantements d’armes les enverra automatiquement vers le stockage de la table d’enchantement.
 				'''
 			OreInfusionPowerNotSetup: La puissance d'infusion du minerai {0} n'est pas configurée. Puissance d'infusion estimée :
+			Owned: Possédé
+			PlaceHereCurse: Placez un enchantement ici pour appliquer une malédiction
+			PlaceHereReRoll: Placez un enchantement ici pour relancer
 			PreventedIssueLooseExperience: Un problème qui entraînerait une réduction de votre XP a été évité. (xpInt < 0) élément : {0}, cible : {1}, coup : {2}, mêlée : {3}, Main.GameMode : {4}, target.defense : {5}, xpDamage : {6}, lowDamagePerHitXPBoost : {7}
 			PreventedIssueLooseExperienceTwo: "Prévention d'un problème qui vous ferait perdre de l'expérience. (xpInt < 0) objet : {0}, cible : {1}, coup : {2}, mêlée : {3}, Main.GameMode : {4}, xpDamage : {5}, xpInt : {6}, lowDamagePerHitXPBoost : {7}, "
 			PreventedLoosingExperience: Empêché votre {0} de perdre de l'expérience en raison d'une erreur de calcul.
 			PreventedWitchShopDuplication: Correction d'un problème qui ajoutait un objet en double à l'objet de la boutique de la sorcière :
 			RemovedEnchantedItemData: Données EnchantedItem supprimées de l'élément : {0}, nombre : {1}, newCount : {2}
 			RemovedUnloadedEnchantmentFromItem: Objet déchargé supprimé : {0} de votre {1}. Veuillez en informer andro951 (WeaponEnchantments).
+			ReRoll: Relancer
 			RerollEnchantment: Relancer l'enchantement
 			ResistsYourAttemptToEmpower: Le {0} a résisté à votre tentative de lui donner du pouvoir.
 			SameSetBonusNoEffect: L'objet en cours de mise à niveau a le même bonus d'ensemble que l'objet en cours de consommation et n'aura aucun effet.
@@ -707,6 +826,7 @@ Mods: {
 			TryInfuseFailed: Echec de TryInfuseItem, tableItem : {0}{1}, infusionConsumeItem : {2}{3}
 			WeaponInfusionPowersNotSetup: Les pouvoirs d'infusion d'armes ne sont pas configurés
 			WitchChatText: Que veux-tu de plus? Je suis occupé.
+			WitchEnchantmentCurseText: Les malédictions sont une magie puissante, mais à un prix. Je ne peux pas t'aider si tu changes d'avis. La Dryade pourra peut-être nous aider. Êtes-vous certain de vouloir continuer ?
 			WitchEnchantmentRerolText: Je suppose que je pourrais essayer d'améliorer vos enchantements, mais pas de remboursement ni de réclamation.
 			WitchSpawnCondition: Ayez un enchantement dans votre inventaire ou sur votre équipement.
 		}
@@ -714,41 +834,49 @@ Mods: {
 		Items: {
 			AllForOneEnchantmentBasic.DisplayName: Enchantement Tous pour un de base
 			AllForOneEnchantmentCommon.DisplayName: Enchantement Tous pour un commun
+			AllForOneEnchantmentCursed.DisplayName: Tout pour un Enchantement maudit
 			AllForOneEnchantmentEpic.DisplayName: Tout pour un enchantement épique
 			AllForOneEnchantmentLegendary.DisplayName: All For One Enchantement Légendaire
 			AllForOneEnchantmentRare.DisplayName: Enchantement Tous pour un rare
 			AmmoCostEnchantmentBasic.DisplayName: Enchantement de coût en munitions de base
 			AmmoCostEnchantmentCommon.DisplayName: Enchantement de coût en munitions Commun
+			AmmoCostEnchantmentCursed.DisplayName: Coût des munitions Enchantement maudit
 			AmmoCostEnchantmentEpic.DisplayName: Épique d'enchantement de coût de munitions
 			AmmoCostEnchantmentLegendary.DisplayName: Coût en munitions Enchantement Légendaire
 			AmmoCostEnchantmentRare.DisplayName: Enchantement de coût en munitions Rare
 			AttackSpeedEnchantmentBasic.DisplayName: Enchantement de vitesse de base
 			AttackSpeedEnchantmentCommon.DisplayName: Enchantement de vitesse Commun
+			AttackSpeedEnchantmentCursed.DisplayName: Enchantement de vitesse d'attaque maudit
 			AttackSpeedEnchantmentEpic.DisplayName: Vitesse d'attaque Enchantement Épique
 			AttackSpeedEnchantmentLegendary.DisplayName: Vitesse d'attaque Enchantement Légendaire
 			AttackSpeedEnchantmentRare.DisplayName: Enchantement de vitesse Rare
 			BardClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe de barde de base
 			BardClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe de barde Commun
+			BardClassSwapEnchantmentCursed.DisplayName: Enchantement d'échange de classe de barde maudit
 			BardClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe de barde
 			BardClassSwapEnchantmentLegendary.DisplayName: Barde Échange de classe Enchantement Légendaire
 			BardClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe de barde rare
 			BerserkersRageEnchantmentBasic.DisplayName: Berserkers Rage Enchantment Basique
 			BerserkersRageEnchantmentCommon.DisplayName: Rage des berserkers Enchantement Commun
+			BerserkersRageEnchantmentCursed.DisplayName: Berserkers Rage Enchantement maudit
 			BerserkersRageEnchantmentEpic.DisplayName: Rage du Berserker Enchantement Épique
 			BerserkersRageEnchantmentLegendary.DisplayName: Berserkers Rage Enchantement Légendaire
 			BerserkersRageEnchantmentRare.DisplayName: Rage des Berserkers Enchantement Rare
 			CalmWatersEnchantmentBasic.DisplayName: Enchantement des eaux calmes de base
 			CalmWatersEnchantmentCommon.DisplayName: Eaux calmes Enchantement Commun
+			CalmWatersEnchantmentCursed.DisplayName: Enchantement des eaux calmes maudit
 			CalmWatersEnchantmentEpic.DisplayName: Épopée d'enchantement des eaux calmes
 			CalmWatersEnchantmentLegendary.DisplayName: Eaux calmes Enchantement Légendaire
 			CalmWatersEnchantmentRare.DisplayName: Eaux calmes Enchantement Rare
 			ChaoticFishingEnchantmentBasic.DisplayName: Enchantement de pêche chaotique de base
 			ChaoticFishingEnchantmentCommon.DisplayName: Pêche chaotique Enchantement Common
+			ChaoticFishingEnchantmentCursed.DisplayName: Enchantement de pêche chaotique maudit
 			ChaoticFishingEnchantmentEpic.DisplayName: Épopée d'enchantement de pêche chaotique
 			ChaoticFishingEnchantmentLegendary.DisplayName: Pêche chaotique Enchantement Légendaire
 			ChaoticFishingEnchantmentRare.DisplayName: Pêche chaotique Enchantement Rare
 			ColdSteelEnchantmentBasic.DisplayName: Enchantement d'acier froid de base
 			ColdSteelEnchantmentCommon.DisplayName: Enchantement d'acier froid
+			ColdSteelEnchantmentCursed.DisplayName: Enchantement d'acier froid maudit
 			ColdSteelEnchantmentEpic.DisplayName: Épopée d'enchantement d'acier froid
 			ColdSteelEnchantmentLegendary.DisplayName: Cold Steel Enchantement Légendaire
 			ColdSteelEnchantmentRare.DisplayName: Enchantement d'acier froid rare
@@ -760,6 +888,7 @@ Mods: {
 
 			CrateChanceEnchantmentBasic.DisplayName: Enchantement de chance de caisse de base
 			CrateChanceEnchantmentCommon.DisplayName: Chance de caisse Enchantement Commun
+			CrateChanceEnchantmentCursed.DisplayName: Chance de caisse Enchantement maudit
 			CrateChanceEnchantmentEpic.DisplayName: Épique d'enchantement de chance de caisse
 			CrateChanceEnchantmentLegendary.DisplayName: Caisse Chance Enchantement Légendaire
 			CrateChanceEnchantmentRare.DisplayName: Caisse Chance Enchantement Rare
@@ -770,26 +899,37 @@ Mods: {
 			CrateEnchantmentRare.DisplayName: Enchantement de caisse rare
 			CriticalStrikeChanceEnchantmentBasic.DisplayName: Enchantement de Chance de coup critique de base
 			CriticalStrikeChanceEnchantmentCommon.DisplayName: Enchantement de Chance de coup critique Commun
+			CriticalStrikeChanceEnchantmentCursed.DisplayName: Chance de coup critique Enchantement maudit
 			CriticalStrikeChanceEnchantmentEpic.DisplayName: Épique d'enchantement de chance de coup critique
 			CriticalStrikeChanceEnchantmentLegendary.DisplayName: Chance de coup critique Enchantement Légendaire
 			CriticalStrikeChanceEnchantmentRare.DisplayName: Enchantement de Chance de coup critique Rare
 			CriticalStrikeDamageEnchantmentBasic.DisplayName: Enchantement de dégâts de coup critique de base
 			CriticalStrikeDamageEnchantmentCommon.DisplayName: Enchantement de dégâts de coup critique
+			CriticalStrikeDamageEnchantmentCursed.DisplayName: Dégâts des coups critiques Enchantement maudit
 			CriticalStrikeDamageEnchantmentEpic.DisplayName: Épique d'enchantement de dégâts de coup critique
 			CriticalStrikeDamageEnchantmentLegendary.DisplayName: Enchantement de dégâts de coup critique Légendaire
 			CriticalStrikeDamageEnchantmentRare.DisplayName: Enchantement de dégâts de coup critique rare
+
+			CursedEssence: {
+				DisplayName: Essence maudite
+				// Tooltip: ""
+			}
+
 			CursedInfernoEnchantmentBasic.DisplayName: Enchantement de base de l'enfer maudit
 			CursedInfernoEnchantmentCommon.DisplayName: Inferno maudit Enchantement Common
+			CursedInfernoEnchantmentCursed.DisplayName: Inferno maudit Enchantement maudit
 			CursedInfernoEnchantmentEpic.DisplayName: Épopée d'enchantement de l'enfer maudit
 			CursedInfernoEnchantmentLegendary.DisplayName: Inferno maudit Enchantement Légendaire
 			CursedInfernoEnchantmentRare.DisplayName: Inferno maudit Enchantement Rare
 			DamageEnchantmentBasic.DisplayName: Enchantement de dégâts de base
 			DamageEnchantmentCommon.DisplayName: Enchantement de dégâts Commun
+			DamageEnchantmentCursed.DisplayName: Dégâts Enchantement maudit
 			DamageEnchantmentEpic.DisplayName: Épique d'enchantement de dégâts
 			DamageEnchantmentLegendary.DisplayName: Dégâts Enchantement Légendaire
 			DamageEnchantmentRare.DisplayName: Enchantement de dégâts Rare
 			DamageReductionEnchantmentBasic.DisplayName: Enchantement de réduction des dégâts de base
 			DamageReductionEnchantmentCommon.DisplayName: Enchantement de réduction des dégâts Commun
+			DamageReductionEnchantmentCursed.DisplayName: Enchantement de réduction des dégâts maudit
 			DamageReductionEnchantmentEpic.DisplayName: Enchantement épique de réduction des dégâts
 			DamageReductionEnchantmentLegendary.DisplayName: Enchantement de réduction des dégâts Légendaire
 			DamageReductionEnchantmentRare.DisplayName: Réduction des dégâts Enchantement Rare
@@ -800,11 +940,13 @@ Mods: {
 			DangerSenseEnchantmentRare.DisplayName: Sens du danger Enchantement Rare
 			DaybreakEnchantmentBasic.DisplayName: Enchantement de l'aube de base
 			DaybreakEnchantmentCommon.DisplayName: Enchantement de l'aube Commun
+			DaybreakEnchantmentCursed.DisplayName: Enchantement de l'aube maudit
 			DaybreakEnchantmentEpic.DisplayName: Épique d'enchantement de l'aube
 			DaybreakEnchantmentLegendary.DisplayName: Enchantement de l'aube Légendaire
 			DaybreakEnchantmentRare.DisplayName: Enchantement de l'aube rare
 			DefenseEnchantmentBasic.DisplayName: Enchantement de défense de base
 			DefenseEnchantmentCommon.DisplayName: Défense Enchantement Commun
+			DefenseEnchantmentCursed.DisplayName: Enchantement de défense maudit
 			DefenseEnchantmentEpic.DisplayName: Épique d'enchantement de défense
 			DefenseEnchantmentLegendary.DisplayName: Défense Enchantement Légendaire
 			DefenseEnchantmentRare.DisplayName: Défense Enchantement Rare
@@ -865,6 +1007,7 @@ Mods: {
 
 			ExtraFishingLineEnchantmentBasic.DisplayName: Enchantement de ligne de pêche supplémentaire de base
 			ExtraFishingLineEnchantmentCommon.DisplayName: Enchantement de ligne de pêche supplémentaire
+			ExtraFishingLineEnchantmentCursed.DisplayName: Enchantement de ligne de pêche supplémentaire maudit
 			ExtraFishingLineEnchantmentEpic.DisplayName: Épique d'enchantement de ligne de pêche supplémentaire
 			ExtraFishingLineEnchantmentLegendary.DisplayName: Ligne de pêche supplémentaire Enchantement Légendaire
 			ExtraFishingLineEnchantmentRare.DisplayName: Enchantement de ligne de pêche supplémentaire rare
@@ -875,21 +1018,25 @@ Mods: {
 			FishingEnchantmentRare.DisplayName: Pêche Enchantement Rare
 			FishingPowerEnchantmentBasic.DisplayName: Enchantement de puissance de pêche de base
 			FishingPowerEnchantmentCommon.DisplayName: Puissance de pêche Enchantement Commun
+			FishingPowerEnchantmentCursed.DisplayName: Enchantement de puissance de pêche maudit
 			FishingPowerEnchantmentEpic.DisplayName: Épique d'enchantement de puissance de pêche
 			FishingPowerEnchantmentLegendary.DisplayName: Puissance de pêche Enchantement Légendaire
 			FishingPowerEnchantmentRare.DisplayName: Puissance de pêche Enchantement Rare
 			FrostburnEnchantmentBasic.DisplayName: Enchantement de base de brûlure de givre
 			FrostburnEnchantmentCommon.DisplayName: Enchantement de brûlure de givre
+			FrostburnEnchantmentCursed.DisplayName: Enchantement de Brûlure de givre maudit
 			FrostburnEnchantmentEpic.DisplayName: Épique d'enchantement de brûlure de givre
 			FrostburnEnchantmentLegendary.DisplayName: Frostburn Enchantement Légendaire
 			FrostburnEnchantmentRare.DisplayName: Enchantement brûle-givre rare
 			GodSlayerEnchantmentBasic.DisplayName: Enchantement de Tueur de dieu de base
 			GodSlayerEnchantmentCommon.DisplayName: Enchantement de Tueur de dieu Commun
+			GodSlayerEnchantmentCursed.DisplayName: Enchantement de tueur de dieu maudit
 			GodSlayerEnchantmentEpic.DisplayName: Épopée d'enchantement de God Slayer
 			GodSlayerEnchantmentLegendary.DisplayName: God Slayer Enchantement Légendaire
 			GodSlayerEnchantmentRare.DisplayName: Enchantement de Tueur de dieu Rare
 			HealerClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe de guérisseur de base
 			HealerClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe de guérisseur Commun
+			HealerClassSwapEnchantmentCursed.DisplayName: Enchantement d'échange de classe de guérisseur maudit
 			HealerClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe de guérisseur
 			HealerClassSwapEnchantmentLegendary.DisplayName: Enchantement d'échange de classe de guérisseur Légendaire
 			HealerClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe de guérisseur rare
@@ -905,6 +1052,7 @@ Mods: {
 
 			HellsWrathEnchantmentBasic.DisplayName: Enchantement de Colère infernale de base
 			HellsWrathEnchantmentCommon.DisplayName: Enchantement de Colère infernale Commun
+			HellsWrathEnchantmentCursed.DisplayName: Enchantement de la colère de l'enfer maudit
 			HellsWrathEnchantmentEpic.DisplayName: Épopée d'enchantement de Hells Wrath
 			HellsWrathEnchantmentLegendary.DisplayName: Hells Wrath Enchantement Légendaire
 			HellsWrathEnchantmentRare.DisplayName: Enchantement de Colère infernale Rare
@@ -915,66 +1063,79 @@ Mods: {
 			HunterEnchantmentRare.DisplayName: Chasseur Enchantement Rare
 			IchorEnchantmentBasic.DisplayName: Ichor Enchantement Basique
 			IchorEnchantmentCommon.DisplayName: Ichor Enchantement Commun
+			IchorEnchantmentCursed.DisplayName: Ichor Enchantement maudit
 			IchorEnchantmentEpic.DisplayName: Épopée d'enchantement d'ichor
 			IchorEnchantmentLegendary.DisplayName: Ichor Enchantement Légendaire
 			IchorEnchantmentRare.DisplayName: Ichor Enchantement Rare
 			JuicedEnchantmentBasic.DisplayName: Enchantement jus de base
 			JuicedEnchantmentCommon.DisplayName: Enchantement de jus Commun
+			JuicedEnchantmentCursed.DisplayName: Enchantement de jus maudit
 			JuicedEnchantmentEpic.DisplayName: Jus d'enchantement épique
 			JuicedEnchantmentLegendary.DisplayName: Jus Enchantement Légendaire
 			JuicedEnchantmentRare.DisplayName: Enchantement jus Rare
 			JunglesFuryEnchantmentBasic.DisplayName: Enchantement de Fureur de la jungle de base
 			JunglesFuryEnchantmentCommon.DisplayName: Enchantement de Fureur de la jungle Commun
+			JunglesFuryEnchantmentCursed.DisplayName: Enchantement de fureur de la jungle maudit
 			JunglesFuryEnchantmentEpic.DisplayName: Jungles Fury Enchantment Épique
 			JunglesFuryEnchantmentLegendary.DisplayName: Jungles Fureur Enchantement Légendaire
 			JunglesFuryEnchantmentRare.DisplayName: Enchantement de Fureur de la jungle Rare
 			KiClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe Ki de base
 			KiClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe Ki
+			KiClassSwapEnchantmentCursed.DisplayName: Enchantement d'échange de classe Ki maudit
 			KiClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe Ki
 			KiClassSwapEnchantmentLegendary.DisplayName: Enchantement d'échange de classe Ki Légendaire
 			KiClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe Ki rare
 			KiEnchantmentBasic.DisplayName: Enchantement Ki de base
 			KiEnchantmentCommon.DisplayName: Ki Enchantement Commun
+			KiEnchantmentCursed.DisplayName: Enchantement Ki maudit
 			KiEnchantmentEpic.DisplayName: Épique d'enchantement de Ki
 			KiEnchantmentLegendary.DisplayName: Ki Enchantement Légendaire
 			KiEnchantmentRare.DisplayName: Ki Enchantement Rare
 			LavaFishingEnchantmentBasic.DisplayName: Enchantement de pêche à la lave de base
 			LavaFishingEnchantmentCommon.DisplayName: Enchantement de pêche à la lave Commun
+			LavaFishingEnchantmentCursed.DisplayName: Enchantement de pêche à la lave maudit
 			LavaFishingEnchantmentEpic.DisplayName: Épopée d'enchantement de pêche à la lave
 			LavaFishingEnchantmentLegendary.DisplayName: Pêche à la lave Enchantement Légendaire
 			LavaFishingEnchantmentRare.DisplayName: Pêche à la lave Enchantement Rare
 			LethalCombinationEnchantmentBasic.DisplayName: Enchantement de combinaison mortelle de Base
 			LethalCombinationEnchantmentCommon.DisplayName: Enchantement de combinaison mortelle Commun
+			LethalCombinationEnchantmentCursed.DisplayName: Enchantement combiné mortel maudit
 			LethalCombinationEnchantmentEpic.DisplayName: Enchantement combiné mortel Epique
 			LethalCombinationEnchantmentLegendary.DisplayName: Enchantement de combinaison mortelle Légendaire
 			LethalCombinationEnchantmentRare.DisplayName: Enchantement de combinaison mortelle Rare
 			LifeRegenEnchantmentBasic.DisplayName: Enchantement de régénération de vie de base
 			LifeRegenEnchantmentCommon.DisplayName: Enchantement de régénération de vie
+			LifeRegenEnchantmentCursed.DisplayName: Enchantement de régénération de vie maudit
 			LifeRegenEnchantmentEpic.DisplayName: Épopée d'enchantement de régénération de vie
 			LifeRegenEnchantmentLegendary.DisplayName: Régénération de vie Enchantement Légendaire
 			LifeRegenEnchantmentRare.DisplayName: Enchantement de régénération de vie rare
 			LifeStealEnchantmentBasic.DisplayName: Enchantement de Vol de vie de base
 			LifeStealEnchantmentCommon.DisplayName: Enchantement de Vol de vie Commun
+			LifeStealEnchantmentCursed.DisplayName: Enchantement de vol de vie maudit
 			LifeStealEnchantmentEpic.DisplayName: Épique d'enchantement de vol de vie
 			LifeStealEnchantmentLegendary.DisplayName: Vol de vie Enchantement Légendaire
 			LifeStealEnchantmentRare.DisplayName: Enchantement de Vol de vie Rare
 			LuckEnchantmentBasic.DisplayName: Chance Enchantement Basique
 			LuckEnchantmentCommon.DisplayName: Chance Enchantement Commun
+			LuckEnchantmentCursed.DisplayName: Chance Enchantement Maudit
 			LuckEnchantmentEpic.DisplayName: Chance Enchantement Epic
 			LuckEnchantmentLegendary.DisplayName: Chance Enchantement Légendaire
 			LuckEnchantmentRare.DisplayName: Chance Enchantement Rare
 			MagicClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe magique de base
 			MagicClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe magique Commun
+			MagicClassSwapEnchantmentCursed.DisplayName: Enchantement d'échange de classe magique maudit
 			MagicClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe magique
 			MagicClassSwapEnchantmentLegendary.DisplayName: Échange de classe magique Enchantement Légendaire
 			MagicClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe magique rare
 			MagneticEnchantmentBasic.DisplayName: Enchantement magnétique de base
 			MagneticEnchantmentCommon.DisplayName: Enchantement magnétique commun
+			MagneticEnchantmentCursed.DisplayName: Enchantement magnétique maudit
 			MagneticEnchantmentEpic.DisplayName: Épopée d'enchantement magnétique
 			MagneticEnchantmentLegendary.DisplayName: Enchantement magnétique Légendaire
 			MagneticEnchantmentRare.DisplayName: Enchantement magnétique rare
 			MaxMinionsEnchantmentBasic.DisplayName: Enchantement de Sbires max de base
 			MaxMinionsEnchantmentCommon.DisplayName: Enchantement de Sbires max Commun
+			MaxMinionsEnchantmentCursed.DisplayName: Enchantement Max Minions maudit
 			MaxMinionsEnchantmentEpic.DisplayName: Épique d'enchantement Max Minions
 			MaxMinionsEnchantmentLegendary.DisplayName: Max Minions Enchantement Légendaire
 			MaxMinionsEnchantmentRare.DisplayName: Enchantement de Sbires max Rare
@@ -986,31 +1147,37 @@ Mods: {
 
 			MeleeClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe de mêlée de base
 			MeleeClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe de mêlée Commun
+			MeleeClassSwapEnchantmentCursed.DisplayName: Enchantement d'échange de classe en mêlée maudit
 			MeleeClassSwapEnchantmentEpic.DisplayName: Épique d'enchantement d'échange de classe de mêlée
 			MeleeClassSwapEnchantmentLegendary.DisplayName: Échange de classe de mêlée Enchantement Légendaire
 			MeleeClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe de mêlée rare
 			MobilityControlEnchantmentBasic.DisplayName: Enchantement de contrôle de la mobilité de base
 			MobilityControlEnchantmentCommon.DisplayName: Enchantement de contrôle de la mobilité Commun
+			MobilityControlEnchantmentCursed.DisplayName: Enchantement de contrôle de mobilité maudit
 			MobilityControlEnchantmentEpic.DisplayName: Épopée d'enchantement de contrôle de la mobilité
 			MobilityControlEnchantmentLegendary.DisplayName: Contrôle de la mobilité Enchantement Légendaire
 			MobilityControlEnchantmentRare.DisplayName: Contrôle de la mobilité Enchantement Rare
 			MoonlightEnchantmentBasic.DisplayName: Enchantement de Clair de lune de base
 			MoonlightEnchantmentCommon.DisplayName: Enchantement de Clair de lune Commun
+			MoonlightEnchantmentCursed.DisplayName: Enchantement au clair de lune maudit
 			MoonlightEnchantmentEpic.DisplayName: Épopée d'enchantement au clair de lune
 			MoonlightEnchantmentLegendary.DisplayName: Enchantement au clair de lune Légendaire
 			MoonlightEnchantmentRare.DisplayName: Enchantement de Clair de lune rare
 			MovementSpeedEnchantmentBasic.DisplayName: Enchantement de Vitesse de déplacement de base
 			MovementSpeedEnchantmentCommon.DisplayName: Enchantement de Vitesse de déplacement Commun
+			MovementSpeedEnchantmentCursed.DisplayName: Enchantement de vitesse de déplacement maudit
 			MovementSpeedEnchantmentEpic.DisplayName: Vitesse de déplacement Enchantement Épique
 			MovementSpeedEnchantmentLegendary.DisplayName: Vitesse de déplacement Enchantement Légendaire
 			MovementSpeedEnchantmentRare.DisplayName: Enchantement de Vitesse de déplacement Rare
 			MultishotEnchantmentBasic.DisplayName: Enchantement de Multi-tir de base
 			MultishotEnchantmentCommon.DisplayName: Enchantement de Multi-tir Commun
+			MultishotEnchantmentCursed.DisplayName: Enchantement multishot maudit
 			MultishotEnchantmentEpic.DisplayName: Épique d'enchantement à plusieurs coups
 			MultishotEnchantmentLegendary.DisplayName: Enchantement Multishot Légendaire
 			MultishotEnchantmentRare.DisplayName: Enchantement de Multi-tir Rare
 			NpcContactAnglerEnchantmentBasic.DisplayName: Enchantement de base du pêcheur à la ligne de contact Npc
 			NpcContactAnglerEnchantmentCommon.DisplayName: PNJ Contact Pêcheur Enchantement Commun
+			NpcContactAnglerEnchantmentCursed.DisplayName: Contact PNJ Pêcheur Enchantement Maudit
 			NpcContactAnglerEnchantmentEpic.DisplayName: PNJ Contact Pêcheur Enchantement Épique
 			NpcContactAnglerEnchantmentLegendary.DisplayName: Npc Contact Pêcheur Enchantement Légendaire
 			NpcContactAnglerEnchantmentRare.DisplayName: Npc Contact Pêcheur Enchantement Rare
@@ -1021,11 +1188,13 @@ Mods: {
 			ObsidianSkinEnchantmentRare.DisplayName: Enchantement de peau d'obsidienne rare
 			OneForAllEnchantmentBasic.DisplayName: Enchantement Un pour tous de base
 			OneForAllEnchantmentCommon.DisplayName: Enchantement Un pour tous commun
+			OneForAllEnchantmentCursed.DisplayName: Un pour tous Enchantement maudit
 			OneForAllEnchantmentEpic.DisplayName: Épique d'enchantement One For All
 			OneForAllEnchantmentLegendary.DisplayName: Un pour tous Enchantement Légendaire
 			OneForAllEnchantmentRare.DisplayName: Enchantement Un pour tous rare
 			OnFireEnchantmentBasic.DisplayName: Enchantement de base en feu
 			OnFireEnchantmentCommon.DisplayName: Enchantement en feu Commun
+			OnFireEnchantmentCursed.DisplayName: Enchantement en feu maudit
 			OnFireEnchantmentEpic.DisplayName: Enchantement épique en feu
 			OnFireEnchantmentLegendary.DisplayName: Enchantement Enflammé Légendaire
 			OnFireEnchantmentRare.DisplayName: Enchantement Enflammé Rare
@@ -1036,16 +1205,19 @@ Mods: {
 			PeaceEnchantmentRare.DisplayName: Enchantement de paix Rare
 			PennyPinchingEnchantmentBasic.DisplayName: Penny Pinching Enchantement Basique
 			PennyPinchingEnchantmentCommon.DisplayName: Penny Pincement Enchantement Commun
+			PennyPinchingEnchantmentCursed.DisplayName: Penny Pinching Enchantement maudit
 			PennyPinchingEnchantmentEpic.DisplayName: Penny Pinching Enchantement épique
 			PennyPinchingEnchantmentLegendary.DisplayName: Penny Pinching Enchantement Légendaire
 			PennyPinchingEnchantmentRare.DisplayName: Penny Pinching Enchantement Rare
 			PercentArmorPenetrationEnchantmentBasic.DisplayName: Pourcentage de pénétration d'armure Enchantement de base
 			PercentArmorPenetrationEnchantmentCommon.DisplayName: Pourcentage de pénétration d'armure Enchantement Commun
+			PercentArmorPenetrationEnchantmentCursed.DisplayName: Pourcentage de pénétration d'armure Enchantement maudit
 			PercentArmorPenetrationEnchantmentEpic.DisplayName: Épique d'enchantement de pénétration d'armure en pourcentage
 			PercentArmorPenetrationEnchantmentLegendary.DisplayName: Pourcentage de pénétration d'armure Enchantement Légendaire
 			PercentArmorPenetrationEnchantmentRare.DisplayName: Pourcentage de pénétration d'armure Enchantement Rare
 			PoisonEnchantmentBasic.DisplayName: Enchantement de poison de base
 			PoisonEnchantmentCommon.DisplayName: Poison Enchantement Commun
+			PoisonEnchantmentCursed.DisplayName: Enchantement de poison maudit
 			PoisonEnchantmentEpic.DisplayName: Épopée d'enchantement de poison
 			PoisonEnchantmentLegendary.DisplayName: Poison Enchantement Légendaire
 			PoisonEnchantmentRare.DisplayName: Enchantement empoisonné rare
@@ -1067,26 +1239,31 @@ Mods: {
 			PrideOfTheWeakEnchantmentRare.DisplayName: Fierté du faible Enchantement Rare
 			ProjectileVelocityEnchantmentBasic.DisplayName: Enchantement de vitesse de tir de base
 			ProjectileVelocityEnchantmentCommon.DisplayName: Enchantement de vitesse de tir Commun
+			ProjectileVelocityEnchantmentCursed.DisplayName: Enchantement de vitesse de projectile maudit
 			ProjectileVelocityEnchantmentEpic.DisplayName: Épique d'enchantement de vitesse de projectile
 			ProjectileVelocityEnchantmentLegendary.DisplayName: Vitesse du projectile Enchantement Légendaire
 			ProjectileVelocityEnchantmentRare.DisplayName: Enchantement de vitesse de tir Rare
 			RangedClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe à distance de base
 			RangedClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe à distance Commun
+			RangedClassSwapEnchantmentCursed.DisplayName: Enchantement d'échange de classe à distance maudit
 			RangedClassSwapEnchantmentEpic.DisplayName: Épique d'enchantement d'échange de classe à distance
 			RangedClassSwapEnchantmentLegendary.DisplayName: Échange de classe à distance Enchantement Légendaire
 			RangedClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe à distance rare
 			ReducedManaUsageEnchantmentBasic.DisplayName: Enchantement de mana de base
 			ReducedManaUsageEnchantmentCommon.DisplayName: Enchantement de mana Commun
+			ReducedManaUsageEnchantmentCursed.DisplayName: Utilisation réduite du mana Enchantement maudit
 			ReducedManaUsageEnchantmentEpic.DisplayName: Épique d'enchantement d'utilisation de mana réduite
 			ReducedManaUsageEnchantmentLegendary.DisplayName: Réduction de l'utilisation du mana Enchantement Légendaire
 			ReducedManaUsageEnchantmentRare.DisplayName: Enchantement de mana Rare
 			RogueClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe voleur de base
 			RogueClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe Rogue Common
+			RogueClassSwapEnchantmentCursed.DisplayName: Enchantement d'échange de classe de voleur maudit
 			RogueClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe Rogue
 			RogueClassSwapEnchantmentLegendary.DisplayName: Rogue Class Swap Enchantement Légendaire
 			RogueClassSwapEnchantmentRare.DisplayName: Rogue Class Swap Enchantement Rare
 			ShadowflameEnchantmentBasic.DisplayName: Enchantement d'Ombreflamme de base
 			ShadowflameEnchantmentCommon.DisplayName: Enchantement d'Ombreflamme Commun
+			ShadowflameEnchantmentCursed.DisplayName: Enchantement d'Ombreflamme maudit
 			ShadowflameEnchantmentEpic.DisplayName: Épopée d'enchantement d'Ombreflamme
 			ShadowflameEnchantmentLegendary.DisplayName: Enchantement d'Ombreflamme Légendaire
 			ShadowflameEnchantmentRare.DisplayName: Enchantement d'Ombreflamme Rare
@@ -1097,11 +1274,13 @@ Mods: {
 			ShineEnchantmentRare.DisplayName: Brillance Enchantement Rare
 			SizeEnchantmentBasic.DisplayName: Enchantement de taille de base
 			SizeEnchantmentCommon.DisplayName: Enchantement de taille Commun
+			SizeEnchantmentCursed.DisplayName: Enchantement de taille maudit
 			SizeEnchantmentEpic.DisplayName: Taille Enchantement Épique
 			SizeEnchantmentLegendary.DisplayName: Taille Enchantement Légendaire
 			SizeEnchantmentRare.DisplayName: Enchantement de taille Rare
 			SolarDashEnchantmentBasic.DisplayName: Solar Dash Enchantement de base
 			SolarDashEnchantmentCommon.DisplayName: Enchantement Solar Dash Commun
+			SolarDashEnchantmentCursed.DisplayName: Enchantement de Dash Solaire Maudit
 			SolarDashEnchantmentEpic.DisplayName: Épopée d'enchantement Solar Dash
 			SolarDashEnchantmentLegendary.DisplayName: Solar Dash Enchantement Légendaire
 			SolarDashEnchantmentRare.DisplayName: Élan solaire Enchantement Rare
@@ -1133,11 +1312,13 @@ Mods: {
 
 			ThrowingClassSwapEnchantmentBasic.DisplayName: Lancer l'enchantement d'échange de classe de base
 			ThrowingClassSwapEnchantmentCommon.DisplayName: Lancer l'enchantement d'échange de classe
+			ThrowingClassSwapEnchantmentCursed.DisplayName: Lancer l'enchantement d'échange de classe maudit
 			ThrowingClassSwapEnchantmentEpic.DisplayName: Lancer l'épopée d'enchantement d'échange de classe
 			ThrowingClassSwapEnchantmentLegendary.DisplayName: Lancer d'échange de classe Enchantement Légendaire
 			ThrowingClassSwapEnchantmentRare.DisplayName: Lancer d'échange de classe Enchantement Rare
 			TimeEnchantmentBasic.DisplayName: Enchantement du temps de base
 			TimeEnchantmentCommon.DisplayName: Temps Enchantement Commun
+			TimeEnchantmentCursed.DisplayName: Enchantement temporel maudit
 			TimeEnchantmentEpic.DisplayName: Épopée d'enchantement du temps
 			TimeEnchantmentLegendary.DisplayName: Temps Enchantement Légendaire
 			TimeEnchantmentRare.DisplayName: Temps Enchantement Rare
@@ -1163,16 +1344,19 @@ Mods: {
 
 			VenomEnchantmentBasic.DisplayName: Enchantement de venin de base
 			VenomEnchantmentCommon.DisplayName: Enchantement de venin Commun
+			VenomEnchantmentCursed.DisplayName: Enchantement de venin maudit
 			VenomEnchantmentEpic.DisplayName: Épique d'enchantement de venin
 			VenomEnchantmentLegendary.DisplayName: Venin Enchantement Légendaire
 			VenomEnchantmentRare.DisplayName: Enchantement de venin rare
 			WarEnchantmentBasic.DisplayName: Enchantement de guerre de base
 			WarEnchantmentCommon.DisplayName: Enchantement de guerre Commun
+			WarEnchantmentCursed.DisplayName: Enchantement de guerre maudit
 			WarEnchantmentEpic.DisplayName: Épopée d'enchantement de guerre
 			WarEnchantmentLegendary.DisplayName: Guerre Enchantement Légendaire
 			WarEnchantmentRare.DisplayName: Enchantement de guerre Rare
 			WhipClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe Whip Basic
 			WhipClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe de fouet Commun
+			WhipClassSwapEnchantmentCursed.DisplayName: Enchantement d'échange de classe de fouet maudit
 			WhipClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe de fouet
 			WhipClassSwapEnchantmentLegendary.DisplayName: Échange de classe de fouet Enchantement Légendaire
 			WhipClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe de fouet rare
@@ -1188,6 +1372,7 @@ Mods: {
 
 			WorldAblazeEnchantmentBasic.DisplayName: Enchantement du Monde Enflammé de base
 			WorldAblazeEnchantmentCommon.DisplayName: Enchantement du Monde Enflammé Commun
+			WorldAblazeEnchantmentCursed.DisplayName: Enchantement du monde en flammes maudit
 			WorldAblazeEnchantmentEpic.DisplayName: Monde en feu Enchantement Épique
 			WorldAblazeEnchantmentLegendary.DisplayName: World Ablaze Enchantement Légendaire
 			WorldAblazeEnchantmentRare.DisplayName: Enchantement du Monde Enflammé Rare
@@ -1428,6 +1613,8 @@ Mods: {
 				FishingEnemySpawnChance: Chance d'apparition de l'ennemi de pêche
 				FishingPower: Puissance de pêche
 				FlatMPRegen: Régénération MP plate
+				FlightAcceleration: Accélération de vol
+				FlightSpeed: Vitesse de vol
 				Frostburn: Brûlure de givre
 				GodSlayer: Dieu tueur
 				HealerClassSwap: Échange de classe de guérisseur
@@ -1564,6 +1751,8 @@ Mods: {
 				FishingEnemySpawnChance: "{0} (Réduit de 5x pendant la journée. Affecté par Chum Caster. Peut également faire apparaître Duke Fishron.)"
 				FishingPower: Puissance de pêche
 				FlatMPRegen: Régénération MP plate
+				FlightAcceleration: Accélération de vol
+				FlightSpeed: Vitesse de vol
 				GodSlayer:
 					'''
 					{0}
@@ -1665,6 +1854,14 @@ Mods: {
 			}
 
 			EnchantmentShortTooltip.OnTickPlayerBuff: Accorde passivement {0} pour {1} tous les {2}
+			ItemTooltip.CursedEssence:
+				'''
+				L'énergie d'une malédiction si puissante qu'elle a pris forme. D’autres malédictions seront attirées par son pouvoir.
+				L'Essence maudite contribuera aux effets ci-dessous lorsqu'elle se trouvera dans votre inventaire ou dans votre stockage d'enchantement. (Essence maudite : {0})
+				    Augmente le taux d'apparition des ennemis. (Bonus actuel : {1}x)
+				    Augmente le nombre maximum d'apparitions d'ennemis. (Bonus actuel : {2}x)
+				    Augmentation des chances d'ennemis maudits. (Chance qu'un ennemi apparu soit maudit : {3})
+				'''
 
 			ItemType: {
 				Accessories: Accessoires
@@ -1727,5 +1924,7 @@ Mods: {
 				}
 			}
 		}
+
+		// Projectiles.CursedEffectProjectile.DisplayName: Cursed Effect Projectile
 	}
 }

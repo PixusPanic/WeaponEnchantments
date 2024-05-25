@@ -41,5 +41,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class MultishotEnchantmentEpic : MultishotEnchantment { }
 	[Autoload(false)]
 	public class MultishotEnchantmentLegendary : MultishotEnchantment { }
+	[Autoload(false)]
+	public class MultishotEnchantmentCursed : MultishotEnchantment { }
 
 }

@@ -58,5 +58,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 	public class MagneticEnchantmentEpic : MagneticEnchantment { }
     [Autoload(false)]
 	public class MagneticEnchantmentLegendary : MagneticEnchantment { }
+	[Autoload(false)]
+	public class MagneticEnchantmentCursed : MagneticEnchantment { }
 
 }

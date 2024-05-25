@@ -353,8 +353,8 @@ namespace WeaponEnchantments.Common.Globals
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage) {
             damage *= infusionDamageMultiplier;
             CheckEnchantmentStatsForModifier(ref damage, EnchantmentStat.Damage);
-        }
-        public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback) {
+		}
+		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback) {
             CheckEnchantmentStatsForModifier(ref knockback, EnchantmentStat.Knockback);
         }
         public override bool? CanAutoReuseItem(Item item, Player player) {

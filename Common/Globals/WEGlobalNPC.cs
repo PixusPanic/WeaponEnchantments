@@ -438,8 +438,6 @@ namespace WeaponEnchantments.Common.Globals
 
     public static class NPCStaticMethods
     {
-        public static bool IsDummy(this NPC npc) => npc.netID < NPCID.Count ? npc.netID == NPCID.TargetDummy : npc.ModFullName() is string modFullName && (AndroMod.calamityEnabled && modFullName == "CalamityMod/SuperDummyNPC" || AndroMod.fargosEnabled && modFullName == "Fargowiltas/SuperDummy");
-        public static bool IsBoss(this NPC npc) => npc.boss || WEGlobalNPC.multipleSegmentBossTypes.ContainsKey(npc.netID) || WEGlobalNPC.normalNpcsThatDropsBags.Contains(npc.netID);
 		public static void HandleOnHitNPCBuffs(this NPC target, int damage, float amaterasuStrength, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy) {
 			target.RemoveNPCBuffImunities(debuffs, dontDissableImmunitiy);
 

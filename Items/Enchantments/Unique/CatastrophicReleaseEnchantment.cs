@@ -48,5 +48,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class CatastrophicReleaseEnchantmentRare : CatastrophicReleaseEnchantment { }
 	public class CatastrophicReleaseEnchantmentEpic : CatastrophicReleaseEnchantment { }
 	public class CatastrophicReleaseEnchantmentLegendary : CatastrophicReleaseEnchantment { }
+	public class CatastrophicReleaseEnchantmentCursed : CatastrophicReleaseEnchantment { }
 	*/
 }
