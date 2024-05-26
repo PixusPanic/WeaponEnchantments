@@ -1478,6 +1478,10 @@ namespace WeaponEnchantments
             if (CheckGetVanillaModifier(EnchantmentStat.ManaUsage, out EStatModifier eStatModifier))
                 eStatModifier.ApplyTo(ref reduce, ref mult, item);
         }
+        public override void ModifyWeaponCrit(Item item, ref float crit) {
+            if (CheckGetVanillaModifier(EnchantmentStat.CriticalStrikeChance, out EStatModifier eStatModifier))
+                eStatModifier.ApplyTo(ref crit);
+        }
         protected bool CheckGetVanillaModifier(EnchantmentStat enchantmentStat, out EStatModifier m) {
             if (!VanillaStats.ContainsKey(enchantmentStat)) {
                 m = null;
