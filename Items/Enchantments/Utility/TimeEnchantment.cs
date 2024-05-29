@@ -132,7 +132,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 				}
 			}
 		}
-
+		public override void ReRollStats() => Reroll();
 		public void Reroll() {
 			List<List<EnchantmentEffect>> possibleEffects = new() {
 				new() { new DayTimeRate(multiplicative: EnchantmentStrengthData), new DayTimeRate(multiplicative: EnchantmentStrengthData.Invert()) },
