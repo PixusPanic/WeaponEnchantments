@@ -739,6 +739,13 @@ namespace WeaponEnchantments.Localization
 									{ L_ID3.Label.ToString(), nameof(ServerConfig.CurseStrengthMultiplier).AddSpaces() },
 									{ L_ID3.Tooltip.ToString(), "Affects how large the curses are on cursed enchantments." }
 								}) },
+								{ nameof(ServerConfig.CursedBuffSpawnRateMultiplier), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ServerConfig.CursedBuffSpawnRateMultiplier).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(), 
+										$"Controls the power of the Cursed Debuff spawn rate and max spawn effects.\n" +
+										$"Spawn Rate Mult = (1 + {nameof(ServerConfig.CursedBuffSpawnRateMultiplier).AddSpaces()} * 0.415)^(Log2(Cursed Essence / 100 + 2)\n" +
+										$"Max Spawns Mult = 1 + (Spawn Rate Mult - 1) * 0.8" }
+								}) },
 							},
 							dict: new() {
 								{ L_ID2.DisplayName.ToString(), nameof(ServerConfig).AddSpaces() },

@@ -77,5 +77,6 @@ namespace WeaponEnchantments.Common.Configs
 		public static float EnchantmentStrengthCurseScaling = serverConfig.EnchantmentStrengthCurseScaling / 100f;
 		public static float CurseStrengthMultiplier = serverConfig.CurseStrengthMultiplier / 100f;
 		public static float CursedEnemyVisualShaking => clientConfig.CursedEnemyVisualShaking / 100f;
+		public static float CursedBuffSpawnRateMultiplier => serverConfig.CursedBuffSpawnRateMultiplier / 100f;
 	}
 }

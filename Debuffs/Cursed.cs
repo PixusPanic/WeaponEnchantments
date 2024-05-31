@@ -101,7 +101,7 @@ namespace WeaponEnchantments.Debuffs {
 			}
 
 			double log = CursedEssenceLog2(cursedEssence);
-			spawnRateMult = Math.Pow(1.415, log);
+			spawnRateMult = Math.Pow(1 + ConfigValues.CursedBuffSpawnRateMultiplier * 0.415, log);
 			maxSpawnsMult = 1.0 + (spawnRateMult - 1.0) * 0.8;
 
 			return true;

@@ -42,6 +42,18 @@ namespace WeaponEnchantments.Common
 			return stack;
 		}
 		private int GetStack(NPC npc) {
+			if (npc.realLife != -1)
+				return 0;
+
+			if (npc.netID >= NPCID.EaterofWorldsHead && npc.netID <= NPCID.EaterofWorldsTail) {
+				if (Main.rand.NextBool(50)) {
+					return GetRandStack(ConfigValues.CursedEssenceDropChanceMultiplier);
+				}
+				else {
+					return 0;
+				}
+			}
+
 			if (npc.IsBoss() || npc.IsMiniBoss()) {
 				return GetRandStack(ConfigValues.CursedEssenceDropChanceMultiplier);
 			}

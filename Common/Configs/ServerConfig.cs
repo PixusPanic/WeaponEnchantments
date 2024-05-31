@@ -235,8 +235,9 @@ namespace WeaponEnchantments.Common.Configs
 		[Range(1, 36000)]
 		public int CuredEnemyDebuffTicksPerAttack;
 
-
-
+		[DefaultValue(100)]
+		[Range(0, 1000)]
+		public int CursedBuffSpawnRateMultiplier;
 
 		//General Game Changes
 		[JsonIgnore]

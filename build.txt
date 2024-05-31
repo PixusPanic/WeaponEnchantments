@@ -1,8 +1,8 @@
 displayName = Weapon Enchantments
 author = andro951
-version = 1.1.0.2
+version = 1.1.0.3
 weakReferences = MagicStorage
 includeSource = true
 sortAfter = RecursiveCraft, VacuumBags
-modReferences = KokoLib, androLib@1.0.7.2, VacuumOreBag@1.0.2.1
+modReferences = KokoLib, androLib@1.0.7.3, VacuumOreBag@1.0.2.1
 homepage = https://weapon-enchantments-mod-tmodloader.fandom.com/wiki/Weapon_Enchantments_Mod_(tModLoader)_Wiki
