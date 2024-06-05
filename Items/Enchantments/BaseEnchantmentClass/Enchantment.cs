@@ -400,7 +400,9 @@ namespace WeaponEnchantments.Items
 		/// <term>8</term><description>Throwing</description><br/>
 		/// </list>
 		/// </summary>
-		public virtual List<int> RestrictedClass { private set; get; } = new();
+		public virtual List<int> RestrictedClass { protected set; get; } = new();
+		public bool IsClassRestricted(int classId) => RestrictedClass.Contains(classId) || classId == (int)DamageClassID.Summon && IsClassRestrictedCursedSummon;
+		private bool IsClassRestrictedCursedSummon => Cursed && !WEMod.serverConfig.CursedEnchantmentsAllowedOnSummons;
 
 		#endregion
 
@@ -427,17 +429,12 @@ namespace WeaponEnchantments.Items
 		/// CheckStaticStatByName()<br/>
 		/// CheckBuffByName()<br/>
 		/// </summary>
-		public virtual void GetMyStats() { } //Meant to be overridden in the specific Enchantment class.
+		public virtual void GetMyStats() {} //Meant to be overridden in the specific Enchantment class.
 		public override ModItem Clone(Item newEntity) {
 			Enchantment clone = (Enchantment)base.Clone(newEntity);
 			//clone.EnchantmentStrengthData = EnchantmentStrengthData.Clone();
 			clone.cursedEffectsIndex = cursedEffectsIndex;
-			if (Cursed) {
-				clone.GetMyStatsAndCurses();
-			}
-			else {
-				clone.Effects = Effects.Select(e => e.Clone()).ToList();
-			}
+			clone.Effects = Effects.Select(e => e.Clone()).ToList();
 
 			return clone;
 		}
@@ -711,6 +708,7 @@ namespace WeaponEnchantments.Items
 
 			//RestrictedClass
 			if (RestrictedClass.Count > 0) {
+				List<int> restrictedClasses = IsClassRestrictedCursedSummon ? new(RestrictedClass.Append((int)DamageClassID.Summon)) : RestrictedClass;
 				fullTooltip.Add(new Tuple<string, Color>(
 					$"   *{GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.NotAllowed, RestrictedClass.Select(c => GetDamageClassName(c)).JoinList(", ", $" {GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.Or)} "))}*",
 					Color.White
@@ -1120,7 +1118,7 @@ namespace WeaponEnchantments.Items
 		protected static List<List<EnchantmentEffect>> defaultOffensiveCursedEffectPossibilities;
 		protected static List<List<EnchantmentEffect>> defaultDefensiveCursedEffectPossibilities;
 		protected static List<List<EnchantmentEffect>> defaultUtilityCursedEffectPossibilities;
-		private int cursedEffectsIndex = DefaultCursedEffectsIndex;
+		protected int cursedEffectsIndex = DefaultCursedEffectsIndex;
 		private const int DefaultCursedEffectsIndex = -1;
 		private const string CursedIndexTag = "CursedEffectsIndex";
 		public override void SaveData(TagCompound tag) {
@@ -1169,7 +1167,7 @@ namespace WeaponEnchantments.Items
 			GetMyStats();
 			RerollCursedEffects(effects);
 		}
-		private void RerollCursedEffects(List<EnchantmentEffect> previousEffects) {
+		protected void RerollCursedEffects(List<EnchantmentEffect> previousEffects) {
 			if (cursedEffectPossibilities == null || cursedEffectPossibilities.Count <= 0)
 				return;
 

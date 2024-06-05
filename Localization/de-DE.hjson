@@ -174,6 +174,15 @@ Mods: {
 					Label: „\„Punkte“ statt „Verzauberungskapazität““
 					Tooltip: In den Tooltips wird „Verfügbare Punkte“ statt „Verfügbare Verzauberungskapazität“ angezeigt
 				}
+
+				VisualCursedDebuff: {
+					Label: Visueller Fluch-Debuff
+					Tooltip:
+						'''
+						Der Fluch-Debuff steuert nicht wirklich die Bonus-Spawn-Chance, die maximalen Spawns oder die Erhöhung der Fluch-Spawn-Chance.
+						Er dient nur der Anzeige. Wenn Sie den zusätzlichen Buff nicht angezeigt haben möchten, können Sie ihn deaktivieren und trotzdem die Effekte haben.
+						'''
+				}
 			}
 
 			Pair: {
@@ -413,6 +422,15 @@ Mods: {
 						'''
 				}
 
+				CursedEnchantmentsAllowedOnSummons: {
+					Label: Bei Beschwörungen zulässige verfluchte Verzauberungen
+					Tooltip:
+						'''
+						Verfluchte Verzauberungs-Debuffs werden nicht auf den Spieler angewendet, daher ist es von Natur aus unfair, den zusätzlichen Bonus ohne die Nachteile zu haben.
+						Wenn Sie dies aktivieren, können Sie verfluchte Verzauberungen auf Beschwörungswaffen anwenden.
+						'''
+				}
+
 				CursedEnemyDamageMultiplier: {
 					Label: Schadensmultiplikator für verfluchte Feinde
 					Tooltip: Ändert den verursachten Schaden verfluchter Feinde.   0 führt dazu, dass sie Spielern weder Schaden zufügen noch sie zurückstoßen.   Wert wird durch 100 geteilt. 100 => 1x Multiplikator.
@@ -494,6 +512,11 @@ Mods: {
 						Passen Sie die Droprate von Verzauberungen von Nicht-Boss-Gegnern an.
 						(Standard ist 100 %)
 						'''
+				}
+
+				EnchantmentEffectsOnModdedAccessorySlots: {
+					Label: Verzauberungseffekte auf modifizierten Zubehörsteckplätzen
+					Tooltip: Wenn aktiviert, wenden durch Mods hinzugefügte Zubehörsteckplätze Verzauberungseffekte auf Gegenstände im Steckplatz an.
 				}
 
 				EnchantmentSlotsOnAccessories: {

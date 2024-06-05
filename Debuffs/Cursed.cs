@@ -114,7 +114,8 @@ namespace WeaponEnchantments.Debuffs {
 		}
 		public static void CountCursedEssence() {
 			AndroUtilityMethods.SearchForItem(ModContent.ItemType<CursedEssence>(), out int cursedEssenceCount, WEPlayer.LocalWEPlayer.enchantmentStorageItems, true, false);
-			NetFunctions.SynchCursedEssenceCount(cursedEssenceCount);
+			UpdateCursedEssenceCount(Main.myPlayer, cursedEssenceCount);
+			WENetFunctions.SynchCursedEssenceCount(cursedEssenceCount);
 		}
 
 		public static void UpdateCursedEssenceCount(int whoAmI, int cursedEssenceCount) {
@@ -377,7 +378,7 @@ namespace WeaponEnchantments.Debuffs {
 			//Sync stats
 			if (Main.netMode == NetmodeID.Server && (Cursed || SpawnedByBoss)) {
 				int whoAmI = npc.whoAmI;
-				CursedModSystem.PreUpdateNPCActions += () => NetFunctions.SyncCursedNPCData(whoAmI);
+				CursedModSystem.PreUpdateNPCActions += () => WENetFunctions.SyncCursedNPCData(whoAmI);
 			}
 		}
 		private uint[] nextProjectileTime = new uint[Main.player.Length];
@@ -486,7 +487,7 @@ namespace WeaponEnchantments.Debuffs {
 				if (Main.GameUpdateCount >= nextBuff) {
 					nextBuff = Math.Max(nextBuff + buffWaitTime, Main.GameUpdateCount + minBuffWaitTime);
 					int cursedEssenceCount = CurseAttractionNPC.playerCursedEssence[Main.myPlayer];
-					if (cursedEssenceCount > 0) {
+					if (cursedEssenceCount > 0 && WEMod.clientConfig.VisualCursedDebuff) {
 						Main.LocalPlayer.AddBuff(ModContent.BuffType<Cursed>(), buffIncrement);
 					}
 				}

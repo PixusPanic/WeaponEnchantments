@@ -174,6 +174,15 @@ Mods: {
 					Label: '''"Puntos" en lugar de "Capacidad de encantamiento"'''
 					Tooltip: La información sobre herramientas mostrará los puntos disponibles en lugar de la capacidad de encantamiento disponible.
 				}
+
+				VisualCursedDebuff: {
+					Label: Desventaja visual maldita
+					Tooltip:
+						'''
+						La desventaja maldita en realidad no controla la probabilidad de generación adicional, la generación máxima o el aumento de la probabilidad de generación maldita.
+						Es sólo para mostrar. Si no desea que se muestre el beneficio adicional, puede desactivarlo y aún tener los efectos.
+						'''
+				}
 			}
 
 			Pair: {
@@ -413,6 +422,15 @@ Mods: {
 						'''
 				}
 
+				CursedEnchantmentsAllowedOnSummons: {
+					Label: Encantamientos malditos permitidos en las invocaciones
+					Tooltip:
+						'''
+						Las desventajas de los encantamientos malditos no se aplican al jugador, por lo que es intrínsecamente injusto tener la bonificación adicional sin las desventajas.
+						Habilitar esto te permitirá poner encantamientos malditos en las armas de invocación.
+						'''
+				}
+
 				CursedEnemyDamageMultiplier: {
 					Label: Multiplicador de daño enemigo maldito
 					Tooltip: Modifica el daño infligido a los enemigos malditos.   0 hará que no dañen ni derriben a los jugadores.   El valor se divide por 100. 100 => multiplicador 1x.
@@ -494,6 +512,11 @@ Mods: {
 						Ajusta la tasa de caída de encantamientos de enemigos que no son jefes.
 						(El valor predeterminado es 100%)
 						'''
+				}
+
+				EnchantmentEffectsOnModdedAccessorySlots: {
+					Label: Efectos de encantamiento en tragamonedas de accesorios modificados
+					Tooltip: Si está habilitado, las ranuras para accesorios agregadas por mods aplicarán efectos de encantamiento a los elementos en la ranura.
 				}
 
 				EnchantmentSlotsOnAccessories: {

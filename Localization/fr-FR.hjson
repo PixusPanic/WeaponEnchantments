@@ -174,6 +174,15 @@ Mods: {
 					Label: '''"Points" au lieu de "Capacité d'enchantement"'''
 					Tooltip: Les info-bulles afficheront les points disponibles au lieu de la capacité d'enchantement disponible.
 				}
+
+				VisualCursedDebuff: {
+					Label: Debuff visuel maudit
+					Tooltip:
+						'''
+						Le debuff maudit ne contrôle pas réellement les chances d'apparition du bonus, le nombre maximum d'apparitions ou l'augmentation des chances d'apparition maudite.
+						C'est uniquement pour le spectacle. Si vous ne souhaitez pas que le buff supplémentaire s'affiche, vous pouvez le désactiver tout en conservant les effets.
+						'''
+				}
 			}
 
 			Pair: {
@@ -413,6 +422,15 @@ Mods: {
 						'''
 				}
 
+				CursedEnchantmentsAllowedOnSummons: {
+					Label: Enchantements maudits autorisés lors des invocations
+					Tooltip:
+						'''
+						Les debuffs d'enchantement maudit ne sont pas appliqués au joueur, il est donc intrinsèquement injuste d'avoir le bonus supplémentaire sans les inconvénients.
+						L'activer vous permettra de mettre des enchantements maudits sur les armes d'invocation.
+						'''
+				}
+
 				CursedEnemyDamageMultiplier: {
 					Label: Multiplicateur de dégâts de l'ennemi maudit
 					Tooltip: Modifie les dégâts infligés aux ennemis maudits.   0 les empêchera d’endommager ou de repousser les joueurs.   La valeur est divisée par 100. 100 => 1x multiplicateur.
@@ -494,6 +512,11 @@ Mods: {
 						Ajustez le taux de chute des enchantements des ennemis non-boss.
 						(La valeur par défaut est 100 %)
 						'''
+				}
+
+				EnchantmentEffectsOnModdedAccessorySlots: {
+					Label: Effets d'enchantement sur les emplacements d'accessoires modifiés
+					Tooltip: S'ils sont activés, les emplacements d'accessoires ajoutés par les mods appliqueront des effets d'enchantement sur les objets de l'emplacement.
 				}
 
 				EnchantmentSlotsOnAccessories: {

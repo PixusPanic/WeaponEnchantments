@@ -37,13 +37,15 @@ namespace WeaponEnchantments.Common {
             AccessorySlotLoader loader = LoaderManager.Get<AccessorySlotLoader>();
 
             List<Item> modAccessories = new();
-            for (int i = 0; i < alp.SlotCount; i++) {
-				var slot = loader.Get(i, player);
-				if (loader.ModdedIsItemSlotUnlockedAndUsable(i, player) /*&& slot.IsEnabled()*/)
-                    modAccessories.Add(slot.FunctionalItem ?? new());
-            }
+            if (WEMod.serverConfig.EnchantmentEffectsOnModdedAccessorySlots) {
+				for (int i = 0; i < alp.SlotCount; i++) {
+					var slot = loader.Get(i, player);
+					if (loader.ModdedIsItemSlotUnlockedAndUsable(i, player) /*&& slot.IsEnabled()*/)
+						modAccessories.Add(slot.FunctionalItem ?? new());
+				}
+			}
 
-            Accessories = new Item[vanillaAccesorySlots + modAccessories.Count];
+			Accessories = new Item[vanillaAccesorySlots + modAccessories.Count];
 
             for(int i = 0; i < vanillaArmorSlots; i++) {
                 Armor[i] = player.armor[i] ?? new();

@@ -32,8 +32,10 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 				{ EItemType.Weapons, 1f }
 			};
 
-			RestrictedClass.Add((int)DamageClassID.Summon);
-			RestrictedClass.Add(MyDamageClass.Type);
+			RestrictedClass = new() {
+				(int)DamageClassID.Summon,
+				MyDamageClass.Type
+			};
 		}
 
 		public override string Artist => "andro951";

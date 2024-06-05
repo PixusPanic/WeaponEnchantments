@@ -30,7 +30,7 @@ namespace WeaponEnchantments.ModLib.KokoLib
 		public void NetResetEnchantedItemInChest(int chestNum, short index);
 		public void NetAnglerQuestSwap();
 		public void SyncCursedNPCData(NPCNetInfoCursedNPC npc);
-		public void SyncCursedEssenceCount(int cursedEssenceCount);
+		public void SyncCursedEssenceCount(int cursedEssenceCount, int clientWhoAmI);
 	}
 	public class NetManager : ModHandler<INetMethods>, INetMethods
 	{
@@ -110,19 +110,18 @@ namespace WeaponEnchantments.ModLib.KokoLib
 			}
 		}
 
-		public void SyncCursedEssenceCount(int cursedEssenceCount) {
+		public void SyncCursedEssenceCount(int cursedEssenceCount, int clientWhoAmI) {
 			if (Main.netMode == NetmodeID.Server) {
 				Net.IgnoreClient = WhoAmI;
-				Net<INetMethods>.Proxy.SyncCursedEssenceCount(cursedEssenceCount);
+				Net<INetMethods>.Proxy.SyncCursedEssenceCount(cursedEssenceCount, clientWhoAmI);
 			}
 
-			CurseAttractionNPC.UpdateCursedEssenceCount(WhoAmI, cursedEssenceCount);
+			CurseAttractionNPC.UpdateCursedEssenceCount(clientWhoAmI, cursedEssenceCount);
 		}
 	}
-	public class NetFunctions {
+	public static class WENetFunctions {
 		public static void SyncCursedNPCData(int npcWhoAmI) => Net<INetMethods>.Proxy.SyncCursedNPCData(new NPCNetInfoCursedNPC(Main.npc[npcWhoAmI]));
-
-		public static void SynchCursedEssenceCount(int cursedEssenceCount) => Net<INetMethods>.Proxy.SyncCursedEssenceCount(cursedEssenceCount);
+		public static void SynchCursedEssenceCount(int cursedEssenceCount) => Net<INetMethods>.Proxy.SyncCursedEssenceCount(cursedEssenceCount, Main.myPlayer);
 	}
 	public struct NPCNetInfoCursedNPC {
 		public bool cursed;

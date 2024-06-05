@@ -84,6 +84,9 @@ namespace WeaponEnchantments.Common.Configs
 		[ReloadRequired]
 		public int CurseStrengthMultiplier;
 
+		[DefaultValue(true)]
+		public bool EnchantmentEffectsOnModdedAccessorySlots;
+
 		//Essence and Experience
 		[JsonIgnore]
 		public const string EssenceAndExperienceKey = "EssenceAndExperience";
@@ -238,6 +241,10 @@ namespace WeaponEnchantments.Common.Configs
 		[DefaultValue(100)]
 		[Range(0, 1000)]
 		public int CursedBuffSpawnRateMultiplier;
+
+		[DefaultValue(false)]
+		[ReloadRequired]
+		public bool CursedEnchantmentsAllowedOnSummons;
 
 		//General Game Changes
 		[JsonIgnore]
@@ -401,6 +408,9 @@ namespace WeaponEnchantments.Common.Configs
 
 		[DefaultValue(true)]
 		public bool CursedEnemyParticles;
+
+		[DefaultValue(true)]
+		public bool VisualCursedDebuff;
 
 		//Error messages
 		[JsonIgnore]

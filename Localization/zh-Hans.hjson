@@ -174,6 +174,15 @@ Mods: {
 					Label: “点”而不是“结界容量”
 					Tooltip: 工具提示将显示可用点数而不是可用附魔容量
 				}
+
+				VisualCursedDebuff: {
+					Label: 视觉诅咒减益
+					Tooltip:
+						'''
+						诅咒减益实际上并不控制额外生成几率、最大生成数或诅咒生成几率增加。
+						它仅用于展示。如果您不想显示额外的增益，您可以禁用它并仍然保留效果。
+						'''
+				}
 			}
 
 			Pair: {
@@ -413,6 +422,15 @@ Mods: {
 						'''
 				}
 
+				CursedEnchantmentsAllowedOnSummons: {
+					Label: 召唤允许的诅咒附魔
+					Tooltip:
+						'''
+						诅咒附魔减益不会应用于玩家，因此没有负面影响而获得额外奖励本质上是不公平的。
+						启用此功能将允许您在召唤武器上放置诅咒附魔。
+						'''
+				}
+
 				CursedEnemyDamageMultiplier: {
 					Label: 被诅咒的敌人伤害倍数
 					Tooltip: 修改被诅咒的敌人所造成的伤害。   0 将导致它们不会伤害或击退玩家。   值除以 100。100 => 1x 乘数。
@@ -494,6 +512,11 @@ Mods: {
 						调整非头目敌人的结界掉落率。
 						（默认为 100%）
 						'''
+				}
+
+				EnchantmentEffectsOnModdedAccessorySlots: {
+					Label: 改装配件槽上的附魔效果
+					Tooltip: 如果启用，通过模组添加的配件槽将对槽中的物品应用附魔效果。
 				}
 
 				EnchantmentSlotsOnAccessories: {

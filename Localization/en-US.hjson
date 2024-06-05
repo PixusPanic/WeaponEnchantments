@@ -174,6 +174,15 @@ Mods: {
 					Label: '''"Points" instead of "Enchantment Capacity"'''
 					Tooltip: Tooltips will show Points Available instead of Enchantment Capacity Available
 				}
+
+				VisualCursedDebuff: {
+					Label: Visual Cursed Debuff
+					Tooltip:
+						'''
+						The cursed debuff doesn't actually control the bonus spawn chance, max spawns or cursed spawn chance increase.
+						It is for show only.  If you don't want the extra buff showing, you can disable it and still have the effects.
+						'''
+				}
 			}
 
 			Pair: {
@@ -413,6 +422,15 @@ Mods: {
 						'''
 				}
 
+				CursedEnchantmentsAllowedOnSummons: {
+					Label: Cursed Enchantments Allowed On Summons
+					Tooltip:
+						'''
+						Cursed Enchantment Debuffs don't get applied to the player, so it is inherently unfair to have the extra bonus without the downside.
+						Enabling this will allow you to put Cursed Enchantments on Summon weapons.
+						'''
+				}
+
 				CursedEnemyDamageMultiplier: {
 					Label: Cursed Enemy Damage Multiplier
 					Tooltip: Modifies cursed enemies damage dealt.  0 will cause them to not damage or knockback players.  Value is divided by 100.  100 => 1x multiplier.
@@ -494,6 +512,11 @@ Mods: {
 						Adjust the drop rate of enchantments from non -boss enemies.
 						(Default is 100%)
 						'''
+				}
+
+				EnchantmentEffectsOnModdedAccessorySlots: {
+					Label: Enchantment Effects On Modded Accessory Slots
+					Tooltip: If enabled, accessory slots added by mods will apply enchantment effects on items in the slot.
 				}
 
 				EnchantmentSlotsOnAccessories: {

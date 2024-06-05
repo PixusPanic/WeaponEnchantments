@@ -134,6 +134,7 @@ namespace WeaponEnchantments
 			types = types.Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(WEModItem)));
 
 			IEnumerable<ModItem> allItems = types.Select(t => Activator.CreateInstance(t)).Where(i => i != null).OfType<ModItem>();
+
 			IEnumerable<ModItem> enchantingTables = allItems.OfType<EnchantingTableItem>();
 			IEnumerable<ModItem> containments = allItems.OfType<ContainmentItem>();
 			IEnumerable<ModItem> powerBoosters = allItems.Where(i => i is PowerBooster or UltraPowerBooster).OrderBy(i => i.Name);

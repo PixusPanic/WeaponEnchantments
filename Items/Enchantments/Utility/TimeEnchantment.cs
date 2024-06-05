@@ -134,6 +134,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		}
 		public override void ReRollStats() => Reroll();
 		public void Reroll() {
+			List<EnchantmentEffect> effects = Effects.Select(e => e.Clone()).ToList();
 			List<List<EnchantmentEffect>> possibleEffects = new() {
 				new() { new DayTimeRate(multiplicative: EnchantmentStrengthData), new DayTimeRate(multiplicative: EnchantmentStrengthData.Invert()) },
 				new() { new DayTileUpdateRate(multiplicative: EnchantmentStrengthData), new DayTileUpdateRate(multiplicative: EnchantmentStrengthData.Invert()) },
@@ -145,6 +146,8 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 
 			int minEffects = Main.gameMenu ? possibleEffects.Count : 1;
 			Effects = RandomEffectHandler.GetRandomEffects(possibleEffects, chance: 0.5f, minEffects: minEffects);
+			if (Cursed)
+				RerollCursedEffects(effects);
 		}
 
 		public override string ShortTooltip => GetShortTooltip(percent: false, multiply100: false, multiplicative: true);

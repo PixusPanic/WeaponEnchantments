@@ -1281,7 +1281,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 bool slotAllowedByConfig = EnchantingTableUI.SlotAllowedByConfig(enchantedItem.ItemType, i);
                 if (!slotAllowedByConfig)
-                    RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.SlotNumDisabledByConfig.ToString().Lang_WE(L_ID1.GameMessages, new object[] { i, enchantment.Name, item.Name }));// $"Slot {i} disabled by config.  Removed {enchantment.Name} from your {item.Name}.")
+                    RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.SlotNumDisabledByConfig.ToString().Lang_WE(L_ID1.GameMessages, new object[] { i, enchantment.Name, item.Name }));// $"Slot {i} disabled by config.  Removed {enchantment.Name} from your {item.Name}.")
             }
 
             //Check enchantment limitations
@@ -1293,37 +1293,37 @@ namespace WeaponEnchantments.Common.Globals
                 if (enchantmentItem != null && !enchantmentItem.IsAir && player != null) {
                     ModItem modItem = enchantmentItem.ModItem;
                     if (modItem is UnloadedItem unloadedItem) {
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.RemovedUnloadedEnchantmentFromItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { unloadedItem.ItemName, item.S() }));// $"Removed Unloaded Item:{unloadedItem.ItemName} from your {item.S()}.  Please inform andro951(WeaponEnchantments).");
+                        RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.RemovedUnloadedEnchantmentFromItem.ToString().Lang_WE(L_ID1.GameMessages, new object[] { unloadedItem.ItemName, item.S() }));// $"Removed Unloaded Item:{unloadedItem.ItemName} from your {item.S()}.  Please inform andro951(WeaponEnchantments).");
                         continue;
                     }
 
                     if (modItem is not Enchantment enchantment) {
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.DetectedNonEnchantmentInEnchantmentSlot.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), item.S() }));// $"Detected a non-enchantment item:{enchantmentItem.S()} on your {item.S()}.  It has been returned to your inventory.");
+                        RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.DetectedNonEnchantmentInEnchantmentSlot.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), item.S() }));// $"Detected a non-enchantment item:{enchantmentItem.S()} on your {item.S()}.  It has been returned to your inventory.");
                         continue;
                     }
 
                     if (item.IsWeaponItem() && !enchantment.AllowedList.ContainsKey(EItemType.Weapons)) {
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Weapons.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
+                        RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Weapons.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
                     }
                     else if (item.IsArmorItem() && !enchantment.AllowedList.ContainsKey(EItemType.Armor)) {
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Armor.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
+                        RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Armor.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
 					}
                     else if (item.IsAccessoryItem() && !enchantment.AllowedList.ContainsKey(EItemType.Accessories)) {
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Accessories.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on accessories and has been removed from your " + item.Name + ".");
+                        RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.EnchantmentNoLongerAllowed.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), EItemType.Accessories.ToString().Lang_WE(L_ID1.Tooltip, L_ID2.ItemType), item.S() })); //enchantmentItem.Name + " is no longer allowed on accessories and has been removed from your " + item.Name + ".");
 					}
 
                     if (i == EnchantingTableUI.MaxEnchantmentSlots - 1 && !enchantment.Utility)
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.NoLongerUtilityEnchantment.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), item.S() })); //enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
+                        RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.NoLongerUtilityEnchantment.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), item.S() })); //enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
 
-					if (enchantment.RestrictedClass.Count > 0 && enchantment.RestrictedClass.Contains(ContentSamples.ItemsByType[item.type].DamageType.Type))
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.NoLongerAllowedOnDamageType.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), item.DamageType.Name, item.S() })); //enchantmentItem.Name + $" is no longer allowed on {item.DamageType.Name} weapons and has removed from your " + item.Name + ".");
+					if (enchantment.IsClassRestricted(ContentSamples.ItemsByType[item.type].DamageType.Type))
+                        RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.NoLongerAllowedOnDamageType.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantmentItem.S(), item.DamageType.Name, item.S() })); //enchantmentItem.Name + $" is no longer allowed on {item.DamageType.Name} weapons and has removed from your " + item.Name + ".");
 
 					if (enchantment.Max1 && enchantmentTypeNames.Contains(enchantment.EnchantmentTypeName))
-                        RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.NowLimitedToOne.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantment.EnchantmentTypeName, enchantmentItem.S(), item.S() })); //enchantment.EnchantmentTypeName + $" Enchantments are now limmited to 1 per item.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
+                        RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.NowLimitedToOne.ToString().Lang_WE(L_ID1.GameMessages, new object[] { enchantment.EnchantmentTypeName, enchantmentItem.S(), item.S() })); //enchantment.EnchantmentTypeName + $" Enchantments are now limmited to 1 per item.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
 
 					if (enchantment.Unique) {
                         if (unique) {
-                            RemoveEnchantmentNoUpdate(enchantedItem, i, player, GameMessageTextID.MultipleUniqueEnchantments.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), enchantmentItem.S(), item.S() })); //enchantment.EnchantmentTypeName + $" Detected multiple uniques on your {item.Name}.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
+                            RemoveEnchantmentNoUpdate(item, enchantedItem, i, player, GameMessageTextID.MultipleUniqueEnchantments.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.S(), enchantmentItem.S(), item.S() })); //enchantment.EnchantmentTypeName + $" Detected multiple uniques on your {item.Name}.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
 						}
                         else {
                             unique = true;
@@ -1343,16 +1343,20 @@ namespace WeaponEnchantments.Common.Globals
                 Main.NewText(GameMessageTextID.ItemTooLowLevel.ToString().Lang_WE(L_ID1.GameMessages, new object[] { item.Name }));
 			}
         }
-        private static void RemoveEnchantmentNoUpdate(EnchantedItem enchantedItem, int i, Player player, string msg) {
-            Item enchantmentItem = enchantedItem.enchantments[i];
-            enchantmentItem = player.GetItem(player.whoAmI, enchantmentItem, GetItemSettings.LootAllSettings);
-            if (!enchantmentItem.IsAir)
-                player.QuickSpawnItem(player.GetSource_Misc("PlayerDropItemCheck"), enchantmentItem);
+		private static void RemoveEnchantmentNoUpdate(Item item, EnchantedItem enchantedItem, int i, Player player, string msg) {
+			Item enchantmentItem = enchantedItem.enchantments[i];
+			enchantmentItem = player.GetItem(player.whoAmI, enchantmentItem, GetItemSettings.LootAllSettings);
+			if (!enchantmentItem.IsAir)
+				player.QuickSpawnItem(player.GetSource_Misc("PlayerDropItemCheck"), enchantmentItem);
 
-            enchantedItem.enchantments.RemoveNoUpdate(i);
-            Main.NewText(msg);
-        }
-        public static bool IsSameEnchantedItem(this Item item1, Item item2) {
+			enchantedItem.enchantments.RemoveNoUpdate(i);
+			if (Main.mouseItem?.IsSameEnchantedItem(item) != null && Main.mouseItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem1)) {
+				enchantedItem1.enchantments.RemoveNoUpdate(i);
+			}
+
+			msg.LogSimpleNT();
+		}
+		public static bool IsSameEnchantedItem(this Item item1, Item item2) {
             bool isEnchantedItem1 = item1.TryGetEnchantedItemSearchAll(out EnchantedItem global1);
             bool isEnchantedItem2 = item2.TryGetEnchantedItemSearchAll(out EnchantedItem global2);
             if (!isEnchantedItem1)

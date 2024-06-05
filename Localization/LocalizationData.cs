@@ -746,6 +746,16 @@ namespace WeaponEnchantments.Localization
 										$"Spawn Rate Mult = (1 + {nameof(ServerConfig.CursedBuffSpawnRateMultiplier).AddSpaces()} * 0.415)^(Log2(Cursed Essence / 100 + 2)\n" +
 										$"Max Spawns Mult = 1 + (Spawn Rate Mult - 1) * 0.8" }
 								}) },
+								{ nameof(ServerConfig.EnchantmentEffectsOnModdedAccessorySlots), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ServerConfig.EnchantmentEffectsOnModdedAccessorySlots).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(), "If enabled, accessory slots added by mods will apply enchantment effects on items in the slot." }
+								}) },
+								{ nameof(ServerConfig.CursedEnchantmentsAllowedOnSummons), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ServerConfig.CursedEnchantmentsAllowedOnSummons).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(), 
+										"Cursed Enchantment Debuffs don't get applied to the player, so it is inherently unfair to have the extra bonus without the downside.\n" +
+										"Enabling this will allow you to put Cursed Enchantments on Summon weapons." }
+								}) },
 							},
 							dict: new() {
 								{ L_ID2.DisplayName.ToString(), nameof(ServerConfig).AddSpaces() },
@@ -846,6 +856,12 @@ namespace WeaponEnchantments.Localization
 									{ L_ID3.Tooltip.ToString(),
 										"Cursed enemies produce small particles to help distinguish them from normal enemies.\n" +
 										"Turn off to prevent these particles from being created." }
+								}) },
+								{ nameof(ClientConfig.VisualCursedDebuff), new(dict: new() {
+									{ L_ID3.Label.ToString(), nameof(ClientConfig.VisualCursedDebuff).AddSpaces() },
+									{ L_ID3.Tooltip.ToString(),
+										"The cursed debuff doesn't actually control the bonus spawn chance, max spawns or cursed spawn chance increase.\n" +
+										"It is for show only.  If you don't want the extra buff showing, you can disable it and still have the effects." }
 								}) },
 							},
 							dict: new() {
