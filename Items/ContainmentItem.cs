@@ -30,7 +30,7 @@ namespace WeaponEnchantments.Items
         public virtual float SellPriceModifier => 1f;
         public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.Containments, WikiTypeID.CraftingMaterial };
         public override int CreativeItemSacrifice => 3;
-		public override bool CanBeStoredInEnchantmentStroage => true;
+		public override bool CanBeStoredInEnchantmentStorage => true;
 		public override string LocalizationTooltip => $"Used to store {tierNames[tier]} enchantments";
 
 		public override string Artist => "Zorutan";

@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Items
 {
 	public abstract class WEModItem : AndroModItem
 	{
-		public virtual bool CanBeStoredInEnchantmentStroage => false;
+		public virtual bool CanBeStoredInEnchantmentStorage => false;
 		public virtual DropRestrictionsID DropRestrictionsID => DropRestrictionsID.None;
 		public abstract int CreativeItemSacrifice { get; }
 		protected override Action<ModItem, string, string> AddLocalizationTooltipFunc => WeaponEnchantments.Localization.LocalizationDataStaticMethods.AddLocalizationTooltip;

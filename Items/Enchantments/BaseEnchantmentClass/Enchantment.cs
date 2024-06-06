@@ -323,7 +323,7 @@ namespace WeaponEnchantments.Items
 		public virtual Func<ModItem, string, string> GetNonStandardWikiLinkString => (ModItem modItem, string name) => modItem is Enchantment enchantment ? enchantment.TierName.ToSectionLink(name, $"{enchantment.EnchantmentTypeName.AddSpaces()} Enchantment") : null;
 		public override int CreativeItemSacrifice => 1;
 		public string TierName => tierNames[EnchantmentTier];
-		public override bool CanBeStoredInEnchantmentStroage => true;
+		public override bool CanBeStoredInEnchantmentStorage => true;
 
 		#endregion
 

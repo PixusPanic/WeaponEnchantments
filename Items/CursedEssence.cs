@@ -26,7 +26,7 @@ namespace WeaponEnchantments.Items
 		public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.CursedEssence, WikiTypeID.CraftingMaterial };
 		public override Type GroupingType => typeof(EnchantmentEssence);
 		public override int CreativeItemSacrifice => 25;
-		public override bool CanBeStoredInEnchantmentStroage => true;
+		public override bool CanBeStoredInEnchantmentStorage => true;
 
 		public override string Artist => "andro951";
 		public override string Designer => "andro951";

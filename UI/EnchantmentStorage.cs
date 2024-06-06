@@ -646,7 +646,7 @@ namespace WeaponEnchantments.UI
 
 		public static bool CanBeStored(Item item) {
 			if (item?.ModItem is WEModItem weModItem)
-				return weModItem.CanBeStoredInEnchantmentStroage;
+				return weModItem.CanBeStoredInEnchantmentStorage;
 
 			return false;
 		}
