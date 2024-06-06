@@ -69,7 +69,7 @@ namespace WeaponEnchantments
 			InfusionManager.LogAllInfusionPowers();
 		}
 		public override void PostUpdateEverything() {
-			MasterUIManager.PostUpdateEverything();
+			
 		}
 		public override void PostDrawInterface(SpriteBatch spriteBatch) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;

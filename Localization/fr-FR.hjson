@@ -1089,6 +1089,16 @@ Mods: {
 			HellsWrathEnchantmentEpic.DisplayName: Épopée d'enchantement de Hells Wrath
 			HellsWrathEnchantmentLegendary.DisplayName: Hells Wrath Enchantement Légendaire
 			HellsWrathEnchantmentRare.DisplayName: Enchantement de Colère infernale Rare
+
+			HexproofPouch: {
+				DisplayName: Pochette anti-hexagone
+				Tooltip:
+					'''
+					Une petite pochette destinée à protéger le détenteur des effets négatifs de Cursed Essence.
+					(Placer l'Essence Maudite dans ce sac l'empêchera de contribuer au Debuff Maudit du joueur.)
+					'''
+			}
+
 			HunterEnchantmentBasic.DisplayName: Chasseur Enchantement de base
 			HunterEnchantmentCommon.DisplayName: Chasseur Enchantement Commun
 			HunterEnchantmentEpic.DisplayName: Épique d'enchantement de chasseur
@@ -1891,9 +1901,10 @@ Mods: {
 				'''
 				L'énergie d'une malédiction si puissante qu'elle a pris forme. D’autres malédictions seront attirées par son pouvoir.
 				L'Essence maudite contribuera aux effets ci-dessous lorsqu'elle se trouvera dans votre inventaire ou dans votre stockage d'enchantement. (Essence maudite : {0})
-				    Augmente le taux d'apparition des ennemis. (Bonus actuel : {1}x)
-				    Augmente le nombre maximum d'apparitions d'ennemis. (Bonus actuel : {2}x)
-				    Augmentation des chances d'ennemis maudits. (Chance qu'un ennemi apparu soit maudit : {3})
+				 Augmente le taux d'apparition des ennemis. (Bonus actuel : {1}x)
+				 Augmente le nombre maximum d'apparitions d'ennemis. (Bonus actuel : {2}x)
+				 Augmentation des chances d'ennemis maudits. (Chance qu'un ennemi apparu soit maudit : {3})
+				(L'essence maudite peut être stockée dans une pochette anti-hexagone, vendue par la sorcière, annulant ainsi ses effets.)
 				'''
 
 			ItemType: {

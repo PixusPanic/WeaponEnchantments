@@ -1089,6 +1089,16 @@ Mods: {
 			HellsWrathEnchantmentEpic.DisplayName: Hells Wrath Enchantment Epic
 			HellsWrathEnchantmentLegendary.DisplayName: Hells Wrath Enchantment Legendary
 			HellsWrathEnchantmentRare.DisplayName: Hells Wrath Enchantment Rare
+
+			HexproofPouch: {
+				DisplayName: Hexproof Pouch
+				Tooltip:
+					'''
+					A small pouch meant to protect the holder from the negative effects of Cursed Essence.
+					(Placing Cursed Essence in this bag will prevent it from contributing to the player's Cursed Debuff.)
+					'''
+			}
+
 			HunterEnchantmentBasic.DisplayName: Hunter Enchantment Basic
 			HunterEnchantmentCommon.DisplayName: Hunter Enchantment Common
 			HunterEnchantmentEpic.DisplayName: Hunter Enchantment Epic
@@ -1894,6 +1904,7 @@ Mods: {
 				   Increases enemy spawn rate.  (Current bonus: {1}x)
 				   Increases enemy max spawns.  (Current bonus: {2}x)
 				   Increased chance of cursed enemies. (Chance a spawned enemy will be cursed: {3})
+				(Cursed Essence can be stored in a Hexproof Pouch, sold by the Witch, negating it's effects.)
 				'''
 
 			ItemType: {

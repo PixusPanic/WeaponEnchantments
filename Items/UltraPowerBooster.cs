@@ -15,7 +15,6 @@ namespace WeaponEnchantments.Items
 	public class UltraPowerBooster : WEModItem
     {
         public static int ID;
-        public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
         public override DropRestrictionsID DropRestrictionsID => DropRestrictionsID.PostPlanteraBosses;
         public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.PowerBooster };
         public override int CreativeItemSacrifice => 1;

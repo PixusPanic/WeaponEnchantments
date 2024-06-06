@@ -89,6 +89,7 @@ namespace WeaponEnchantments
 			IL_Main.MouseText_DrawItemTooltip_GetLinesInfo += OnMouseText_DrawItemTooltip_GetLinesInfo;
 			IL_Main.DrawDefenseCounter += OnDrawDefenseCounter;
 
+			HexproofPouch.Instance.RegisterWithAndroLib(this);
 			UIManager.RegisterWithMaster();
 
 			LocalizationData.RegisterSDataPackage();
@@ -133,20 +134,23 @@ namespace WeaponEnchantments
 
 			types = types.Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(WEModItem)));
 
-			IEnumerable<ModItem> allItems = types.Select(t => Activator.CreateInstance(t)).Where(i => i != null).OfType<ModItem>();
+			IEnumerable<ModItem> allModItems = types.Select(t => Activator.CreateInstance(t)).Where(i => i != null).OfType<ModItem>();
 
-			IEnumerable<ModItem> enchantingTables = allItems.OfType<EnchantingTableItem>();
-			IEnumerable<ModItem> containments = allItems.OfType<ContainmentItem>();
-			IEnumerable<ModItem> powerBoosters = allItems.Where(i => i is PowerBooster or UltraPowerBooster).OrderBy(i => i.Name);
-			IEnumerable<ModItem> enchantmentEssences = allItems.OfType<EnchantmentEssence>().OrderBy(i => i.EssenceTier);
+			IEnumerable<ModItem> enchantingTables = allModItems.OfType<EnchantingTableItem>();
+			IEnumerable<ModItem> containments = allModItems.OfType<ContainmentItem>();
+			IEnumerable<ModItem> powerBoosters = allModItems.Where(i => i is PowerBooster or UltraPowerBooster).OrderBy(i => i.Name);
+			IEnumerable<ModItem> enchantmentEssences = allModItems.OfType<EnchantmentEssence>().OrderBy(i => i.EssenceTier);
 			IEnumerable<ModItem> enchantments =
-				allItems
+				allModItems
 				.OfType<Enchantment>()
 				.GroupBy(i => i.EnchantmentTier)
 				.Select(g => g.ToList().OrderBy(i => i.EnchantmentTypeName))
 				.SelectMany(i => i);
 
-			foreach (ModItem modItem in enchantingTables.Concat(containments).Concat(powerBoosters).Concat(enchantmentEssences).Concat(enchantments)) {
+			IEnumerable<ModItem> sortedModItems = enchantingTables.Concat(containments).Concat(powerBoosters).Concat(enchantmentEssences);
+			IEnumerable<ModItem> otherItem = allModItems.Where(m => m is not Enchantment && !sortedModItems.Select(mi => mi.Name).Contains(m.Name));
+			IEnumerable<ModItem> finishedSortedModItemList = sortedModItems.Concat(otherItem).Concat(enchantments);
+			foreach (ModItem modItem in finishedSortedModItemList) {
 				weMod.AddContent(modItem);
 			}
 		}

@@ -13,8 +13,8 @@ using androLib.Items;
 
 namespace WeaponEnchantments.Items
 {
-	public abstract class WEModItem : AndroModItem
-	{
+	public abstract class WEModItem : AndroModItem {
+		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 		public virtual bool CanBeStoredInEnchantmentStorage => false;
 		public virtual DropRestrictionsID DropRestrictionsID => DropRestrictionsID.None;
 		public abstract int CreativeItemSacrifice { get; }

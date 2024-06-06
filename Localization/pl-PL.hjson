@@ -1089,6 +1089,16 @@ Mods: {
 			HellsWrathEnchantmentEpic.DisplayName: Epickie zaklęcie piekielnego gniewu
 			HellsWrathEnchantmentLegendary.DisplayName: Legendarne zaklęcie Hells Wrath
 			HellsWrathEnchantmentRare.DisplayName: Zaklęcie piekielnego gniewu rzadkie
+
+			HexproofPouch: {
+				DisplayName: Pokrowiec sześciokątny
+				Tooltip:
+					'''
+					Mały woreczek przeznaczony do ochrony posiadacza przed negatywnym działaniem Przeklętej Esencji.
+					(Umieszczenie Przeklętej Esencji w tej torbie zapobiegnie jej przyczynianiu się do Przeklętego Debuffu gracza.)
+					'''
+			}
+
 			HunterEnchantmentBasic.DisplayName: Podstawowe zaklęcie łowcy
 			HunterEnchantmentCommon.DisplayName: Zaklęcie Łowcy Zwykłe
 			HunterEnchantmentEpic.DisplayName: Epickie zaklęcie łowcy
@@ -1889,11 +1899,12 @@ Mods: {
 			EnchantmentShortTooltip.OnTickPlayerBuff: „Pasywnie przyznaje {0} za {1} co {2}”
 			ItemTooltip.CursedEssence:
 				'''
-				Energia klątwy tak potężna, że przybrała formę. Inne przekleństwa zostaną przyciągnięte przez jego moc.
+				Energia klątwy tak potężna, że ​​przybrała formę. Inne przekleństwa zostaną przyciągnięte przez jego moc.
 				Przeklęta Esencja będzie miała wpływ na poniższe efekty, gdy będzie znajdować się w Twoim ekwipunku lub w Magazynie Zaklęć. (Przeklęta Esencja: {0})
-				    Zwiększa częstotliwość pojawiania się wrogów. (Aktualny bonus: {1}x)
-				    Zwiększa maksymalne pojawianie się wrogów. (Aktualny bonus: {2}x)
-				    Zwiększona szansa na przeklętych wrogów. (Szansa, że odrodzony wróg zostanie przeklęty: {3})
+				 Zwiększa częstotliwość pojawiania się wrogów. (Aktualny bonus: {1}x)
+				 Zwiększa maksymalne pojawianie się wrogów. (Aktualny bonus: {2}x)
+				 Zwiększona szansa na przeklętych wrogów. (Szansa, że ​​odrodzony wróg zostanie przeklęty: {3})
+				(Przeklęta Esencja może być przechowywana w Hexproof Pouch, sprzedawanym przez Wiedźmę, niwelując jej działanie.)
 				'''
 
 			ItemType: {

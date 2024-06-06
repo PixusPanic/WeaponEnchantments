@@ -1089,6 +1089,16 @@ Mods: {
 			HellsWrathEnchantmentEpic.DisplayName: Encantamento Ira do Inferno Épico
 			HellsWrathEnchantmentLegendary.DisplayName: Encantamento Ira do Inferno Lendário
 			HellsWrathEnchantmentRare.DisplayName: Encantamento Ira do Inferno Raro
+
+			HexproofPouch: {
+				DisplayName: Bolsa à prova de feitiço
+				Tooltip:
+					'''
+					Uma pequena bolsa destinada a proteger o portador dos efeitos negativos da Essência Amaldiçoada.
+					(Colocar Essência Amaldiçoada neste saco impedirá que ela contribua para o Debuff Amaldiçoado do jogador.)
+					'''
+			}
+
 			HunterEnchantmentBasic.DisplayName: Encantamento Caçador Básico
 			HunterEnchantmentCommon.DisplayName: Encantamento Caçador Comum
 			HunterEnchantmentEpic.DisplayName: Encantamento Caçador Épico
@@ -1891,9 +1901,10 @@ Mods: {
 				'''
 				Energia de uma maldição tão poderosa que tomou forma. Outras maldições serão atraídas ao seu poder.
 				A Essência Amaldiçoada contribuirá para os efeitos abaixo quando estiver em seu inventário ou armazenamento de encantamento. (Essência Amaldiçoada: {0})
-				    Aumenta a taxa de spawn do inimigo. (Bônus atual: {1}x)
-				    Aumenta o número máximo de spawns de inimigos. (Bônus atual: {2}x)
-				    Maior chance de inimigos amaldiçoados. (Chance de que um inimigo gerado seja amaldiçoado: {3})
+				 Aumenta a taxa de spawn do inimigo. (Bônus atual: {1}x)
+				 Aumenta o número máximo de spawns de inimigos. (Bônus atual: {2}x)
+				 Maior chance de inimigos amaldiçoados. (Chance de que um inimigo gerado seja amaldiçoado: {3})
+				(A Essência Amaldiçoada pode ser armazenada em uma Bolsa à Prova de Feitiço, vendida pela Bruxa, negando seus efeitos.)
 				'''
 
 			ItemType: {

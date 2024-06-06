@@ -1089,6 +1089,16 @@ Mods: {
 			HellsWrathEnchantmentEpic.DisplayName: Hells Wrath Enchantment-Epos
 			HellsWrathEnchantmentLegendary.DisplayName: Hells Wrath-Verzauberung Legendär
 			HellsWrathEnchantmentRare.DisplayName: Höllen Zorn Verzauberung Selten
+
+			HexproofPouch: {
+				DisplayName: Fluchsicherer Beutel
+				Tooltip:
+					'''
+					Ein kleiner Beutel, der den Träger vor den negativen Auswirkungen von verfluchter Essenz schützen soll.
+					(Wenn Sie verfluchte Essenz in diesen Beutel legen, wird verhindert, dass sie zum Fluch-Debuff des Spielers beiträgt.)
+					'''
+			}
+
 			HunterEnchantmentBasic.DisplayName: Jägerverzauberung Basic
 			HunterEnchantmentCommon.DisplayName: Jägerverzauberung Allgemein
 			HunterEnchantmentEpic.DisplayName: Hunter Enchantment Epos
@@ -1889,11 +1899,12 @@ Mods: {
 			EnchantmentShortTooltip.OnTickPlayerBuff: Gewährt passiv {0} für {1} alle {2}
 			ItemTooltip.CursedEssence:
 				'''
-				Die Energie eines Fluches, der so mächtig ist, dass er Gestalt angenommen hat. Andere Flüche werden von seiner Macht angezogen.
+				Energie eines Fluchs, der so mächtig ist, dass er Gestalt angenommen hat. Andere Flüche werden von seiner Macht angezogen.
 				Verfluchte Essenz trägt zu den folgenden Effekten bei, wenn sie sich in Ihrem Inventar oder Verzauberungslager befindet. (Verfluchte Essenz: {0})
-				    Erhöht die Spawn-Rate des Gegners. (Aktueller Bonus: {1}x)
-				    Erhöht die maximale Anzahl an Spawns des Gegners. (Aktueller Bonus: {2}x)
-				    Erhöhte Chance auf verfluchte Feinde. (Chance, dass ein gespawnter Feind verflucht wird: {3})
+				Erhöht die Spawnrate von Feinden. (Aktueller Bonus: {1}x)
+				Erhöht die maximale Anzahl von Feinden. (Aktueller Bonus: {2}x)
+				Erhöht die Chance auf verfluchte Feinde. (Chance, dass ein gespawnter Feind verflucht wird: {3})
+				(Verfluchte Essenz kann in einem verfluchten Beutel aufbewahrt werden, der von der Hexe verkauft wird, wodurch ihre Effekte negiert werden.)
 				'''
 
 			ItemType: {

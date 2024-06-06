@@ -18,6 +18,7 @@ using WeaponEnchantments.Debuffs;
 
 namespace WeaponEnchantments.Items
 {
+	[Autoload(false)]
 	public class CursedEssence : WEModItem, ISoldByNPC {
 		private int entitySize = 20;
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');

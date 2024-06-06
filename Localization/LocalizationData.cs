@@ -188,7 +188,8 @@ namespace WeaponEnchantments.Localization
 									"Cursed Essence will contribute to the below effects when in your inventory or Enchantment Storage.  (Cursed Essence: {0})\n" +
 									"   Increases enemy spawn rate.  (Current bonus: {1}x)\n" +
 									"   Increases enemy max spawns.  (Current bonus: {2}x)\n" +
-									"   Increased chance of cursed enemies. (Chance a spawned enemy will be cursed: {3})" }
+									"   Increased chance of cursed enemies. (Chance a spawned enemy will be cursed: {3})\n" +
+									"(Cursed Essence can be stored in a Hexproof Pouch, sold by the Witch, negating it's effects.)" }
 							}) }
 						}) },
 						{ L_ID1.Dialogue.ToString(), new(children: new() {

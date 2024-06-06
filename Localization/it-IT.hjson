@@ -1089,6 +1089,16 @@ Mods: {
 			HellsWrathEnchantmentEpic.DisplayName: Incantesimo epico dell'ira dell'inferno
 			HellsWrathEnchantmentLegendary.DisplayName: Incantesimo dell'Ira Infernale Leggendario
 			HellsWrathEnchantmentRare.DisplayName: Incantesimo dell'ira dell'inferno Raro
+
+			HexproofPouch: {
+				DisplayName: Custodia anti-malocchio
+				Tooltip:
+					'''
+					Un piccolo sacchetto pensato per proteggere chi lo possiede dagli effetti negativi dell'Essenza Maledetta.
+					(Mettere l'Essenza Maledetta in questa borsa le impedirà di contribuire al Debuff Maledetto del giocatore.)
+					'''
+			}
+
 			HunterEnchantmentBasic.DisplayName: Incantesimo del cacciatore di base
 			HunterEnchantmentCommon.DisplayName: Incantesimo del cacciatore comune
 			HunterEnchantmentEpic.DisplayName: Epopea dell'incantesimo del cacciatore
@@ -1891,9 +1901,10 @@ Mods: {
 				'''
 				L'energia di una maledizione così potente da aver preso forma. Altre maledizioni saranno attirate dal suo potere.
 				L'Essenza Maledetta contribuirà agli effetti seguenti quando si trova nel tuo inventario o nel Deposito degli incantesimi. (Essenza Maledetta: {0})
-				    Aumenta il tasso di generazione dei nemici. (Bonus attuale: {1}x)
-				    Aumenta il numero massimo di spawn dei nemici. (Bonus attuale: {2}x)
-				    Maggiore possibilità di nemici maledetti. (Probabilità che un nemico generato venga maledetto: {3})
+				 Aumenta il tasso di generazione dei nemici. (Bonus attuale: {1}x)
+				 Aumenta il numero massimo di spawn dei nemici. (Bonus attuale: {2}x)
+				 Maggiore possibilità di nemici maledetti. (Probabilità che un nemico generato venga maledetto: {3})
+				(L'Essenza Maledetta può essere conservata in una Borsa Anti-Malocchio, venduta dalla Strega, annullandone gli effetti.)
 				'''
 
 			ItemType: {

@@ -1089,6 +1089,16 @@ Mods: {
 			HellsWrathEnchantmentEpic.DisplayName: Encantamiento de Furia del Infierno Épico
 			HellsWrathEnchantmentLegendary.DisplayName: Furia del Infierno Legendario
 			HellsWrathEnchantmentRare.DisplayName: Encantamiento de Furia del Infierno Raro
+
+			HexproofPouch: {
+				DisplayName: Bolsa a prueba de maleficios
+				Tooltip:
+					'''
+					Una pequeña bolsa destinada a proteger a quien la posee de los efectos negativos de la Esencia Maldita.
+					(Colocar Esencia Maldita en esta bolsa evitará que contribuya a la Desventaja Maldita del jugador).
+					'''
+			}
+
 			HunterEnchantmentBasic.DisplayName: Encantamiento de cazador básico
 			HunterEnchantmentCommon.DisplayName: Encantamiento de cazador Común
 			HunterEnchantmentEpic.DisplayName: Encantamiento de cazador Épico
@@ -1891,9 +1901,10 @@ Mods: {
 				'''
 				La energía de una maldición tan poderosa que ha tomado forma. Otras maldiciones se verán atraídas por su poder.
 				La Esencia Maldita contribuirá a los siguientes efectos cuando esté en su inventario o Almacenamiento de encantamientos. (Esencia Maldita: {0})
-				    Aumenta la tasa de generación de enemigos. (Bonificación actual: {1}x)
-				    Aumenta la generación máxima de enemigos. (Bonificación actual: {2}x)
-				    Mayor probabilidad de enemigos malditos. (Probabilidad de que un enemigo generado sea maldecido: {3})
+				 Aumenta la tasa de generación de enemigos. (Bonificación actual: {1}x)
+				 Aumenta la generación máxima de enemigos. (Bonificación actual: {2}x)
+				 Mayor probabilidad de enemigos malditos. (Probabilidad de que un enemigo generado sea maldecido: {3})
+				(La Esencia Maldita se puede almacenar en una Bolsa a prueba de maleficios, vendida por la Bruja, negando sus efectos).
 				'''
 
 			ItemType: {

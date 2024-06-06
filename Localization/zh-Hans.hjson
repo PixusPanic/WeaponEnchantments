@@ -1089,6 +1089,16 @@ Mods: {
 			HellsWrathEnchantmentEpic.DisplayName: 地狱之怒附魔史诗
 			HellsWrathEnchantmentLegendary.DisplayName: 地狱之怒附魔传奇
 			HellsWrathEnchantmentRare.DisplayName: 地狱之怒附魔稀有
+
+			HexproofPouch: {
+				DisplayName: 防诅咒袋
+				Tooltip:
+					'''
+					一个小袋子，用于保护持有者免受诅咒精华的负面影响。
+					（将诅咒精华放入此袋中将防止其对玩家的诅咒减益产生影响。）
+					'''
+			}
+
 			HunterEnchantmentBasic.DisplayName: 猎人药水附魔基元
 			HunterEnchantmentCommon.DisplayName: 猎人药水附魔普通
 			HunterEnchantmentEpic.DisplayName: 猎人药水附魔史诗
@@ -1889,11 +1899,12 @@ Mods: {
 			EnchantmentShortTooltip.OnTickPlayerBuff: “每 {2} 个 {1} 给予 {0} 增益”
 			ItemTooltip.CursedEssence:
 				'''
-				强大的诅咒能量已经成形。 其他诅咒将会被它的力量所吸引。
-				诅咒精华在您的库存或结界仓库中时将产生以下效果。 （诅咒精华：{0}）
-				    提高敌人的生成率。 （当前奖金：{1}x）
-				    增加敌人的最大生成次数。 （当前奖金：{2}x）
-				    增加被诅咒的敌人的几率。 （生成的敌人有可能被诅咒：{3}）
+				诅咒的能量如此强大，以至于它已经成形。其他诅咒将被其力量所吸引。
+				诅咒精华在您的库存或附魔存储中时将产生以下效果。（诅咒精华：{0}）
+				增加敌人生成率。（当前奖励：{1}x）
+				增加敌人的最大生成数量。（当前奖励：{2}x）
+				增加被诅咒敌人的几率。（生成的敌人被诅咒的几率：{3}）
+				（诅咒精华可以存储在女巫出售的防诅咒袋中，以抵消其效果。）
 				'''
 
 			ItemType: {
