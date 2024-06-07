@@ -54,7 +54,7 @@ namespace WeaponEnchantments.Items
 
 		public override string Artist => "Kiroto";
 		public override string Designer => "andro951";
-
+		private const int LegendaryEssenceTier = 4;
 		public override void SetStaticDefaults() {
 			int type = Item.type;
 			Main.RegisterItemAnimation(type, new DrawAnimationVertical(5, animationFrames));
@@ -65,8 +65,8 @@ namespace WeaponEnchantments.Items
 			SetupStaticValues();
 
 			//Value per xp
-			if(EssenceTier == 4)
-				valuePerXP = values[tierNames.Length - 1] / xpPerEssence[tierNames.Length - 1];
+			if(EssenceTier == LegendaryEssenceTier)
+				valuePerXP = values[LegendaryEssenceTier] / xpPerEssence[LegendaryEssenceTier];
 
 			//Log contributors for both normal and alternate spritesheets
 			if (LogModSystem.printListOfContributors) {

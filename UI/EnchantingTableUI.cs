@@ -822,9 +822,9 @@ namespace WeaponEnchantments.UI
 							currentXP = enchantedItem.Experience;
 						}
 
-						CalculateXPAvailable(out int xpAvailable, out int nonFavoriteXpAvailable);
-						CalculateXPRequired(currentLevel, currentXP, out int targetLevelXPIndex, out int xpNeeded);
-						SetDescriptionBlock(TableTextID.LevelUpDescription.ToString().Lang_WE(L_ID1.TableText, new object[] { itemName, currentLevel, currentLevel + wePlayer.levelsPerLevelUp, xpNeeded, xpAvailable }));
+						CalculateXPAvailable(out long xpAvailable, out long _);
+						CalculateXPRequired(currentLevel, currentXP, out int _, out int xpNeeded);
+						SetDescriptionBlock(TableTextID.LevelUpDescription.ToString().Lang_WE(L_ID1.TableText, new object[] { itemName, currentLevel, Math.Min(currentLevel + wePlayer.levelsPerLevelUp, 40), xpNeeded, xpAvailable }));
 					}
 				}
 
@@ -1658,7 +1658,7 @@ namespace WeaponEnchantments.UI
 				wePlayer.infusionConsumeItem = new();
 			}
 		}
-		private static void CalculateXPAvailable(out int xpAvailable, out int nonFavoriteXpAvailable) {
+		private static void CalculateXPAvailable(out long xpAvailable, out long nonFavoriteXpAvailable) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 
 			xpAvailable = 0;
@@ -1666,7 +1666,7 @@ namespace WeaponEnchantments.UI
 
 			//xpAvailable
 			for (int i = EnchantingTableUI.MaxEnchantmentSlots - 1; i >= 0; i--) {
-				int xpToAdd = ModMath.MultiplyCheckOverflow((int)EnchantmentEssence.xpPerEssence[i], wePlayer.enchantingTableEssence[i].stack);
+				long xpToAdd = ModMath.MultiplyCheckOverflow((long)EnchantmentEssence.xpPerEssence[i], (long)wePlayer.enchantingTableEssence[i].stack);
 				xpAvailable.AddCheckOverflow(xpToAdd);
 				if (!wePlayer.enchantingTableEssence[i].favorited)
 					nonFavoriteXpAvailable.AddCheckOverflow(xpToAdd);
@@ -1681,7 +1681,7 @@ namespace WeaponEnchantments.UI
 			//xpNeeded
 			targetLevelXPIndex = currentLevel + wePlayer.levelsPerLevelUp - 1;
 			targetLevelXPIndex.Clamp(max: EnchantedItem.MAX_Level - 1);
-			xpNeeded = WEModSystem.levelXps[targetLevelXPIndex] - currentExperience;
+			xpNeeded = Math.Max(WEModSystem.levelXps[targetLevelXPIndex] - currentExperience, 0);
 		}
 		private static void LevelUp() {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
@@ -1694,7 +1694,7 @@ namespace WeaponEnchantments.UI
 				return;
 			}
 
-			CalculateXPAvailable(out int xpAvailable, out int nonFavoriteXpAvailable);
+			CalculateXPAvailable(out long xpAvailable, out long nonFavoriteXpAvailable);
 			CalculateXPRequired(enchantedItem, out int targetLevelXPIndex, out int xpNeeded);
 			bool enoughWithoutFavorite = nonFavoriteXpAvailable >= xpNeeded;
 

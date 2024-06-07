@@ -31,7 +31,7 @@ namespace WeaponEnchantments.ModIntegration
 		}
 		public override void OnConsumeItemForRecipe(EnvironmentSandbox sandbox, Item item, int stack) {
             if (item.maxStack > 1 && item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantmentedItem) && enchantmentedItem.Modified) {
-				TEStorageHeart tEStorageHeart = MagicStorage.StoragePlayer.LocalPlayer.GetStorageHeart();
+				TEStorageHeart tEStorageHeart = global::MagicStorage.StoragePlayer.LocalPlayer.GetStorageHeart();
 				IEnumerable<Item> storageItems = tEStorageHeart.GetStoredItems();
                 MagicStorageIntegration.JustCraftedStackableItem = item.TryResetSameEnchantedItem(storageItems, out _);
 

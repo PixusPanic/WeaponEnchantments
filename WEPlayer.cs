@@ -343,6 +343,36 @@ namespace WeaponEnchantments
 				transferedToAndroLib = true;
 			}
 
+            //Attempt to reduce the size of the player's enchantmentStorage
+            if (enchantmentStorageItems.Length > EnchantmentStorageSize) {
+                Item[] newEnchantmentStorageItems = new Item[EnchantmentStorageSize];
+                int i = 0;
+                for (int j = 0; j < enchantmentStorageItems.Length; j++) {
+                    Item item = enchantmentStorageItems[j];
+					if (item.NullOrAir())
+						continue;
+
+					if (i < EnchantmentStorageSize) {
+						newEnchantmentStorageItems[i++] = item.Clone();
+					}
+					else {
+						item = Player.GetItem(Player.whoAmI, item, GetItemSettings.InventoryEntityToPlayerInventorySettings);
+						if (item.IsAir) {
+							Recipe.FindRecipes(true);
+                            continue;
+						}
+
+						Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), item, item.stack);
+					}
+				}
+
+                for (; i < EnchantmentStorageSize; i++) {
+                    newEnchantmentStorageItems[i] = new Item();
+				}
+
+                enchantmentStorageItems = newEnchantmentStorageItems;
+            }
+
             #region Debug
 
             if (LogMethods.debugging) ($"/\\OnEnterWorld({Player.S()})").Log();
