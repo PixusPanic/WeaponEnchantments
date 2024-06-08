@@ -348,7 +348,7 @@ namespace WeaponEnchantments.Debuffs {
 			}
 
 			if (!Cursed) {
-				if (!npc.IsDummy() && !npc.friendly && npc.realLife == -1 && (npc.damage > 0 || npc.RealLifeMax() > 10) && !npc.IsBoss() && !npc.IsMiniBoss() && !npc.ModBossPart() && !npc.IsWorm() && !npc.SpawnedFromStatue && !npc.isLikeATownNPC && !npc.townNPC && !NPCID.Sets.ShouldBeCountedAsBoss[npc.netID] && !AndroGlobalNPC.IsIregularNPC(npc)) {
+				if (!npc.IsDummy() && !npc.friendly && npc.realLife == -1 && (npc.damage > 0 || npc.RealLifeMax() > 10) && !npc.IsBoss() && !npc.IsMiniBoss() && !npc.ModBossPart() && !npc.IsWorm() && !npc.SpawnedFromStatue && !npc.isLikeATownNPC && !npc.townNPC && !NPCID.Sets.ShouldBeCountedAsBoss[npc.type] && !AndroGlobalNPC.IsIregularNPC(npc)) {
 					double cursedSpawnChance = CurseAttractionNPC.GetCursedSpawnChance(npc.position);
 					if (Main.rand.NextDouble() <= cursedSpawnChance) {
 						string npcFullName = npc.ModFullName();
@@ -492,6 +492,12 @@ namespace WeaponEnchantments.Debuffs {
 					}
 				}
 			}
+		}
+		public override void Load() {
+			AndroMod.OnResetGameCounter += () => {
+				nextCount = Main.GameUpdateCount;
+				nextBuff = Main.GameUpdateCount;
+			};
 		}
 	}
 }

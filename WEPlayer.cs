@@ -300,6 +300,7 @@ namespace WeaponEnchantments
             //Terraria.IL_Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
             IL_Projectile.FishingCheck_RollDropLevels += HookFishingCheck_RollDropLevels;
             IL_Player.TrySwitchingLoadout += HookTrySwitchingLoadout;
+            AndroMod.OnResetGameCounter += () => { CurseHardCrowdControlImmunityReset = 0; EffectTimers = new(); OnTickBuffTimers = new(); };
 		}
         public override void OnEnterWorld() {
 

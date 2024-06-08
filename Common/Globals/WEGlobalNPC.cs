@@ -64,7 +64,8 @@ namespace WeaponEnchantments.Common.Globals
         public override void Load() {
             IL_Projectile.Damage += HookDamage;
             AndroGlobalNPC.GetLootActions += GetWELoot;
-        }
+			AndroMod.OnResetGameCounter += () => lastAmaterasuTime = 0;
+		}
         private static void HookDamage(ILContext il) {
             bool debuggingHookDamage = false;
 

@@ -10,6 +10,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using androLib.Common.Utility;
 using androLib.Common.Globals;
+using androLib;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -25,6 +26,9 @@ namespace WeaponEnchantments.Common.Globals
 				if (value)
 					startingTick = Main.GameUpdateCount;
 			}
+		}
+		public override void Load() {
+			AndroMod.OnResetGameCounter += () => startingTick = 0;
 		}
 		public static bool StopDPSCheck = true;
 		private Dictionary<string, long> totalItemDamages = new();
