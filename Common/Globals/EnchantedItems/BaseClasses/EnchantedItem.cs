@@ -846,8 +846,10 @@ namespace WeaponEnchantments.Common.Globals
 		public Item this[int index] {
 			get => _enchantments[index];
 			set {
-                if (value == null || value.stack < 0)
-                    value = new();
+                if (value == null || value.stack < 0) {
+					value = new();
+                    value.TurnToAir();
+				}
 
                 bool wasAir = _enchantments[index].IsAir;
                 bool isAir = value.IsAir;
@@ -879,6 +881,9 @@ namespace WeaponEnchantments.Common.Globals
 		}
 		private void ApplyEnchantment(int index) {
 			Enchantment enchantment = (Enchantment)_enchantments[index].ModItem;
+            if (enchantment == null)
+				return;
+
 			enchantedItem?.Item?.UpdateEnchantment(ref enchantment);
 			foreach (IAddDynamicEffects effect in enchantment.Effects.OfType<IAddDynamicEffects>()) {
 				effect.EnchantedItem = enchantedItem;
