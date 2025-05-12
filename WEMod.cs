@@ -38,6 +38,7 @@ using Microsoft.Xna.Framework;
 using androLib.Common.Utility;
 using Terraria.DataStructures;
 using WeaponEnchantments.Content.Projectiles;
+using WeaponEnchantments.ModLib.KokoLib;
 
 namespace WeaponEnchantments
 {
@@ -79,8 +80,8 @@ namespace WeaponEnchantments
 			On_Projectile.NewProjectile_IEntitySource_float_float_float_float_int_int_float_int_float_float_float += On_Projectile_NewProjectile;
 			On_Item.GetShimmered += On_Item_GetShimmered;
 			On_WorldGen.KillTile_GetItemDrops += On_WorldGen_KillTile_GetItemDrops;
-			On_WorldGen.KillTile_DropItems += On_WorldGen_KillTile_DropItems;
 			On_Recipe.FindRecipes += EnchantmentStorage.FindRecipes;
+			On_WorldGen.KillTile += On_WorldGen_KillTile;
 			
 			//On_Player.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
 			IL_Projectile.FishingCheck += WEPlayer.HookFishingCheck;
@@ -157,25 +158,52 @@ namespace WeaponEnchantments
 
 		#region Kill tile
 
-		private static bool justBrokeBlock = false;
-		private void On_WorldGen_KillTile_DropItems(On_WorldGen.orig_KillTile_DropItems orig, int x, int y, Tile tileCache, bool includeLargeObjectDrops, bool includeAllModdedLargeObjectDrops) {
+		public static void UpdateBrokenTileTarget(int x, int y, int playerWhoAmI) {
+			tileBrokenTargetX = x;
+			tileBrokenTargetY = y;
+			playerBrokenTargetWhoAmI = playerWhoAmI;
+		}
+		private static int tileBrokenTargetX = -1;
+		private static int tileBrokenTargetY = -1;
+		public static int playerBrokenTargetWhoAmI = -1;
+		public static Item tileBrokenTool = null;
+		private void On_WorldGen_KillTile(On_WorldGen.orig_KillTile orig, int i, int j, bool fail, bool effectOnly, bool noItem) {
 			if (Main.netMode != NetmodeID.Server) {
-				Tile tileTarget = Main.tile[Player.tileTargetX, Player.tileTargetY];
-				if (tileCache == tileTarget)
-					justBrokeBlock = true;
+				if (!fail) {
+					if (i >= 0 && j >= 0 && i < Main.maxTilesX && j < Main.maxTilesY) {
+						if (Player.tileTargetX >= 0 && Player.tileTargetY >= 0 && Player.tileTargetX < Main.maxTilesX && Player.tileTargetY < Main.maxTilesY) {
+							int num = WorldGen.CheckTileBreakability(i, j);
+							if (num == 1)
+								fail = true;
+
+							if (!fail) {
+								if (Player.tileTargetX == i && Player.tileTargetY == j) {
+									Item heldItem = Main.LocalPlayer.HeldItem;
+									int tileType = Main.tile[i, j].TileType;
+									if (!heldItem.NullOrAir() && (Main.tileAxe[tileType] && heldItem.IsAxe() || Main.tileHammer[tileType] && heldItem.IsHammer() || heldItem.IsPickaxe()))
+										tileBrokenTool = Main.LocalPlayer.HeldItem;
+
+									NetManager.BreakTileTarget(i, j);
+								}
+							}
+						}
+					}
+				}
 			}
 
-			orig(x, y, tileCache, includeLargeObjectDrops, includeAllModdedLargeObjectDrops);
+			orig(i, j, fail, effectOnly, noItem);
 		}
 		private void On_WorldGen_KillTile_GetItemDrops(On_WorldGen.orig_KillTile_GetItemDrops orig, int x, int y, Tile tileCache, out int dropItem, out int dropItemStack, out int secondaryItem, out int secondaryItemStack, bool includeLargeObjectDrops) {
 			orig(x, y, tileCache, out dropItem, out dropItemStack, out secondaryItem, out secondaryItemStack, includeLargeObjectDrops);
 
-			if (!justBrokeBlock)
+			if (tileBrokenTargetX != x || tileBrokenTargetY != y)
 				return;
 
-			justBrokeBlock = false;
-			
 			WEGlobalTile.KillTile(tileCache, dropItem, dropItemStack, secondaryItem, secondaryItemStack);
+
+			tileBrokenTargetX = -1;
+			tileBrokenTargetY = -1;
+			playerBrokenTargetWhoAmI = -1;
 		}
 
 		#endregion

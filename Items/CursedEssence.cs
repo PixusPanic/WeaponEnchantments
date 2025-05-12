@@ -47,7 +47,7 @@ namespace WeaponEnchantments.Items
 			EnchantmentEssence.values[Enchantment.CursedTier] = (float)(EnchantmentEssence.valueMult * Math.Pow(EnchantmentEssence.valuePower, Enchantment.CursedTier))/10000f;
 		}
 		public override void ModifyTooltips(List<TooltipLine> tooltips) {
-			int cursedEssenceCount = CurseAttractionNPC.playerCursedEssence[Main.myPlayer];
+			int cursedEssenceCount = CurseAttractionNPC.PlayerCursedEssence[Main.myPlayer];
 			CurseAttractionNPC.GetSpawnRateAndMaxSpawnsMultipliers(Main.LocalPlayer, out double spawnRateMult, out double maxSpawnsMult);
 			double cursedSpawnChance = CurseAttractionNPC.GetCursedSpawnChance(Main.LocalPlayer.position);
 			tooltips.Add(new(Mod, "cursedEssenceTooltip", Name.Lang_WE(L_ID1.Tooltip, L_ID2.ItemTooltip, new object[] { cursedEssenceCount, ((float)spawnRateMult).S(2), ((float)maxSpawnsMult).S(2), ((float)cursedSpawnChance).PercentString() })));

@@ -14,6 +14,7 @@ using androLib.Common.Globals;
 using static androLib.Common.Globals.GenericGlobalTile;
 using androLib;
 using VacuumOreBag.Items;
+using WeaponEnchantments.ModLib.KokoLib;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -89,12 +90,18 @@ namespace WeaponEnchantments.Common.Globals
 					xp = 10;
 			}
 
+			NetManager.GainXPFromBreakTile(xp);
+		}
+		public static void GainXPFromBreakTile(int xp) {
 			//Gain xp
-			Item heldItem = Main.LocalPlayer.HeldItem;
-			if (!heldItem.NullOrAir() && (Main.tileAxe[tileType] && heldItem.IsAxe() || Main.tileHammer[tileType] && heldItem.IsHammer() || heldItem.IsPickaxe())) {
-				if (heldItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
+			Item heldItem = WEMod.tileBrokenTool;
+			if (!heldItem.NullOrAir()) {
+				if (heldItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
 					enchantedItem.GainXP(Main.LocalPlayer.HeldItem, xp);
+				}
 			}
+
+			WEMod.tileBrokenTool = null;
 
 			WEPlayer.LocalWEPlayer.Player.AllArmorGainXp(xp);
 		}

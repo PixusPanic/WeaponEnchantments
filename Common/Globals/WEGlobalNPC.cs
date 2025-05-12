@@ -53,7 +53,6 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
-        public bool oneForAllOrigin = true;
         float baseAmaterasuSpreadRange = 160f;
         public int amaterasuDamage = 0;
         private double lastAmaterasuTime = 0;
@@ -289,14 +288,19 @@ namespace WeaponEnchantments.Common.Globals
                 npc.SimpleStrikeNPC(damage, 0, crit: crit);
         }
         public override void OnSpawn(NPC npc, IEntitySource source) {
-            if (!war || npc.friendly || npc.townNPC || npc.boss)
+            if (!war || npc.friendly || npc.townNPC || npc.boss || warReduction <= 1f)
                 return;
 
-            //Apply war downsides
-            myWarReduction = warReduction;
-            npc.lavaImmune = true;
-            npc.trapImmune = true;
-        }
+			CursedModSystem.PreUpdateNPCActions += () => NetManager.ApplyWarPenalties(npc, warReduction);
+		}
+        public static void ApplyWarPenalties(NPC npc, float warReduction) {
+            if (!npc.TryGetWEGlobalNPC(out WEGlobalNPC weGlobalNPC))
+                return;
+
+            weGlobalNPC.myWarReduction = warReduction;
+			npc.lavaImmune = true;
+			npc.trapImmune = true;
+		}
         public override void UpdateLifeRegen(NPC npc, ref int damage) {
             if (!npc.HasBuff<Amaterasu>())
                 return;
@@ -434,7 +438,9 @@ namespace WeaponEnchantments.Common.Globals
                 Lighting.AddLight((int)(npc.position.X / 16f), (int)(npc.position.Y / 16f + 1f), 1f, 0.3f, 0.1f);
             }
         }
-        public void ResetWarReduction() => myWarReduction = 1f;
+        public void ResetWarReduction() {
+			myWarReduction = 1f;
+		}
 	}
 
     public static class NPCStaticMethods

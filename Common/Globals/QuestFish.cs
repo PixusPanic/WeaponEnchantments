@@ -64,13 +64,7 @@ namespace WeaponEnchantments.Common.Globals
 
 					AchievementsHelper.HandleAnglerService();
 
-					if (Main.netMode == NetmodeID.MultiplayerClient) {
-						Net<INetMethods>.Proxy.NetAnglerQuestSwap();
-					}
-					else {
-						Main.AnglerQuestSwap();
-						PrintAnglerQuest();
-					}
+					NetManager.AnglerQuestSwap();
 				}
 			}
 		}

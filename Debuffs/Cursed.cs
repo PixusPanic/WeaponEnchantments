@@ -51,7 +51,7 @@ namespace WeaponEnchantments.Debuffs {
 			return true;
 		}
 		private static string GetDescription(Player player) {
-			int cursedEssenceCount = CurseAttractionNPC.playerCursedEssence[Main.myPlayer];
+			int cursedEssenceCount = CurseAttractionNPC.PlayerCursedEssence[Main.myPlayer];
 			CurseAttractionNPC.GetSpawnRateAndMaxSpawnsMultipliers(Main.LocalPlayer, out double spawnRateMult, out double maxSpawnsMult);
 			double cursedSpawnChance = CurseAttractionNPC.GetCursedSpawnChance(Main.LocalPlayer.position);
 			return $"{nameof(Cursed)}.{L_ID2.Description}".Lang_WE(L_ID1.Buffs, new object[] { cursedEssenceCount, ((float)spawnRateMult).S(2), ((float)maxSpawnsMult).S(2), ((float)cursedSpawnChance).PercentString() }); ;
@@ -66,7 +66,7 @@ namespace WeaponEnchantments.Debuffs {
 	public class CurseAttractionNPC : GlobalNPC {
 		private const double DefaultCursedSpawnChance = 0.001;
 		private const double CursedSpawnChanceIncrement = 0.01;
-		public static int[] playerCursedEssence = new int[Main.player.Length];
+		public static int[] PlayerCursedEssence = new int[Main.player.Length];
 		private const double MaxCursedSpawnChance = 0.25;
 		private static double CursedEssenceLog2(int cursedEssence) => cursedEssence <= 0 ? 0.0 : Math.Log2((double)cursedEssence / 100.0 + 2.0);
 		private static float CursedEssenceSpawnRateRange => 2000f;
@@ -83,7 +83,7 @@ namespace WeaponEnchantments.Debuffs {
 
 				float distance = player.position.Distance(spawnPosition);
 				if (distance <= CursedEssenceSpawnRateRange)
-					cursedEssence += playerCursedEssence[i];
+					cursedEssence += PlayerCursedEssence[i];
 			}
 
 			double log = CursedEssenceLog2(cursedEssence);
@@ -92,7 +92,7 @@ namespace WeaponEnchantments.Debuffs {
 			return cursedSpawnChance;
 		}
 		public static bool GetSpawnRateAndMaxSpawnsMultipliers(Player player, out double spawnRateMult, out double maxSpawnsMult) {
-			int cursedEssence = playerCursedEssence[player.whoAmI];
+			int cursedEssence = PlayerCursedEssence[player.whoAmI];
 			if (cursedEssence <= 0) {
 				spawnRateMult = 1.0;
 				maxSpawnsMult = 1.0;
@@ -114,12 +114,11 @@ namespace WeaponEnchantments.Debuffs {
 		}
 		public static void CountCursedEssence() {
 			AndroUtilityMethods.SearchForItem(ModContent.ItemType<CursedEssence>(), out int cursedEssenceCount, WEPlayer.LocalWEPlayer.enchantmentStorageItems, true, false);
-			UpdateCursedEssenceCount(Main.myPlayer, cursedEssenceCount);
-			WENetFunctions.SynchCursedEssenceCount(cursedEssenceCount);
+			NetManager.UpdateCursedEssenceCount(cursedEssenceCount);
 		}
 
 		public static void UpdateCursedEssenceCount(int whoAmI, int cursedEssenceCount) {
-			playerCursedEssence[whoAmI] = cursedEssenceCount;
+			PlayerCursedEssence[whoAmI] = cursedEssenceCount;
 		}
 	}
 	public struct Curse {
@@ -378,7 +377,7 @@ namespace WeaponEnchantments.Debuffs {
 			//Sync stats
 			if (Main.netMode == NetmodeID.Server && (Cursed || SpawnedByBoss)) {
 				int whoAmI = npc.whoAmI;
-				CursedModSystem.PreUpdateNPCActions += () => WENetFunctions.SyncCursedNPCData(whoAmI);
+				CursedModSystem.PreUpdateNPCActions += () => NetManager.SendCursedNPCDataToClients(whoAmI);
 			}
 		}
 		private uint[] nextProjectileTime = new uint[Main.player.Length];
@@ -486,7 +485,7 @@ namespace WeaponEnchantments.Debuffs {
 				
 				if (Main.GameUpdateCount >= nextBuff) {
 					nextBuff = Math.Max(nextBuff + buffWaitTime, Main.GameUpdateCount + minBuffWaitTime);
-					int cursedEssenceCount = CurseAttractionNPC.playerCursedEssence[Main.myPlayer];
+					int cursedEssenceCount = CurseAttractionNPC.PlayerCursedEssence[Main.myPlayer];
 					if (cursedEssenceCount > 0 && WEMod.clientConfig.VisualCursedDebuff) {
 						Main.LocalPlayer.AddBuff(ModContent.BuffType<Cursed>(), buffIncrement);
 					}
