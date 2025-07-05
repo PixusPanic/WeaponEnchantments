@@ -94,6 +94,49 @@ namespace WeaponEnchantments.UI
 				return allEnchantments;
 			}
 		}
+		private static Item[] allTrashableItems = null;
+		private static Item[] itemsMarkedTrash = null;
+		private static Item[] AllTrashableItems {
+			get {
+				WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+				bool updateMarkedTrashItems = false;
+				if (itemsMarkedTrash == null) {
+					updateMarkedTrashItems = true;
+				}
+				else {
+					if (itemsMarkedTrash.Length != wePlayer.trashEnchantmentsFullNames.Count) {
+						updateMarkedTrashItems = true;
+					}
+					else {
+						for (int i = 0; i < itemsMarkedTrash.Length; i++) {
+							if (!wePlayer.trashEnchantmentsFullNames.Contains(itemsMarkedTrash[i].type.GetItemIDOrName())) {
+								updateMarkedTrashItems = true;
+								break;
+							}
+						}
+					}
+				}
+
+				if (updateMarkedTrashItems)
+					itemsMarkedTrash = wePlayer.trashEnchantmentsFullNames.Select(n => n.Replace("\"", "").CSI_FromItemIDOrName()).ToArray();
+
+				if (allTrashableItems == null || updateMarkedTrashItems) {
+					if (itemsMarkedTrash.Length == 0) {
+						allTrashableItems = (Item[])AllEnchantments.Clone();
+					}
+					else {
+						int emptyspacers = 10;
+						int rowSize = itemsMarkedTrash.Length % 10;
+						if (rowSize > 0)
+							emptyspacers += 10 - rowSize;
+
+						allTrashableItems = itemsMarkedTrash.Concat(Enumerable.Repeat<Item>(null, emptyspacers)).Concat(AllEnchantments).ToArray();
+					}
+				}
+
+				return allTrashableItems;
+			}
+		}
 		private static Item[] allOfferableItems = null;
 		private static Item[] autoOfferItems = new Item[0];
 		private static Item[] AllOfferableItems {
@@ -145,7 +188,7 @@ namespace WeaponEnchantments.UI
 			//ItemSlots Data 1/2
 			Item[] inventory;
 			if (managingTrash) {
-				inventory = AllEnchantments;
+				inventory = AllTrashableItems;
 			}
 			else if (quickCrafting) {
 				UpdateQuickCraftInventory(wePlayer);
@@ -261,27 +304,29 @@ namespace WeaponEnchantments.UI
 					UIItemSlotData slotData = new(GetUI_ID(WE_UI_ID.EnchantmentStorageItemSlot), itemSlotX, itemSlotY);
 					string modFullName = item?.type.GetItemIDOrName();
 					if (managingTrash) {
-						bool isTrash = wePlayer.trashEnchantmentsFullNames.Contains(modFullName);
-						if (slotData.MouseHovering()) {
-							ItemSlot.MouseHover(inventory, 0, slot: inventoryIndex);
-							Main.cursorOverride = isTrash ? CursorOverrideID.CameraLight : CursorOverrideID.TrashCan;
-							if (MasterUIManager.LeftMouseClicked) {
-								if (isTrash) {
-									wePlayer.trashEnchantmentsFullNames.Remove(modFullName);
-								}
-								else {
-									wePlayer.trashEnchantmentsFullNames.Add(modFullName);
-								}
+						if (item != null) {//null filters are added to inventory to keep the items in the same horizontal slot.
+							bool isTrash = wePlayer.trashEnchantmentsFullNames.Contains(modFullName);
+							if (slotData.MouseHovering()) {
+								ItemSlot.MouseHover(inventory, 0, slot: inventoryIndex);
+								Main.cursorOverride = isTrash ? CursorOverrideID.CameraLight : CursorOverrideID.TrashCan;
+								if (MasterUIManager.LeftMouseClicked) {
+									if (isTrash) {
+										wePlayer.trashEnchantmentsFullNames.Remove(modFullName);
+									}
+									else {
+										wePlayer.trashEnchantmentsFullNames.Add(modFullName);
+									}
 
-								SoundEngine.PlaySound(SoundID.MenuTick);
+									SoundEngine.PlaySound(SoundID.MenuTick);
+								}
 							}
-						}
 
-						if (isTrash) {
-							slotData.Draw(spriteBatch, item, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
-						}
-						else {
-							slotData.Draw(spriteBatch, item, ItemSlotContextID.Normal, glowHue, glowTime);
+							if (isTrash) {
+								slotData.Draw(spriteBatch, item, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
+							}
+							else {
+								slotData.Draw(spriteBatch, item, ItemSlotContextID.Normal, glowHue, glowTime);
+							}
 						}
 					}
 					else if (managingOfferdItems) {

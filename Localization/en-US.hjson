@@ -1970,5 +1970,6 @@ Mods: {
 		}
 
 		Projectiles.CursedEffectProjectile.DisplayName: Cursed Effect Projectile
+		SortingOption.InfusionPower.Tooltip: Infusion Power
 	}
 }
